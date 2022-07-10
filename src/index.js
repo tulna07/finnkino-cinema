@@ -4,15 +4,18 @@ import { Provider } from "react-redux";
 
 // Components
 import App from "./App";
+import GlobalStyles from "./components/GlobalStyles";
 
 // Style
-import style from "./scss/style.scss";
+// import style from "./scss/style.scss";
 
 const store = configureStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <App />
+    <GlobalStyles>
+      <App />
+    </GlobalStyles>
   </Provider>,
 );
