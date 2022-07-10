@@ -6,9 +6,6 @@ import { Provider } from "react-redux";
 import App from "./App";
 import GlobalStyles from "./components/GlobalStyles";
 
-// Style
-// import style from "./scss/style.scss";
-
 const store = configureStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
