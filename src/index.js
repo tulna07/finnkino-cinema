@@ -1,10 +1,12 @@
 import ReactDOM from "react-dom/client";
-import configureStore from "./redux";
+
+// Redux config
 import { Provider } from "react-redux";
+import configureStore from "@/redux";
 
 // Components
-import App from "./App";
-import GlobalStyles from "./components/GlobalStyles";
+import App from "@/App";
+import GlobalStyles from "@/components/GlobalStyles";
 
 const store = configureStore();
 
