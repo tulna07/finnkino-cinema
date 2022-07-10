@@ -25,7 +25,7 @@ const movieApi = {
   },
   deleteMovie: (params) => {
     const url = resourceName + "XoaPhim";
-    return axiosClient.get(url, { params });
+    return axiosClient.delete(url, { params });
   },
 };
 
