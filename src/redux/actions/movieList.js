@@ -9,7 +9,7 @@ const actGetMovieList = () => {
     const fetchMovieList = async () => {
       try {
         const params = { maNhom: GROUP_ID };
-        const movieList = movieApi.getMovieList(params);
+        const movieList = await movieApi.getMovieList(params);
         dispatch(actGetMovieListSuccess(movieList));
       } catch (error) {
         dispatch(actGetMovieListFailed(error));
