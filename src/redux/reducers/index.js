@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 
 // Reducers
-import hobbyReducer from "./hobby";
+import movieListReducer from "./movieList";
 
 const rootReducer = combineReducers({
-  hobby: hobbyReducer,
+  movieList: movieListReducer,
 });
 
 export default rootReducer;
