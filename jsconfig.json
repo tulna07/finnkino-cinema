@@ -2,7 +2,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "ClientApp/*": ["./ClientApp/*"]
+      "@services": ["src/services"],
+      "@routes": ["src/routes"],
+      "@components/*": ["src/components/*"]
     }
   }
 }

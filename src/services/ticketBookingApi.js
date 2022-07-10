@@ -1,4 +1,5 @@
-import axiosClient from "./axiosClient";
+import axiosClient from "./config/axiosClient";
+import apiConfig from "./config/apiConfig";
 
 const ticketBookingApi = {};
 
