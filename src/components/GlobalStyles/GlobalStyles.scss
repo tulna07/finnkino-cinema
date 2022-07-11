@@ -11,6 +11,12 @@
   --border-color: #dddddd26;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
 }
 
@@ -18,4 +24,30 @@ body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
+}
+
+.btn__left-icon {
+  padding-right: 6px;
+}
+
+.btn__right-icon {
+  padding-left: 6px;
+}
+
+@media (max-width: 1023px) {
+  .hide-on-mobile-tablet {
+    display: none;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+  .hide-on-tablet {
+    display: none;
+  }
+}
+
+@media (max-width: 739px) {
+  .hide-on-mobile {
+    display: none;
+  }
 }
