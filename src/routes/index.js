@@ -7,7 +7,6 @@ import AdminRoutes from "./AdminRoutes";
 import NotFoundRoute from "./NotFoundRoute";
 
 // ==============================|| RENDER ROUTES ||============================== //
-const ThemeRoutes = () =>
-  useRoutes([AuthRoutes, ClientRoutes, AdminRoutes, NotFoundRoute]);
+const ThemeRoutes = () => useRoutes([AuthRoutes, ClientRoutes, AdminRoutes, NotFoundRoute]);
 
 export default ThemeRoutes;
