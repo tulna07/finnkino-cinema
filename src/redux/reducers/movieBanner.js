@@ -2,7 +2,7 @@ import {
   MOVIE_BANNER_REQUEST,
   MOVIE_BANNER_SUCCESS,
   MOVIE_BANNER_FAIL,
-} from "./constants";
+} from "../constants/movieBanner";
 
 const initialState = {
   loading: false,

@@ -2,26 +2,21 @@ import {
   MOVIE_BANNER_REQUEST,
   MOVIE_BANNER_SUCCESS,
   MOVIE_BANNER_FAIL,
-} from "./constants";
-import { bannerApi } from "@/services";
+} from "../constants/movieBanner";
+import { movieApi } from "@/services";
 
-const actFetchBanners = async () => {
+const actFetchBanners = () => {
   return (dispatch) => {
     dispatch(actMovieBannerRequest());
     const fetchBanners = async () => {
       try {
-        const banners = await bannerApi.getAll();
+        const banners = await movieApi.getBannerList();
         dispatch(actMovieBannerSuccess(banners));
       } catch (error) {
         dispatch(actMovieBannerFail(error));
       }
     };
     fetchBanners();
-
-    // bannerApi
-    //   .getAll()
-    //   .then((result) => dispatch(actMovieBannerSuccess(result.data.content)))
-    //   .catch((error) => dispatch(actMovieBannerFail(error)));
   };
 };
 

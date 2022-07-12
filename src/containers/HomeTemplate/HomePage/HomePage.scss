@@ -1,32 +1,3 @@
-.home__carousel {
-  img {
-    width: 100%;
-  }
-}
-
-//Carousel
-.carousel__img {
-  width: 100%;
-  height: 450px;
-  object-fit: cover;
-  object-position: center;
-}
-
-.carousel__arrow {
-  z-index: 2;
-
-  &.carousel__arrow--next {
-    right: 10%;
-  }
-
-  &.carousel__arrow--prev {
-    left: 10%;
-  }
-}
-
-.carousel__arrow.carousel__arrow--prev,
-.carousel__arrow.carousel__arrow--next {
-  &:before {
-    font-size: 30px;
-  }
+#home-page {
+  background-color: var(--black);
 }
