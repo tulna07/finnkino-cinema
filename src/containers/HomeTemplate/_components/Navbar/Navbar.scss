@@ -26,3 +26,15 @@
     background-color: var(--black);
   }
 }
+
+@media (max-width: 1023px) {
+  .main-header__navbar-item {
+    background-color: var(--white);
+    color: var(--gray);
+
+    &:hover {
+      background-color: var(--white);
+      color: var(--gray);
+    }
+  }
+}

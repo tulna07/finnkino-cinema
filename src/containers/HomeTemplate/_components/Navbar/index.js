@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,14 +12,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 
 import "./Navbar.scss";
 import Image from "@/components/Image";
 import images from "@/assets/images";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
-const pages = ["Trang chủ", "Tin tức", "Liên hệ"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
@@ -127,11 +126,36 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to="/">
+                  <Typography
+                    className="main-header__navbar-item"
+                    textAlign="center"
+                  >
+                    Trang chủ
+                  </Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to="/tin-tuc">
+                  <Typography
+                    className="main-header__navbar-item"
+                    textAlign="center"
+                  >
+                    Tin tức
+                  </Typography>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Link to="/lien-he">
+                  <Typography
+                    className="main-header__navbar-item"
+                    textAlign="center"
+                  >
+                    Liên hệ
+                  </Typography>
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -156,16 +180,33 @@ const Navbar = () => {
             className="main-header__navbar-list"
             sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
           >
-            {pages.map((page) => (
+            <Link to="/">
               <Button
                 className="main-header__navbar-item"
-                key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                Trang chủ
               </Button>
-            ))}
+            </Link>
+            <Link to="/">
+              <Button
+                className="main-header__navbar-item"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Tin tức
+              </Button>
+            </Link>
+            <Link to="/lien-he">
+              <Button
+                className="main-header__navbar-item"
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Liên hệ
+              </Button>
+            </Link>
           </Box>
 
           {/* Render action buttons if not sign in */}

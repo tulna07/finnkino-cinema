@@ -26,6 +26,10 @@ body {
   text-rendering: optimizeSpeed;
 }
 
+a[href] {
+  text-decoration: none;
+}
+
 .btn__left-icon {
   padding-right: 6px;
 }
