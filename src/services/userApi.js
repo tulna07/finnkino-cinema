@@ -1,5 +1,4 @@
-import axiosClient from "./axiosClient";
-import { GROUP_ID } from "./apiConfig";
+import axiosClient from "./config/axiosClient";
 
 const userApi = {};
 
