@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-// Authentication Guard
+// Route Guard
 import RequireAuth from "@/guard";
 
 // Constants

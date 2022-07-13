@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
-// Authentication Guard
+// Route Guard
 import RequireAuth from "@/guard";
 
 // Constants
