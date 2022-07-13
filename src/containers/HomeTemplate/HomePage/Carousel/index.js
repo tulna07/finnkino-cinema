@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 import "./Carousel.scss";
 import actFetchBanners from "@/redux/actions/movieBanner";
 import Image from "@/components/Image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import Loader from "@/components/Loader";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -52,16 +53,16 @@ function Carousel() {
   };
 
   const renderCarouselItem = () => {
-    return data?.map((item) => (
+    if (loading) return <Loader />;
+
+    const carouselItem = data?.map((item) => (
       <Image key={item.maPhim} src={item.hinhAnh} className="home__carousel-img" />
     ));
+
+    return <Slider {...settings}>{carouselItem}</Slider>;
   };
 
-  return (
-    <div className="home__carousel">
-      <Slider {...settings}>{renderCarouselItem()}</Slider>;
-    </div>
-  );
+  return <div className="home__carousel">{renderCarouselItem()}</div>;
 }
 
 export default Carousel;

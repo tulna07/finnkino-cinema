@@ -31,29 +31,33 @@
 .home__carousel-indicators {
   font-size: 8px;
   color: var(--white);
-  box-shadow: 0 0 0 1px transparent; /* All the borders by using the spread properties */
+  box-shadow: 0 0 0 1px transparent;
 }
 
 .slick-active > .home__carousel-indicator {
   color: transparent;
-  box-shadow: 0 0 0 1px var(--white); /* All the borders by using the spread properties */
+  box-shadow: 0 0 0 1px var(--white);
   border-radius: 50%;
 }
 
 @media (max-width: 1023px) {
+  //mobile and tablet
+
+  .home__carousel {
+    max-width: 100%;
+  }
+  .home__carousel-indicators {
+    font-size: 6px;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
   //tablet
   .home__carousel {
     .home__carousel-img {
       height: 256px;
       object-fit: contain;
     }
-  }
-}
-
-@media (min-width: 740px) and (max-width: 1023px) {
-  //mobile and tablet
-  .home__carousel {
-    max-width: 100%;
   }
 }
 
