@@ -4,8 +4,11 @@ import { Suspense } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "@/routes";
 
+// Components
+import Loader from "@/components/Loader";
+
 const App = () => (
-  <Suspense fallback={<div>Loading...</div>}>
+  <Suspense fallback={<Loader />}>
     <Router>
       <Routes />
     </Router>

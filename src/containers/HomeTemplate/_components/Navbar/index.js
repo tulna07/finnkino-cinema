@@ -128,30 +128,21 @@ const Navbar = () => {
             >
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link to="/">
-                  <Typography
-                    className="main-header__navbar-item"
-                    textAlign="center"
-                  >
+                  <Typography className="main-header__navbar-item" textAlign="center">
                     Trang chủ
                   </Typography>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link to="/tin-tuc">
-                  <Typography
-                    className="main-header__navbar-item"
-                    textAlign="center"
-                  >
+                  <Typography className="main-header__navbar-item" textAlign="center">
                     Tin tức
                   </Typography>
                 </Link>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
                 <Link to="/lien-he">
-                  <Typography
-                    className="main-header__navbar-item"
-                    textAlign="center"
-                  >
+                  <Typography className="main-header__navbar-item" textAlign="center">
                     Liên hệ
                   </Typography>
                 </Link>
