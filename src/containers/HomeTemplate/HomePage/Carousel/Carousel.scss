@@ -2,7 +2,7 @@
   max-width: 1140px;
   margin: 0 auto;
 
-  .carousel__img {
+  .home__carousel-img {
     height: 543px;
     object-fit: cover;
     object-position: center;
@@ -28,10 +28,22 @@
   }
 }
 
+.home__carousel-indicators {
+  font-size: 8px;
+  color: var(--white);
+  box-shadow: 0 0 0 1px transparent; /* All the borders by using the spread properties */
+}
+
+.slick-active > .home__carousel-indicator {
+  color: transparent;
+  box-shadow: 0 0 0 1px var(--white); /* All the borders by using the spread properties */
+  border-radius: 50%;
+}
+
 @media (max-width: 1023px) {
   //tablet
   .home__carousel {
-    .carousel__img {
+    .home__carousel-img {
       height: 256px;
       object-fit: contain;
     }
@@ -48,7 +60,7 @@
 @media (max-width: 739px) {
   //mobile
   .home__carousel {
-    .carousel__img {
+    .home__carousel-img {
       height: 125px;
       object-fit: contain;
     }

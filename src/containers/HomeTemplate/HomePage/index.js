@@ -2,13 +2,13 @@ import React from "react";
 
 import "./HomePage.scss";
 import Carousel from "@/containers/HomeTemplate/HomePage/Carousel";
+import MovieList from "./MovieList";
 
 function HomePage() {
   return (
     <div id="home-page">
-      <div className="home__carousel">
-        <Carousel />
-      </div>
+      <Carousel />
+      <MovieList />
     </div>
   );
 }

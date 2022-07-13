@@ -7,6 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Carousel.scss";
 import actFetchBanners from "@/redux/actions/movieBanner";
 import Image from "@/components/Image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -20,7 +22,8 @@ function SamplePrevArrow(props) {
 
 function Carousel() {
   const dispatch = useDispatch();
-  const props = useSelector((state) => state.movieBanner.data);
+  const data = useSelector((state) => state.movieBanner.data);
+  const loading = useSelector((state) => state.movieBanner.loading);
 
   useEffect(() => {
     dispatch(actFetchBanners());
@@ -37,15 +40,28 @@ function Carousel() {
     slidesToScroll: 1,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    customPaging: function () {
+      return <FontAwesomeIcon className="home__carousel-indicator" icon={faCircle} />;
+    },
+    dots: true,
+    dotsClass: "slick-dots slick-thumb home__carousel-indicators",
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
   const renderCarouselItem = () => {
-    return props?.map((item) => (
-      <Image key={item.maPhim} src={item.hinhAnh} className="carousel__img" />
+    return data?.map((item) => (
+      <Image key={item.maPhim} src={item.hinhAnh} className="home__carousel-img" />
     ));
   };
 
-  return <Slider {...settings}>{renderCarouselItem()}</Slider>;
+  return (
+    <div className="home__carousel">
+      <Slider {...settings}>{renderCarouselItem()}</Slider>;
+    </div>
+  );
 }
 
 export default Carousel;
