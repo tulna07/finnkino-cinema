@@ -9,9 +9,9 @@ axiosClient.interceptors.request.use(
   (config) => {
     config.headers.TokenCybersoft = apiConfig.authToken;
 
-    const tokenAccess = localStorage.getItem("User")?.tokenAccess;
-    if (tokenAccess) {
-      config.headers.Authorization = JSON.parse(tokenAccess);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      config.headers.Authorization = user?.tokenAccess;
     }
 
     return config;
