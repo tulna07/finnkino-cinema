@@ -1,5 +1,4 @@
 import { lazy } from "react";
-
 import { Navigate } from "react-router-dom";
 
 // Authentication Guard
@@ -8,10 +7,13 @@ import RequireAuth from "@/guard";
 // Pages
 const AdminTemplate = lazy(() => import("@/templates/AdminTemplate"));
 
+// Constants
+import { ROLE } from "@/constants";
+
 const AdminRoutes = {
   path: "admin",
   element: (
-    <RequireAuth>
+    <RequireAuth roles={[ROLE.ADMIN]}>
       <AdminTemplate />
     </RequireAuth>
   ),
