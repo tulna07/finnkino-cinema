@@ -1,9 +1,9 @@
 import { lazy } from "react";
 
 // Pages
-const AuthPage = lazy(() => import("@/templates/AuthTemplate"));
-const LoginPage = lazy(() => import("@/templates/AuthTemplate/Login"));
-const SignupPage = lazy(() => import("@/templates/AuthTemplate/Signup"));
+const AuthPage = lazy(() => import("@/containers/AuthTemplate"));
+const LoginPage = lazy(() => import("@/containers/AuthTemplate/Login"));
+const SignupPage = lazy(() => import("@/containers/AuthTemplate/Signup"));
 
 const AuthRoutes = {
   path: "auth",

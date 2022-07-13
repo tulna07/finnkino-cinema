@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import RequireAuth from "@/guard";
 
 // Pages
-const AdminTemplate = lazy(() => import("@/templates/AdminTemplate"));
+const AdminTemplate = lazy(() => import("@/containers/AdminTemplate"));
 
 // Constants
 import { ROLE } from "@/constants";
