@@ -3,12 +3,12 @@ import { lazy } from "react";
 // Authentication Guard
 import RequireAuth from "@/guard";
 
+// Constants
+import { ROLE } from "@/constants";
+
 // Pages
 const HomeTemp = lazy(() => import("@/containers/HomeTemplate"));
 const HomePage = lazy(() => import("@/containers/HomeTemplate/HomePage"));
-
-// Constants
-import { ROLE } from "@/constants";
 
 const ClientRoutes = {
   path: "/",
