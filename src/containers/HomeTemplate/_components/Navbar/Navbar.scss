@@ -1,0 +1,40 @@
+#main-header {
+  background-color: var(--gray);
+
+  .main-header__navbar-btn {
+    color: var(--white);
+  }
+
+  .main-header__navbar-btn + .main-header__navbar-btn {
+    margin-left: 12px;
+  }
+}
+
+.main-header__sidebar-icon {
+  color: var(--primary);
+}
+
+.main-header__logo {
+  width: 60px;
+  padding: 0;
+}
+
+.main-header__navbar-item {
+  font-family: "Open Sans", sans-serif;
+
+  &:hover {
+    background-color: var(--black);
+  }
+}
+
+@media (max-width: 1023px) {
+  .main-header__navbar-item {
+    background-color: var(--white);
+    color: var(--gray);
+
+    &:hover {
+      background-color: var(--white);
+      color: var(--gray);
+    }
+  }
+}
