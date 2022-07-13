@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import configureStore from "@/redux";
 
+//import rootReducer from "@/redux/reducer";
 // Components
 import App from "@/App";
 import GlobalStyles from "@/components/GlobalStyles";

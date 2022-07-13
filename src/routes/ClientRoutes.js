@@ -1,10 +1,16 @@
 import { lazy } from "react";
 
+const HomeTemp = lazy(() => import("@/containers/HomeTemplate"));
+const HomePage = lazy(() => import("@/containers/HomeTemplate/HomePage"));
+
 const ClientRoutes = {
   path: "/",
-  element: <div>Home</div>,
+  element: <HomeTemp />,
   children: [
-    { path: "home", element: <div>Home</div> },
+    {
+      path: "",
+      element: <HomePage />,
+    },
     { path: "movie-detail", element: <div>Movie Detail</div> },
   ],
 };
