@@ -1,3 +1,3 @@
-export const MOVIE_BANNER_REQUEST = "@movieBannerReducer/MOVIE_BANNER_REQUEST";
-export const MOVIE_BANNER_SUCCESS = "@movieBannerReducer/MOVIE_BANNER_SUCCESS";
-export const MOVIE_BANNER_FAIL = "@movieBannerReducer/MOVIE_BANNER_FAIL";
+export const GET_MOVIE_BANNER_REQUEST = "@movieBannerReducer/GET_MOVIE_BANNER_REQUEST";
+export const GET_MOVIE_BANNER_SUCCESS = "@movieBannerReducer/GET_MOVIE_BANNER_SUCCESS";
+export const GET_MOVIE_BANNER_FAILED = "@movieBannerReducer/GET_MOVIE_BANNER_FAIL";

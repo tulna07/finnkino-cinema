@@ -4,7 +4,10 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import configureStore from "@/redux";
 
-//import rootReducer from "@/redux/reducer";
+//React Slick config
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 // Components
 import App from "@/App";
 import GlobalStyles from "@/components/GlobalStyles";

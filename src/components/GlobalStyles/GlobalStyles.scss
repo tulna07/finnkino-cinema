@@ -3,6 +3,7 @@
 
 :root {
   --primary: #fdca00;
+  --hover-primary: #b18d00;
   --gray: #222;
   --dark-gray: #141414;
   --light-gray: #606060;
@@ -15,9 +16,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-html {
 }
 
 body {

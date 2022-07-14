@@ -2,8 +2,9 @@ import * as actType from "../constants/movieList";
 
 const initialState = {
   loading: false,
-  data: null,
   error: null,
+  data: null,
+  movieType: "now",
 };
 
 const movieListReducer = (state = initialState, { type, payload }) => {
@@ -24,6 +25,14 @@ const movieListReducer = (state = initialState, { type, payload }) => {
       state.loading = false;
       state.data = null;
       state.error = payload;
+      return { ...state };
+
+    case actType.SET_MOVIE_TYPE_NOW:
+      state.movieType = "now";
+      return { ...state };
+
+    case actType.SET_MOVIE_TYPE_SOON:
+      state.movieType = "soon";
       return { ...state };
 
     default:
