@@ -1,6 +1,7 @@
 import { lazy } from "react";
 
-const NotFoundPage = lazy(() => import("@/templates/NotFoundPage"));
+// Pages
+const NotFoundPage = lazy(() => import("@/containers/NotFoundPage"));
 
 const NotFoundRoute = {
   path: "*",
