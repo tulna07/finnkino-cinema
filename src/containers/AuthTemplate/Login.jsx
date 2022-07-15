@@ -76,9 +76,6 @@ const Login = () => {
             p: 6,
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
           <Avatar alt="Finnkino logo" src={FinnkinoLogo} sx={{ width: 80, height: 80 }} />
           <Typography component="h1" variant="h5" sx={{ fontWeight: 700, color: "#FFC800" }}>
             Log in
@@ -89,8 +86,6 @@ const Login = () => {
                 id="standard-username"
                 label="Username"
                 name="username"
-                // value={values.password}
-                // onChange={handleChange('password')}
                 variant="standard"
               />
             </FormControl>
