@@ -1,32 +1,36 @@
 import { Outlet } from "react-router-dom";
 
-// Materrial UI
-import { Box } from "@mui/material";
+// Material UI
+import { Box, Grid, Stack } from "@mui/material";
+
+// Components
+import AuthBackground from "@/components/AuthBackground";
+import AuthHeader from "@/components/AuthHeader";
+import AuthCard from "@/components/AuthCard";
+import AuthFooter from "@/components/AuthFooter";
 
 const AuthTemplate = () => {
   return (
     <Box
       sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
+        minHeight: "100vh",
         position: "relative",
-        background:
-          "url('https://assets.nflxext.com/ffe/siteui/vlv3/1ef84595-1fdb-4404-adac-15215ceeb3ae/38067f6b-ec2e-43a3-816d-44bf2aeddd21/VN-en-20220711-popsignuptwoweeks-perspective_alpha_website_large.jpg') center / cover no-repeat",
-        "::before": {
-          content: '""',
-          width: "100%",
-          height: "100%",
-          background: "rgba(0,0,0,.3)",
-          backgroundImage: "linear-gradient(0deg,rgba(0,0,0,.8) 0,transparent 60%,rgba(0,0,0,.8))",
-          position: "absolute",
-          top: "0",
-          left: "0",
-        },
       }}
     >
-      <Outlet />
+      <AuthBackground />
+      <Stack direction="row" pl={7} pt={2}>
+        <AuthHeader />
+      </Stack>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item lg={3} md={6} sm={8} xs={10}>
+          <AuthCard>
+            <Outlet />
+          </AuthCard>
+        </Grid>
+      </Grid>
+      <Stack direction="row" justifyContent="center">
+        <AuthFooter />
+      </Stack>
     </Box>
   );
 };
