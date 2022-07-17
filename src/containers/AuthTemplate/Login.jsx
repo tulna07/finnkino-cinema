@@ -1,71 +1,115 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks";
+import { useForm } from "react-hook-form";
 
 // Material UI
 import {
-  Button,
-  TextField,
   FormControlLabel,
-  Input,
   Checkbox,
   Link,
-  Grid,
-  FormControl,
-  InputLabel,
   Box,
   InputAdornment,
+  Stack,
+  Alert,
   IconButton,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+// Components
+import AuthInput from "./AuthInput";
+
+// Schema validator
+import { yupResolver } from "@hookform/resolvers/yup";
+
+// Login schema
+import { loginSchema } from "@/validators";
+
+// Api
+import { userApi } from "@/services";
+
+// Constants
+import { ROLE } from "@/constants";
 
 const Login = () => {
   const auth = useAuth();
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { control, handleSubmit } = useForm({
+    reValidateMode: "onSubmit",
+    defaultValues: { username: "", password: "" },
+    resolver: yupResolver(loginSchema),
+  });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const onSubmit = (user) => {
+    (async () => {
+      try {
+        setLoading(true);
 
-    const user = {
-      username: data.get("username"),
-      password: data.get("password"),
-    };
+        user = { taiKhoan: user.username, matKhau: user.password };
+        user = await userApi.login(user);
+        setLoading(false);
+        auth.login(user);
 
-    auth.login(user);
-    navigate("/");
+        if (user.maLoaiNguoiDung === ROLE.CLIENT) {
+          navigate("/", { replace: true });
+        }
+
+        if (user.maLoaiNguoiDung === ROLE.ADMIN) {
+          navigate("/admin", { replace: true });
+        }
+      } catch (error) {
+        setError(true);
+        setLoading(false);
+      }
+    })();
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} noValidate mt={1}>
-      <FormControl fullWidth variant="standard" sx={{ mb: 3 }}>
-        <TextField id="standard-username" label="Username" name="username" variant="standard" />
-      </FormControl>
-      <FormControl fullWidth variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-        <Input
-          id="standard-adornment-password"
-          type={showPassword ? "password" : "text"}
-          name="password"
-          // value={values.password}
-          // onChange={handleChange('password')}
-          endAdornment={
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate mt={1}>
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          Incorrect username or password.
+        </Alert>
+      )}
+      <AuthInput
+        name="username"
+        control={control}
+        label="Username"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 3 }}
+      />
+      <AuthInput
+        name="password"
+        control={control}
+        label="Password"
+        fullWidth
+        variant="standard"
+        type={showPassword ? "password" : "text"}
+        InputProps={{
+          endAdornment: (
             <InputAdornment position="end">
               <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword}>
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
-          }
-        />
-      </FormControl>
+          ),
+        }}
+        sx={{ mb: 2 }}
+      />
       <FormControlLabel
         control={<Checkbox value="remember" color="primary" />}
         label="Remember me"
       />
-      <Button
+      <LoadingButton
+        onClick={() => setError(false)}
+        loading={loading}
         type="submit"
         fullWidth
         variant="contained"
@@ -83,19 +127,15 @@ const Login = () => {
         }}
       >
         Log In
-      </Button>
-      <Grid container>
-        <Grid item xs>
-          <Link href="#" variant="body2">
-            Forgot password?
-          </Link>
-        </Grid>
-        <Grid item>
-          <Link href="#" variant="body2">
-            {"Don't have an account? Sign Up"}
-          </Link>
-        </Grid>
-      </Grid>
+      </LoadingButton>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Link href="#" variant="body2">
+          Forgot password?
+        </Link>
+        <Link href="#" variant="body2">
+          {"Don't have an account? Sign Up"}
+        </Link>
+      </Stack>
     </Box>
   );
 };

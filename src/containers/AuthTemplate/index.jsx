@@ -1,15 +1,23 @@
 import { Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks";
 
 // Material UI
 import { Box, Grid, Stack } from "@mui/material";
 
 // Components
-import AuthBackground from "@/components/AuthBackground";
-import AuthHeader from "@/components/AuthHeader";
-import AuthCard from "@/components/AuthCard";
-import AuthFooter from "@/components/AuthFooter";
+import AuthBackground from "./AuthBackground";
+import AuthHeader from "./AuthHeader";
+import AuthCard from "./AuthCard";
+import AuthFooter from "./AuthFooter";
 
 const AuthTemplate = () => {
+  const auth = useAuth();
+
+  if (auth.user) {
+    return <Navigate replace to="/" />;
+  }
+
   return (
     <Box
       sx={{
@@ -22,7 +30,7 @@ const AuthTemplate = () => {
         <AuthHeader />
       </Stack>
       <Grid container justifyContent="center" alignItems="center">
-        <Grid item lg={3} md={6} sm={8} xs={10}>
+        <Grid item lg={4} md={6} sm={8} xs={10}>
           <AuthCard>
             <Outlet />
           </AuthCard>
