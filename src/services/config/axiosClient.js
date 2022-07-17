@@ -5,23 +5,17 @@ const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL,
 });
 
-axiosClient.interceptors.request.use(
-  (config) => {
-    config.headers.TokenCybersoft = apiConfig.authToken;
+axiosClient.interceptors.request.use((config) => {
+  config.headers.TokenCybersoft = apiConfig.authToken;
 
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-      config.headers.Authorization = user?.tokenAccess;
-    }
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user) {
+    config.headers.Authorization = `Bearer ${user?.tokenAccess}`;
+  }
 
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+  return config;
+});
 
-axiosClient.interceptors.response.use(
-  (response) => response?.data?.content,
-  (error) => Promise.reject(error),
-);
+axiosClient.interceptors.response.use((response) => response.data.content);
 
 export default axiosClient;
