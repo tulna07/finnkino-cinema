@@ -20,7 +20,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 // Components
 import AuthInput from "./AuthInput";
 
-// Schema validator
+// Yup resolver
 import { yupResolver } from "@hookform/resolvers/yup";
 
 // Login schema
