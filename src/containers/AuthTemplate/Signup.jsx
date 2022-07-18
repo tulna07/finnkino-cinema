@@ -1,133 +1,176 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks";
+import { useForm } from "react-hook-form";
 
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+// Material UI
+import {
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Box,
+  InputAdornment,
+  Stack,
+  Alert,
+  IconButton,
+} from "@mui/material";
+import { LoadingButton } from "@mui/lab";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+// Components
+import AuthInput from "./AuthInput";
 
-const theme = createTheme();
+// Yup resolver
+import { yupResolver } from "@hookform/resolvers/yup";
 
-export default function SignUp() {
+// Signup schema
+import { signupSchema } from "@/validators";
+
+// Api
+import { userApi } from "@/services";
+
+// Constants
+import { ROLE } from "@/constants";
+
+const Signup = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(true);
+  const [checked, setChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { control, handleSubmit } = useForm({
+    reValidateMode: "onSubmit",
+    defaultValues: { username: "", password: "" },
+    resolver: yupResolver(signupSchema),
+  });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
 
-    const user = {
-      username: data.get("username"),
-      password: data.get("password"),
-    };
+  const onSubmit = (user) => {
+    (async () => {
+      try {
+        setLoading(true);
+
+        user = { taiKhoan: user.username, matKhau: user.password };
+        user = await userApi.signup(user);
+        setLoading(false);
+        auth.login(user);
+
+        if (user.maLoaiNguoiDung === ROLE.CLIENT) {
+          navigate("/", { replace: true });
+        }
+
+        if (user.maLoaiNguoiDung === ROLE.ADMIN) {
+          navigate("/admin", { replace: true });
+        }
+      } catch (error) {
+        setError(true);
+        setLoading(false);
+      }
+    })();
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
-            </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign Up
-            </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate mt={1}>
+      {error && (
+        <Alert severity="error" sx={{ mb: 2 }}>
+          Incorrect username or password.
+        </Alert>
+      )}
+      <AuthInput
+        name="fullName"
+        control={control}
+        label="Full name"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 2 }}
+      />
+      <AuthInput
+        name="username"
+        control={control}
+        label="Username"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 2 }}
+      />
+      <AuthInput
+        name="email"
+        control={control}
+        type="email"
+        label="Email"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 2 }}
+      />
+      <AuthInput
+        name="phoneNumber"
+        control={control}
+        label="Phone number"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 2 }}
+      />
+      <AuthInput
+        name="password"
+        control={control}
+        label="Password"
+        fullWidth
+        variant="standard"
+        type={showPassword ? "password" : "text"}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword}>
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        sx={{ mb: 2 }}
+      />
+      <FormControlLabel
+        control={
+          <Checkbox value="remember" color="primary" onChange={() => setChecked(!checked)} />
+        }
+        label={
+          <Box component="p">
+            I accept Finnkino web's <Link href="#">terms and conditions</Link>.
           </Box>
-        </Box>
-        <Copyright sx={{ mt: 5 }} />
-      </Container>
-    </ThemeProvider>
+        }
+      />
+      <LoadingButton
+        onClick={() => setError(false)}
+        disabled={!checked}
+        loading={loading}
+        type="submit"
+        fullWidth
+        variant="contained"
+        sx={{
+          p: 2,
+          mt: 3,
+          mb: 2,
+          backgroundColor: "#fdca00",
+          color: "#070707",
+          fontWeight: 700,
+          fontSize: 16,
+          "&:hover": {
+            backgroundColor: "#caa100;",
+          },
+        }}
+      >
+        Sign Up
+      </LoadingButton>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Link href="#" variant="body2">
+          Forgot password?
+        </Link>
+        <Link href="" variant="body2" onClick={() => navigate("/auth/login")}>
+          Already have an account? Log in
+        </Link>
+      </Stack>
+    </Box>
   );
-}
+};
+
+export default Signup;
