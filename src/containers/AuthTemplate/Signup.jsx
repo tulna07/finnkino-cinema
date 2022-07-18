@@ -54,7 +54,6 @@ const Signup = () => {
 
         user = { taiKhoan: user.username, matKhau: user.password };
         user = await userApi.signup(user);
-        setLoading(false);
         auth.login(user);
 
         if (user.maLoaiNguoiDung === ROLE.CLIENT) {
@@ -66,6 +65,7 @@ const Signup = () => {
         }
       } catch (error) {
         setError(true);
+      } finally {
         setLoading(false);
       }
     })();
