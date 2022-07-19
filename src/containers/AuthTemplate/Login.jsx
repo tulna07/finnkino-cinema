@@ -46,7 +46,7 @@ const Login = () => {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
-  const onSubmit = (user) => {
+  const handleLogin = (user) => {
     (async () => {
       try {
         setLoading(true);
@@ -71,7 +71,7 @@ const Login = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate mt={1}>
+    <Box component="form" onSubmit={handleSubmit(handleLogin)} noValidate mt={1}>
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           Incorrect username or password.
