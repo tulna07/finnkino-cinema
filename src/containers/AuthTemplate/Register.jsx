@@ -56,7 +56,7 @@ const Register = () => {
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
-  const onSubmit = (user) => {
+  const handleRegister = (user) => {
     (async () => {
       try {
         setLoading(true);
@@ -87,7 +87,7 @@ const Register = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate mt={1}>
+    <Box component="form" onSubmit={handleSubmit(handleRegister)} noValidate mt={1}>
       {errorMsg && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {errorMsg}
