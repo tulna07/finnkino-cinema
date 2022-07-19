@@ -23,26 +23,35 @@ import AuthInput from "./AuthInput";
 // Yup resolver
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// Signup schema
-import { signupSchema } from "@/validators";
+// Register schema
+import { registerSchema } from "@/validators";
 
 // Api
 import { userApi } from "@/services";
 
 // Constants
-import { ROLE } from "@/constants";
+import { GROUP_ID } from "@/constants";
 
-const Signup = () => {
+// Utils
+import { responseMapper } from "@/utils";
+
+const Register = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(true);
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const { control, handleSubmit } = useForm({
     reValidateMode: "onSubmit",
-    defaultValues: { username: "", password: "" },
-    resolver: yupResolver(signupSchema),
+    defaultValues: {
+      hoTen: "",
+      taiKhoan: "",
+      email: "",
+      soDt: "",
+      matKhau: "",
+    },
+    resolver: yupResolver(registerSchema),
   });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -52,19 +61,25 @@ const Signup = () => {
       try {
         setLoading(true);
 
-        user = { taiKhoan: user.username, matKhau: user.password };
-        user = await userApi.signup(user);
+        // Register
+        user = {
+          hoTen: user.fullName,
+          taiKhoan: user.username,
+          email: user.email,
+          soDt: user.phoneNumber,
+          matKhau: user.password,
+          maNhom: GROUP_ID,
+        };
+        user = await userApi.register(user);
+
+        // Login automatically if registering successfully
+        user = { taiKhoan: user.taiKhoan, matKhau: user.matKhau };
+        user = await userApi.login(user);
         auth.login(user);
-
-        if (user.maLoaiNguoiDung === ROLE.CLIENT) {
-          navigate("/", { replace: true });
-        }
-
-        if (user.maLoaiNguoiDung === ROLE.ADMIN) {
-          navigate("/admin", { replace: true });
-        }
+        navigate("/", { replace: true });
       } catch (error) {
-        setError(true);
+        const msg = responseMapper(error);
+        setErrorMsg(msg);
       } finally {
         setLoading(false);
       }
@@ -73,9 +88,9 @@ const Signup = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate mt={1}>
-      {error && (
+      {errorMsg && (
         <Alert severity="error" sx={{ mb: 2 }}>
-          Incorrect username or password.
+          {errorMsg}
         </Alert>
       )}
       <AuthInput
@@ -140,7 +155,7 @@ const Signup = () => {
         }
       />
       <LoadingButton
-        onClick={() => setError(false)}
+        onClick={() => setErrorMsg("")}
         disabled={!checked}
         loading={loading}
         type="submit"
@@ -159,7 +174,7 @@ const Signup = () => {
           },
         }}
       >
-        Sign Up
+        Register
       </LoadingButton>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Link href="#" variant="body2">
@@ -173,4 +188,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Register;

@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 // Pages
 const AuthPage = lazy(() => import("@/containers/AuthTemplate"));
 const LoginPage = lazy(() => import("@/containers/AuthTemplate/Login"));
-const SignupPage = lazy(() => import("@/containers/AuthTemplate/Signup"));
+const RegisterPage = lazy(() => import("@/containers/AuthTemplate/Register"));
 
 const AuthRoutes = {
   path: "auth",
@@ -12,7 +12,7 @@ const AuthRoutes = {
   children: [
     { path: "", element: <Navigate to="login" replace /> },
     { path: "login", element: <LoginPage /> },
-    { path: "signup", element: <SignupPage /> },
+    { path: "register", element: <RegisterPage /> },
   ],
 };
 

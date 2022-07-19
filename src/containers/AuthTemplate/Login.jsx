@@ -132,8 +132,8 @@ const Login = () => {
         <Link href="#" variant="body2">
           Forgot password?
         </Link>
-        <Link href="" variant="body2" onClick={() => navigate("/auth/signup")}>
-          Don't have an account? Sign up
+        <Link href="" variant="body2" onClick={() => navigate("/auth/register")}>
+          Don't have an account? Register
         </Link>
       </Stack>
     </Box>

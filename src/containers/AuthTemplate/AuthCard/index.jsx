@@ -8,7 +8,7 @@ import FinnkinoLogo from "@/assets/images/header-logo.png";
 const AuthCard = ({ children }) => {
   const { pathname } = useLocation();
 
-  const cardTitle = pathname === "/auth/login" ? "Log In" : "Sign Up";
+  const cardTitle = pathname === "/auth/login" ? "Log In" : "Register";
 
   return (
     <Stack direction="column" alignItems="center" spacing={1} p={5} bgcolor="#fff">

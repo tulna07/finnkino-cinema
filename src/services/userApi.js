@@ -7,7 +7,7 @@ const userApi = {
     const url = resourceName + "DangNhap";
     return axiosClient.post(url, user);
   },
-  signup: (user) => {
+  register: (user) => {
     const url = resourceName + "DangKy";
     return axiosClient.post(url, user);
   },
