@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "./MultipleItems.scss";
 import Image from "@/components/Image";
 import { Link } from "react-router-dom";
+import { Box } from "@mui/system";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -113,9 +114,8 @@ function MultipleItems({
       }
     });
   };
-
   return (
-    <Slider className={`${className}`} {...settings}>
+    <Slider className={`${className}`} {...settings} {...props}>
       {renderCarouselContent()}
     </Slider>
   );

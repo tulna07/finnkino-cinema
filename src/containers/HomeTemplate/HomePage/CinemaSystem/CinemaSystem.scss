@@ -1,0 +1,111 @@
+//Cinema System
+.home__cinema-system {
+  margin: 30px auto;
+  background-color: var(--dark);
+  //overflow: hidden;
+}
+
+.cinema-system-list {
+  //min-height: 500px;
+}
+
+.cinema-system__item {
+  margin: 12px;
+
+  &.active,
+  &:hover {
+    background-color: var(--gray);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.cinema-system__logo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+//Cinema Group
+.cinema-system__cinema-group {
+  //max-height: 500px;
+  //min-height: 500px;
+}
+
+.cinema-group__content-wrapper {
+  max-height: 288px;
+  background-color: transparent;
+}
+
+.cinema-system__item-content {
+  width: 100%;
+  color: var(--white);
+}
+
+.cinema-group__tab-list {
+  flex: 1;
+}
+
+.cinema-group__tab-item {
+  display: flex;
+  color: var(--light-gray);
+  text-align: left;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  &.Mui-selected {
+    color: var(--primary);
+  }
+
+  .cinema-group__tab-img {
+    width: calc(var(--logo-size) - 10px);
+    margin: 0px 18px 0 0;
+  }
+}
+
+.cinema-group__tab-panels {
+  flex: 2;
+  width: 100%;
+}
+
+.cinema-group__panel-item {
+  > div {
+    width: 100%;
+  }
+}
+
+.movie-schedule__wrapper {
+  --movie-schedule-height: 120px;
+  display: flex;
+  color: var(--light-gray);
+
+  img {
+    width: 90px;
+    height: var(--movie-schedule-height);
+    object-fit: cover;
+    margin-right: 20px;
+    object-position: center;
+  }
+
+  .movie-schedule__info {
+    width: 100%;
+    height: var(--movie-schedule-height);
+  }
+}
+
+.movie-schedule__movie-name {
+  color: var(--primary);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.movie-schedule__schedule-list {
+  margin-top: 8px;
+}
+.movie-schedule__schedule-item {
+  display: inline-block;
+  margin-top: 2px;
+  color: var(--primary);
+}

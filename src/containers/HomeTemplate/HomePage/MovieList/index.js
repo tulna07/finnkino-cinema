@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -49,8 +49,8 @@ function MovieList() {
           Phim sắp chiếu
         </Button>
       </Typography>
-      <Grid container className="movie-list__carousel-wrapper">
-        <Grid item xs={10} sx={{ mx: "auto" }}>
+      <Box className="movie-list__carousel-wrapper">
+        <Container maxWidth="lg" sx={{ mx: "auto" }}>
           {loading ? (
             <Loader />
           ) : (
@@ -66,14 +66,17 @@ function MovieList() {
               prevArrow={<FontAwesomeIcon icon={faAngleLeft} />}
             />
           )}
-        </Grid>
-        <Grid item xs={10} sx={{ mx: "auto" }}>
-          <Button className="movie-list__carousel-btn">
-            Show all
-            <FontAwesomeIcon icon={faAngleDoubleRight} className="movie-list__carousel-btn-icon" />
-          </Button>
-        </Grid>
-      </Grid>
+          <Container maxWidth="lg" sx={{ mx: "auto" }}>
+            <Button className="movie-list__carousel-btn">
+              Show all
+              <FontAwesomeIcon
+                icon={faAngleDoubleRight}
+                className="movie-list__carousel-btn-icon"
+              />
+            </Button>
+          </Container>
+        </Container>
+      </Box>
     </div>
   );
 }
