@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Container, Typography } from "@mui/material";
-import { Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 import "./MovieList.scss";
-
-import actGetMovieList from "@/redux/actions/movieList";
 import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/redux/constants/movieList";
+import actGetMovieList from "@/redux/actions/movieList";
 import MultipleItems from "@/components/ReactSlick/MultipleItems";
 import Loader from "@/components/Loader";
 

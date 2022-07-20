@@ -11,6 +11,7 @@ import {
 import "./Footer.scss";
 import Image from "@/components/Image";
 import { Grid } from "@mui/material";
+import images from "@/assets/images";
 
 function Footer() {
   return (
@@ -101,8 +102,9 @@ function Footer() {
             </a>
           </Grid>
         </Grid>
-        <Grid container className="footer__sponsors">
-          <Image src="https://media.finnkino.fi/files/responsive/footer/maksutavat_footer_800x130_u.png" />
+        <Grid container className="footer__payment">
+          <Image src={images.paymentMethodsMobile} className="hide-on-pc hide-on-tablet" />
+          <Image src={images.paymentMethodsPC} className="hide-on-mobile" />
         </Grid>
         <p className="footer__rights pt-5 pb-5">Finnkino Oy - All rights reserved</p>
       </Grid>

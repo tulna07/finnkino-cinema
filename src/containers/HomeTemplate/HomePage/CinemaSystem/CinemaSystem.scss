@@ -3,10 +3,6 @@
   background-color: var(--dark);
 }
 
-.cinema-system-list {
-  //min-height: 500px;
-}
-
 .cinema-system__item {
   margin: 12px;
 
@@ -26,9 +22,6 @@
 }
 
 //Cinema Group
-.cinema-system__cinema-group {
-}
-
 .cinema-group__content-wrapper {
   max-height: 288px;
   background-color: transparent;
@@ -37,9 +30,6 @@
 .cinema-system__item-content {
   width: 100%;
   color: var(--white);
-}
-
-.cinema-group__tab-list {
 }
 
 .cinema-group__tab-item {

@@ -43,7 +43,7 @@ footer {
   }
 }
 
-.footer__sponsors {
+.footer__payment {
   justify-content: center;
   img {
     padding-top: 40px;
@@ -61,11 +61,8 @@ footer {
   text-align: center;
 }
 
-@media (max-width: 1023px) {
-}
-
-@media (min-width: 740px) and (max-width: 1023px) {
-}
-
 @media (max-width: 739px) {
+  .footer__apps {
+    margin-top: 0;
+  }
 }

@@ -73,15 +73,13 @@
 
 .movie-list__slider-item-link {
   display: inline-block;
-
-  img {
-  }
 }
 
 .movie-list__carousel-btn-icon {
   font-size: 8px;
   margin-left: 4px;
 }
+
 @media (max-width: 1023px) {
   .home__movie-list {
     .home-list__btn-list {
@@ -90,5 +88,15 @@
     .home-list__btn {
       font-size: 12px;
     }
+  }
+}
+
+@media (max-width: 739px) {
+  .movie-list__carousel-wrapper {
+    padding: 0;
+  }
+
+  .home__movie-list {
+    margin-top: 60px;
   }
 }
