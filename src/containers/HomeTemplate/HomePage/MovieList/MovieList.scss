@@ -22,14 +22,7 @@
 
   .movie-list__carousel-btn {
     width: 100%;
-    background-color: var(--primary);
-    color: var(--dark);
     font-size: 12px;
-    border-radius: 0;
-
-    &:hover {
-      background-color: var(--hover-primary);
-    }
   }
 }
 

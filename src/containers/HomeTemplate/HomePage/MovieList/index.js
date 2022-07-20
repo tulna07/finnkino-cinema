@@ -65,7 +65,11 @@ function MovieList() {
             />
           )}
           <Container maxWidth="lg" sx={{ mx: "auto" }}>
-            <Button className="movie-list__carousel-btn">
+            <Button
+              variant="contained"
+              size="small"
+              className="btn-wrapper btn-filled movie-list__carousel-btn"
+            >
               Show all
               <FontAwesomeIcon
                 icon={faAngleDoubleRight}

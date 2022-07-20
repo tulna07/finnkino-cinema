@@ -9,6 +9,7 @@ import { ROLE } from "@/constants";
 // Pages
 const HomeTemp = lazy(() => import("@/containers/HomeTemplate"));
 const HomePage = lazy(() => import("@/containers/HomeTemplate/HomePage"));
+const MovieDetailPage = lazy(() => import("@/containers/HomeTemplate/MovieDetailPage"));
 
 const ClientRoutes = {
   path: "/",
@@ -18,7 +19,7 @@ const ClientRoutes = {
       path: "",
       element: <HomePage />,
     },
-    { path: "movie-detail", element: <div>Movie Detail</div> },
+    { path: "movie-detail", element: <MovieDetailPage /> },
     {
       path: "ticket-booking",
       element: (

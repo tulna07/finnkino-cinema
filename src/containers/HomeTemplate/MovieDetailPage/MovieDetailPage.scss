@@ -1,0 +1,167 @@
+.movie-detail__top-info {
+  position: relative;
+  background-image: url("https://media.finnkino.fi/1012/Event_13314/landscape_hd/DrStrange_1920.jpg?width=1411");
+  background-position: center;
+  background-size: cover;
+  height: 500px;
+  padding-bottom: 50px;
+
+  &:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .row {
+    position: relative;
+  }
+}
+
+.movie-detail__top-info-wrapper {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+
+  & > div {
+    align-items: flex-end;
+  }
+}
+
+.top-info__img {
+  width: 30%;
+
+  img {
+    width: 90%;
+  }
+}
+
+.top-info__content {
+  width: 70%;
+  text-align: start;
+
+  .top-info__content-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .top-info__btn {
+    font-size: 18px;
+    padding: 10px 16px;
+    min-width: unset;
+  }
+
+  .top-info__btn + .top-info__btn {
+    margin-left: 20px;
+  }
+}
+
+.top-info__btn.filled {
+  &:hover {
+    background-color: #caa100;
+    border-color: #c09900;
+    transition: all 0.2s ease;
+  }
+}
+
+.movie-detail__top-desc {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+  font-size: 13px;
+  background-color: var(--dark-gray);
+
+  p {
+    margin: 0;
+  }
+
+  p + p {
+    margin-left: 20px;
+  }
+
+  .movie-detail__desc-icon {
+    margin-right: 10px;
+  }
+
+  .movie-detail__desc-btn {
+    color: var(--white);
+    padding: 5px 6px;
+    margin-right: 6px;
+  }
+}
+
+.movie-detail__desc-left {
+  display: flex;
+  color: var(--light-gray);
+}
+
+.movie-detail__desc-btn {
+  &:hover {
+    text-decoration: underline;
+  }
+
+  .movie-detail__desc-btn-icon {
+    font-size: 12px;
+  }
+
+  &.desc-btn--facebook {
+    background-color: #3b5998;
+    &:hover {
+      background-color: #2d4373;
+    }
+  }
+
+  &.desc-btn--twitter {
+    background-color: #00aced;
+    &:hover {
+      background-color: #0087ba;
+    }
+  }
+
+  &.desc-btn--whatsapp {
+    background-color: #29a628;
+    &:hover {
+      background-color: #1f7d1e;
+    }
+  }
+
+  &.desc-btn--email {
+    background-color: #3490f3;
+    &:hover {
+      background-color: #0e76e6;
+    }
+  }
+}
+
+.movie-detail__content-wrapper {
+  padding: 50px;
+  background-color: var(--white);
+  color: var(--black);
+
+  h4 {
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.movie-detail__synop {
+  h4 {
+    font-size: 24px;
+  }
+}
+
+.movie-detail__details {
+  h4 {
+    font-size: 16px;
+  }
+}

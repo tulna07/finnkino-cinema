@@ -26,6 +26,38 @@ body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
+
+  .btn-wrapper {
+    padding: 10px 16px;
+    border-radius: 0 !important;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+}
+
+.btn-wrapper {
+  &.btn-filled {
+    color: var(--dark);
+    background-color: var(--primary);
+
+    &:hover {
+      background-color: var(--hover-primary);
+    }
+  }
+
+  &.btn-outline {
+    color: var(--white);
+    background-color: transparent;
+    border-color: var(--white);
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-color: #e0e0e0;
+    }
+  }
+}
+
+.btn-outline {
 }
 
 a[href] {
