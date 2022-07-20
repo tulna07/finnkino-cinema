@@ -1,25 +1,27 @@
 import * as yup from "yup";
+import pattern from "./pattern";
 
 const registerSchema = yup.object({
   fullName: yup
     .string()
     .required("Full name is required.")
-    .matches(
-      /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/,
-      "Full name is invalid.",
-    ),
-  username: yup.string().required("Username is required."),
+    .matches(pattern.fullName, "Full name is invalid."),
+  username: yup
+    .string()
+    .required("Username is required.")
+    .matches(pattern.username, "Username is 4 - 16 alphanumeric characters long."),
   email: yup.string().required("Email is required").email("Email address is invalid."),
   phoneNumber: yup
     .string()
     .required("Phone number is required.")
-    .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, "Phone number is invalid."),
+    .matches(pattern.phoneNumber, "Phone number is invalid."),
   password: yup
     .string()
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+      pattern.password,
       "Password should be a minimum of eight characters, at least one letter and one number.",
     ),
+  confirmedPassword: yup.string().oneOf([yup.ref("password")], "Password does not match."),
 });
 
 export default registerSchema;
