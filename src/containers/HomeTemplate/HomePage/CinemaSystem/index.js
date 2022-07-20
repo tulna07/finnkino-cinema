@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
@@ -11,6 +11,7 @@ import actGetCinemaList from "@/redux/actions/cinemaSystem";
 import Image from "@/components/Image";
 import "./CinemaSystem.scss";
 import CinemaGroup from "./CinemaGroup";
+import Loader from "@/components/Loader";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,8 +46,10 @@ function a11yProps(index) {
   };
 }
 
-function CinemaSystem({ cinemaSystemData }) {
+function CinemaSystem() {
   const dispatch = useDispatch();
+  const cinemaSystemData = useSelector((state) => state.cinemaSystem.data);
+  const loading = useSelector((state) => state.cinemaSystem.loading);
   const [value, setValue] = useState(0);
 
   useEffect(() => {
@@ -93,31 +96,45 @@ function CinemaSystem({ cinemaSystemData }) {
   };
 
   return (
-    <Box
-      className="home__cinema-system"
-      maxWidth="lg"
-      sx={{ flexGrow: 1, bgcolor: "background.paper", display: "flex", height: 288, mx: "auto" }}
-    >
-      <Tabs
-        TabIndicatorProps={{ style: { background: "var(--primary)", width: "4" } }}
-        orientation="vertical"
-        variant="scrollable"
-        scrollButtons
-        TabScrollButtonProps={{ sx: { color: "var(--primary)" } }}
-        value={value}
-        onChange={handleChange}
-        aria-label="Vertical tabs example"
-        sx={{
-          borderRight: 1,
-          borderColor: "divider",
-          "& button.Mui-selected": { backgroundColor: "var(--gray)", borderRadius: "50%" },
-        }}
-        className="cinema-system-list"
-      >
-        {renderTab()}
-      </Tabs>
-      {renderTabPanel()}
-    </Box>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Box className="home__cinema-system hide-on-mobile" sx={{ py: "20px" }}>
+          <Box
+            className="cinema-system-wrapper container"
+            maxWidth="lg"
+            sx={{
+              flexGrow: 1,
+              bgcolor: "background.paper",
+              display: "flex",
+              height: 288,
+              mx: "auto",
+            }}
+          >
+            <Tabs
+              TabIndicatorProps={{ style: { width: "0" } }}
+              orientation="vertical"
+              variant="scrollable"
+              scrollButtons
+              TabScrollButtonProps={{ sx: { color: "var(--primary)" } }}
+              value={value}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              sx={{
+                borderRight: 1,
+                borderColor: "divider",
+                "& button.Mui-selected": { backgroundColor: "var(--gray)", borderRadius: "50%" },
+              }}
+              className="cinema-system-list"
+            >
+              {renderTab()}
+            </Tabs>
+            {renderTabPanel()}
+          </Box>
+        </Box>
+      )}
+    </>
   );
 }
 

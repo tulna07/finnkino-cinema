@@ -4,8 +4,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Dialog, IconButton, Paper, TabScrollButton } from "@mui/material";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "@/components/Image";
 import MovieSchedule from "../MovieSchedule";
 
@@ -44,14 +42,9 @@ function a11yProps(index) {
 
 function CinemaGroup({ data }) {
   const [value, setValue] = React.useState(0);
-  const [selectedCineGroup, setSelectedCineGroup] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleChangeCineGroup = (event, newValue) => {
-    setSelectedCineGroup(newValue);
   };
 
   const renderTab = () => {
@@ -60,7 +53,7 @@ function CinemaGroup({ data }) {
         <Tab
           className="cinema-group__tab-item"
           key={index}
-          label={cinemaGroup.tenCumRap}
+          label={`${cinemaGroup.tenCumRap} ${index}`}
           {...a11yProps(index)}
           icon={
             <Image
@@ -74,23 +67,43 @@ function CinemaGroup({ data }) {
     });
   };
 
-  const renderTabLabel = () => {
-    return data.lstCumRap.map((cinemaGroup) => {
-      return cinemaGroup.danhSachPhim.map((movie, index) => (
-        <TabPanel className="cinema-group__panel-item" key={index} value={value} index={index}>
-          <MovieSchedule movie={movie} cinemaGroup={cinemaGroup} />
+  const renderTabPanel = () => {
+    return data.lstCumRap?.map((cinemaGroup, index) => {
+      return (
+        <TabPanel
+          key={index}
+          value={value}
+          index={index}
+          className="cinema-group__panel-item"
+          variant="scrollable"
+          sx={{
+            "&::-webkit-scrollbar": {
+              width: 20,
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "orange",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "red",
+              borderRadius: 2,
+            },
+          }}
+        >
+          {cinemaGroup.danhSachPhim?.map((movie, index) => (
+            <MovieSchedule key={index} movie={movie} cinemaGroup={cinemaGroup} />
+          ))}
         </TabPanel>
-      ));
+      );
     });
   };
 
   return (
     <Box
-      className="cinema-group__content-wrapper"
       sx={{ flexGrow: 1, bgcolor: "background.paper", display: "flex", height: 288 }}
+      className="cinema-group__content-wrapper"
     >
       <Tabs
-        TabIndicatorProps={{ style: { background: "var(--primary)", width: "4" } }}
+        TabIndicatorProps={{ style: { width: "0" } }}
         className="cinema-group__tab-list"
         orientation="vertical"
         variant="scrollable"
@@ -103,17 +116,7 @@ function CinemaGroup({ data }) {
       >
         {renderTab()}
       </Tabs>
-      <Tabs
-        className="cinema-group__tab-panels"
-        orientation="vertical"
-        variant="scrollable"
-        scrollButtons
-        TabScrollButtonProps={{ sx: { color: "var(--primary)" } }}
-        onChange={handleChangeCineGroup}
-        value={selectedCineGroup}
-      >
-        {renderTabLabel()}
-      </Tabs>
+      {renderTabPanel()}
     </Box>
   );
 }

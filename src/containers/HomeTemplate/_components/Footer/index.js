@@ -15,8 +15,14 @@ import { Grid } from "@mui/material";
 function Footer() {
   return (
     <footer>
-      <Grid container id="footer__container">
-        <Grid container>
+      <Grid
+        container
+        maxWidth="lg"
+        sx={{ mx: "auto" }}
+        id="footer__container"
+        className="container"
+      >
+        <Grid container sx={{ mx: "auto" }} className="footer__apps">
           <a
             className="footer__app-item"
             href="https://apps.apple.com/app/finnkino-leffa/id1616672209?l"
@@ -30,51 +36,51 @@ function Footer() {
             <Image src="https://media.finnkino.fi/Files/responsive/footer/googleplay_small.png" />
           </a>
         </Grid>
-        <Grid container>
-          <div className="footer__list-item col-lg-3 mb-5">
+        <Grid container className="footer__list">
+          <Grid item xs={12} md={3} className="footer__list-item">
             <p className="footer__list-title">Finnkino</p>
             <a className="footer__list-link" href="https://www.finnkino.fi/en/teatterit">
-              Cinemas{" "}
+              Rạp phim
             </a>
             <a className="footer__list-link" href="http://www.finnkinob2b.fi/">
-              B2B{" "}
+              B2B
             </a>
             <a className="footer__list-link" href="https://www.finnkino.fi/en/rekry">
-              Jobs{" "}
+              Việc làm
             </a>
             <a className="footer__list-link" href="https://www.finnkino.fi/en/tietoa-finnkinosta">
               Finnkino Oy
             </a>
-          </div>
-          <div className="footer__list-item col-lg-3 mb-5">
-            <p className="footer__list-title">Customer service</p>
+          </Grid>
+          <Grid item xs={12} md={3} className="footer__list-item">
+            <p className="footer__list-title">Chăm sóc khách hàng</p>
             <a className="footer__list-link" href="https://www.finnkino.fi/en/asiakaspalvelu/">
-              Contact us{" "}
+              Liên hệ
             </a>
             <a className="footer__list-link" href="https://www.finnkino.fi/en/faq">
-              FAQ{" "}
+              Câu hỏi thường gặp
             </a>
-          </div>
-          <div className="footer__list-item col-lg-3 mb-5">
+          </Grid>
+          <Grid item xs={12} md={3} className="footer__list-item">
             <p className="footer__list-title">Web shop</p>
             <a className="footer__list-link" href="https://www.finnkino.fi/en/tietosuoja">
-              Privacy
+              Chính sách bảo mật
             </a>
             <a
               className="footer__list-link"
               href="https://www.finnkino.fi/en/verkkokauppa/verkkokaupan-kayttoehdot"
             >
-              Terms and conditions{" "}
+              Điều khoản sử dụng
             </a>
             <a
               className="footer__list-link"
               href="https://www.finnkino.fi/en/verkkokauppa/finnkino-lab-ehdot"
             >
-              Terms of Finnkino Lab{" "}
+              Các điều khoản của Finnkino Lab
             </a>
-          </div>
-          <div className="footer__list-item list--social col-lg-3">
-            <p className="footer__list-title">Follow us on Social Media</p>
+          </Grid>
+          <Grid item xs={12} lg={3} md={12} className="footer__list-item  list--social">
+            <p className="footer__list-title">Mạng xã hội</p>
             <a className="footer__list-link" href="https://www.instagram.com/finnkino_fi">
               <FontAwesomeIcon icon={faTwitter} />
             </a>
@@ -93,9 +99,9 @@ function Footer() {
             <a className="footer__list-link" href="https://www.youtube.com/finnkinosuomi">
               <FontAwesomeIcon icon={faYoutube} />
             </a>
-          </div>
+          </Grid>
         </Grid>
-        <Grid container>
+        <Grid container className="footer__sponsors">
           <Image src="https://media.finnkino.fi/files/responsive/footer/maksutavat_footer_800x130_u.png" />
         </Grid>
         <p className="footer__rights pt-5 pb-5">Finnkino Oy - All rights reserved</p>

@@ -1,0 +1,49 @@
+.movie-schedule-card {
+  --movie-schedule-height: 120px;
+  flex-direction: row;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  color: var(--light-gray);
+  border-bottom: 1px solid #313131;
+
+  img {
+    width: 100%;
+    height: var(--movie-schedule-height);
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .movie-schedule__info {
+    width: 100%;
+    height: var(--movie-schedule-height);
+  }
+}
+
+.movie-schedule__movie-name {
+  color: var(--primary);
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.movie-schedule__schedule-list {
+  margin-top: 8px;
+}
+.movie-schedule__schedule-item {
+  display: inline-block;
+  margin-top: 2px;
+  color: var(--primary);
+}
+
+@media (max-width: 1023px) {
+  .movie-schedule-card {
+    img {
+      height: 100px;
+    }
+  }
+}
+
+@media (min-width: 740px) and (max-width: 1023px) {
+}
+
+@media (max-width: 739px) {
+}

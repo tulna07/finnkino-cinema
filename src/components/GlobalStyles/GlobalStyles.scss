@@ -12,6 +12,8 @@
   --border-color: #dddddd26;
 
   --logo-size: 68px;
+  --padding-tablet: 15px;
+  --padding-mobile: 7.5px;
 }
 
 * {
@@ -48,10 +50,18 @@ a[href] {
   .hide-on-tablet {
     display: none;
   }
+
+  .container {
+    padding: 0 var(--padding-tablet);
+  }
 }
 
 @media (max-width: 739px) {
   .hide-on-mobile {
     display: none;
+  }
+
+  .container {
+    padding: 0 var(--padding-mobile);
   }
 }

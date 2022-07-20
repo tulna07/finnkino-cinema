@@ -3,6 +3,7 @@ import { Grid } from "@mui/material";
 import moment from "moment";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./MovieSchedule.scss";
 
 function MovieSchedule({ movie, cinemaGroup }) {
   const renderSchedule = () => {
@@ -15,16 +16,18 @@ function MovieSchedule({ movie, cinemaGroup }) {
     ));
   };
   return (
-    <div className="movie-schedule__wrapper">
-      <Image src={movie.hinhAnh} alt={movie.tenPhim} />
-      <div className="movie-schedule__info">
+    <Grid container spacing={2} className="movie-schedule-card">
+      <Grid item xs={3} md={2}>
+        <Image src={movie.hinhAnh} alt={movie.tenPhim} />
+      </Grid>
+      <Grid item xs={9} md={10} className="movie-schedule__info">
         <p className="movie-schedule__movie-name">{movie.tenPhim}</p>
         <p>{cinemaGroup.diaChi}</p>
         <Grid container className="movie-schedule__schedule-list">
           {renderSchedule()}
         </Grid>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 }
 
