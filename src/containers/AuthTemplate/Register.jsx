@@ -23,47 +23,63 @@ import AuthInput from "./AuthInput";
 // Yup resolver
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// Login schema
-import { loginSchema } from "@/validators";
+// Register schema
+import { registerSchema } from "@/validators";
 
 // Api
 import { userApi } from "@/services";
 
 // Constants
-import { ROLE } from "@/constants";
+import { GROUP_ID } from "@/constants";
 
-const Login = () => {
+// Utils
+import { responseMapper } from "@/utils";
+
+const Register = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
   const { control, handleSubmit } = useForm({
     reValidateMode: "onSubmit",
-    defaultValues: { username: "", password: "" },
-    resolver: yupResolver(loginSchema),
+    defaultValues: {
+      hoTen: "",
+      taiKhoan: "",
+      email: "",
+      soDt: "",
+      matKhau: "",
+    },
+    resolver: yupResolver(registerSchema),
   });
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
-  const handleLogin = (user) => {
+  const handleRegister = (user) => {
     (async () => {
       try {
         setLoading(true);
 
-        user = { taiKhoan: user.username, matKhau: user.password };
+        // Register
+        user = {
+          hoTen: user.fullName,
+          taiKhoan: user.username,
+          email: user.email,
+          soDt: user.phoneNumber,
+          matKhau: user.password,
+          maNhom: GROUP_ID,
+        };
+        user = await userApi.register(user);
+
+        // Login automatically if registering successfully
+        user = { taiKhoan: user.taiKhoan, matKhau: user.matKhau };
         user = await userApi.login(user);
         auth.login(user);
-
-        if (user.maLoaiNguoiDung === ROLE.CLIENT) {
-          navigate("/", { replace: true });
-        }
-
-        if (user.maLoaiNguoiDung === ROLE.ADMIN) {
-          navigate("/admin", { replace: true });
-        }
+        navigate("/", { replace: true });
       } catch (error) {
-        setError(true);
+        const msg = responseMapper(error);
+        setErrorMsg(msg);
       } finally {
         setLoading(false);
       }
@@ -71,19 +87,44 @@ const Login = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(handleLogin)} noValidate mt={1}>
-      {error && (
+    <Box component="form" onSubmit={handleSubmit(handleRegister)} noValidate mt={1}>
+      {errorMsg && (
         <Alert severity="error" sx={{ mb: 2 }}>
-          Incorrect username or password.
+          {errorMsg}
         </Alert>
       )}
+      <AuthInput
+        name="fullName"
+        control={control}
+        label="Full name"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 2 }}
+      />
       <AuthInput
         name="username"
         control={control}
         label="Username"
         fullWidth
         variant="standard"
-        sx={{ mb: 3 }}
+        sx={{ mb: 2 }}
+      />
+      <AuthInput
+        name="email"
+        control={control}
+        type="email"
+        label="Email"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 2 }}
+      />
+      <AuthInput
+        name="phoneNumber"
+        control={control}
+        label="Phone number"
+        fullWidth
+        variant="standard"
+        sx={{ mb: 2 }}
       />
       <AuthInput
         name="password"
@@ -104,11 +145,18 @@ const Login = () => {
         sx={{ mb: 2 }}
       />
       <FormControlLabel
-        control={<Checkbox value="remember" color="primary" />}
-        label="Remember me"
+        control={
+          <Checkbox value="remember" color="primary" onChange={() => setChecked(!checked)} />
+        }
+        label={
+          <Box component="p">
+            I accept Finnkino web's <Link href="#">terms and conditions</Link>.
+          </Box>
+        }
       />
       <LoadingButton
-        onClick={() => setError(false)}
+        onClick={() => setErrorMsg("")}
+        disabled={!checked}
         loading={loading}
         type="submit"
         fullWidth
@@ -126,18 +174,18 @@ const Login = () => {
           },
         }}
       >
-        Log In
+        Register
       </LoadingButton>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Link href="#" variant="body2">
           Forgot password?
         </Link>
-        <Link href="" variant="body2" onClick={() => navigate("/auth/register")}>
-          Don't have an account? Register
+        <Link href="" variant="body2" onClick={() => navigate("/auth/login")}>
+          Already have an account? Log in
         </Link>
       </Stack>
     </Box>
   );
 };
 
-export default Login;
+export default Register;

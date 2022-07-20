@@ -30,7 +30,7 @@ const AuthTemplate = () => {
         <AuthHeader />
       </Stack>
       <Grid container justifyContent="center" alignItems="center">
-        <Grid item lg={4} md={6} sm={8} xs={10}>
+        <Grid item lg={3.3} md={6} sm={8} xs={10}>
           <AuthCard>
             <Outlet />
           </AuthCard>
