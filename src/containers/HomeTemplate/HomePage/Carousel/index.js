@@ -44,12 +44,7 @@ function Carousel() {
     customPaging: function () {
       return <FontAwesomeIcon className="home__carousel-indicator" icon={faCircle} />;
     },
-    dots: true,
     dotsClass: "slick-dots slick-thumb home__carousel-indicators",
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
   };
 
   const renderCarouselItem = () => {
