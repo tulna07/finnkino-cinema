@@ -78,7 +78,7 @@ a[href] {
 
 @media (min-width: 1024px) {
   .hide-on-pc {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -94,7 +94,8 @@ a[href] {
   }
 
   .container {
-    padding: 0 var(--padding-tablet);
+    padding-left: var(--padding-tablet) !important;
+    padding-right: var(--padding-tablet) !important;
   }
 }
 
@@ -104,6 +105,7 @@ a[href] {
   }
 
   .container {
-    padding: 0 var(--padding-mobile);
+    padding-left: var(--padding-mobile) !important;
+    padding-right: var(--padding-mobile) !important;
   }
 }
