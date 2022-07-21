@@ -10,7 +10,7 @@ const AuthRoutes = {
   path: "auth",
   element: <AuthPage />,
   children: [
-    { path: "", element: <Navigate to="login" replace /> },
+    { path: "", element: <Navigate to="login" /> },
     { path: "login", element: <LoginPage /> },
     { path: "register", element: <RegisterPage /> },
   ],

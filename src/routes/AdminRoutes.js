@@ -18,7 +18,7 @@ const AdminRoutes = {
     </RequireAuth>
   ),
   children: [
-    { path: "", element: <Navigate to="/admin/manage-user"  replace/> },
+    { path: "", element: <Navigate to="user-management" /> },
     { path: "user-management", element: <div>User Management</div> },
     { path: "movie-management", element: <div>Movie Management </div> },
   ],

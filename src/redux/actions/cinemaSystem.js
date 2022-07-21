@@ -1,7 +1,7 @@
 import {
   GET_CINEMA_LIST_REQUEST,
   GET_CINEMA_LIST_SUCCESS,
-  GET_CINEMA_LIST_FAILED,
+  GET_CINEMA_LIST_FAIL,
 } from "../constants/cinemaSystem";
 import { cinemaApi } from "@/services";
 
@@ -36,7 +36,7 @@ const actGetCinemaListSuccess = (data) => {
 
 const actGetCinemaListFail = (error) => {
   return {
-    type: GET_CINEMA_LIST_FAILED,
+    type: GET_CINEMA_LIST_FAIL,
     payload: error,
   };
 };

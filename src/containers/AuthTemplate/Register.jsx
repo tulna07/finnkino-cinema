@@ -39,22 +39,25 @@ const Register = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(true);
+  const [showConfirmedPassword, setShowConfirmedPassword] = useState(true);
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const { control, handleSubmit } = useForm({
     reValidateMode: "onSubmit",
     defaultValues: {
-      hoTen: "",
-      taiKhoan: "",
+      fullName: "",
+      username: "",
       email: "",
-      soDt: "",
-      matKhau: "",
+      phoneNumber: "",
+      password: "",
+      confirmedPassword: "",
     },
     resolver: yupResolver(registerSchema),
   });
 
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleShowConfirmedPassword = () => setShowConfirmedPassword(!showConfirmedPassword);
 
   const handleRegister = (user) => {
     (async () => {
@@ -136,8 +139,29 @@ const Register = () => {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword}>
+              <IconButton aria-label="toggle password visibility" onClick={handleShowPassword}>
                 {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        sx={{ mb: 2 }}
+      />
+      <AuthInput
+        name="confirmedPassword"
+        control={control}
+        label="Confirm password"
+        fullWidth
+        variant="standard"
+        type={showConfirmedPassword ? "password" : "text"}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleShowConfirmedPassword}
+              >
+                {showConfirmedPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           ),

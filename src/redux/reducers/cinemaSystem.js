@@ -1,7 +1,7 @@
 import {
   GET_CINEMA_LIST_REQUEST,
   GET_CINEMA_LIST_SUCCESS,
-  GET_CINEMA_LIST_FAILED,
+  GET_CINEMA_LIST_FAIL,
 } from "../constants/cinemaSystem";
 
 const initialState = {
@@ -24,7 +24,7 @@ const cinemaSystemReducer = (state = initialState, action) => {
       state.error = null;
       return { ...state };
 
-    case GET_CINEMA_LIST_FAILED:
+    case GET_CINEMA_LIST_FAIL:
       state.loading = false;
       state.data = null;
       state.error = action.payload;

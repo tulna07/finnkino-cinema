@@ -40,6 +40,10 @@ body {
     color: var(--dark);
     background-color: var(--primary);
 
+    > a {
+      color: var(--dark);
+    }
+
     &:hover {
       background-color: var(--hover-primary);
     }
@@ -80,13 +84,13 @@ a[href] {
 
 @media (max-width: 1023px) {
   .hide-on-mobile-tablet {
-    display: none;
+    display: none !important;
   }
 }
 
 @media (min-width: 740px) and (max-width: 1023px) {
   .hide-on-tablet {
-    display: none;
+    display: none !important;
   }
 
   .container {
@@ -96,7 +100,7 @@ a[href] {
 
 @media (max-width: 739px) {
   .hide-on-mobile {
-    display: none;
+    display: none !important;
   }
 
   .container {

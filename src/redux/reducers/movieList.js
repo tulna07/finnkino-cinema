@@ -21,7 +21,7 @@ const movieListReducer = (state = initialState, { type, payload }) => {
       state.error = null;
       return { ...state };
 
-    case actType.GET_MOVIE_LIST_FAILED:
+    case actType.GET_MOVIE_LIST_FAIL:
       state.loading = false;
       state.data = null;
       state.error = payload;
