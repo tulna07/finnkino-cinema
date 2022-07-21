@@ -12,7 +12,7 @@ const actGetMovieList = () => {
         const movieList = await movieApi.getMovieList(params);
         dispatch(actGetMovieListSuccess(movieList));
       } catch (error) {
-        dispatch(actGetMovieListFailed(error));
+        dispatch(actGetMovieListFail(error));
       }
     };
 
@@ -33,9 +33,9 @@ const actGetMovieListSuccess = (data) => {
   };
 };
 
-const actGetMovieListFailed = (error) => {
+const actGetMovieListFail = (error) => {
   return {
-    type: actType.GET_MOVIE_LIST_FAILED,
+    type: actType.GET_MOVIE_LIST_FAIL,
     payload: error,
   };
 };

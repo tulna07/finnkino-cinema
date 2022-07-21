@@ -1,8 +1,8 @@
 import {
-  GET_MOVIE_BANNER_REQUEST,
-  GET_MOVIE_BANNER_SUCCESS,
-  GET_MOVIE_BANNER_FAIL,
-} from "../constants/movieBanner";
+  GET_CINEMA_LIST_REQUEST,
+  GET_CINEMA_LIST_SUCCESS,
+  GET_CINEMA_LIST_FAIL,
+} from "../constants/cinemaSystem";
 
 const initialState = {
   loading: false,
@@ -10,21 +10,21 @@ const initialState = {
   error: null,
 };
 
-const movieBannerReducer = (state = initialState, action) => {
+const cinemaSystemReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_MOVIE_BANNER_REQUEST:
+    case GET_CINEMA_LIST_REQUEST:
       state.loading = true;
       state.data = null;
       state.error = null;
       return { ...state };
 
-    case GET_MOVIE_BANNER_SUCCESS:
+    case GET_CINEMA_LIST_SUCCESS:
       state.loading = false;
       state.data = action.payload;
       state.error = null;
       return { ...state };
 
-    case GET_MOVIE_BANNER_FAIL:
+    case GET_CINEMA_LIST_FAIL:
       state.loading = false;
       state.data = null;
       state.error = action.payload;
@@ -35,4 +35,4 @@ const movieBannerReducer = (state = initialState, action) => {
   }
 };
 
-export default movieBannerReducer;
+export default cinemaSystemReducer;

@@ -1,8 +1,8 @@
 import {
-  GET_MOVIE_BANNER_REQUEST,
-  GET_MOVIE_BANNER_SUCCESS,
-  GET_MOVIE_BANNER_FAIL,
-} from "../constants/movieBanner";
+  GET_MOVIE_DETAILS_REQUEST,
+  GET_MOVIE_DETAILS_SUCCESS,
+  GET_MOVIE_DETAILS_FAIL,
+} from "../constants/movieDetails";
 
 const initialState = {
   loading: false,
@@ -10,22 +10,22 @@ const initialState = {
   error: null,
 };
 
-const movieBannerReducer = (state = initialState, action) => {
+const movieDetailsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_MOVIE_BANNER_REQUEST:
+    case GET_MOVIE_DETAILS_REQUEST:
       state.loading = true;
       state.data = null;
       state.error = null;
       return { ...state };
 
-    case GET_MOVIE_BANNER_SUCCESS:
-      state.loading = false;
+    case GET_MOVIE_DETAILS_SUCCESS:
+      state.loading = true;
       state.data = action.payload;
       state.error = null;
       return { ...state };
 
-    case GET_MOVIE_BANNER_FAIL:
-      state.loading = false;
+    case GET_MOVIE_DETAILS_FAIL:
+      state.loading = true;
       state.data = null;
       state.error = action.payload;
       return { ...state };
@@ -35,4 +35,4 @@ const movieBannerReducer = (state = initialState, action) => {
   }
 };
 
-export default movieBannerReducer;
+export default movieDetailsReducer;

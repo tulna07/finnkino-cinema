@@ -1,14 +1,14 @@
 import {
-  MOVIE_BANNER_REQUEST,
-  MOVIE_BANNER_SUCCESS,
-  MOVIE_BANNER_FAIL,
+  GET_MOVIE_BANNER_REQUEST,
+  GET_MOVIE_BANNER_SUCCESS,
+  GET_MOVIE_BANNER_FAIL,
 } from "../constants/movieBanner";
 import { movieApi } from "@/services";
 
 const actFetchBanners = () => {
   return (dispatch) => {
     dispatch(actMovieBannerRequest());
-    const fetchBanners = async () => {
+    const fetchMovieBanners = async () => {
       try {
         const banners = await movieApi.getBannerList();
         dispatch(actMovieBannerSuccess(banners));
@@ -16,26 +16,26 @@ const actFetchBanners = () => {
         dispatch(actMovieBannerFail(error));
       }
     };
-    fetchBanners();
+    fetchMovieBanners();
   };
 };
 
 const actMovieBannerRequest = () => {
   return {
-    type: MOVIE_BANNER_REQUEST,
+    type: GET_MOVIE_BANNER_REQUEST,
   };
 };
 
 const actMovieBannerSuccess = (data) => {
   return {
-    type: MOVIE_BANNER_SUCCESS,
+    type: GET_MOVIE_BANNER_SUCCESS,
     payload: data,
   };
 };
 
 const actMovieBannerFail = (error) => {
   return {
-    type: MOVIE_BANNER_FAIL,
+    type: GET_MOVIE_BANNER_FAIL,
     payload: error,
   };
 };

@@ -20,8 +20,8 @@ const movieApi = {
     return axiosClient.get(url, { params });
   },
   getMovieDetails: (params) => {
-    const url = resourceName + "LayThongTinPhim";
-    return axiosClient.get(url, { params });
+    const url = resourceName + `LayThongTinPhim?MaPhim=${params}`;
+    return axiosClient.get(url);
   },
   deleteMovie: (params) => {
     const url = resourceName + "XoaPhim";

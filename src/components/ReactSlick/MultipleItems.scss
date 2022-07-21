@@ -1,0 +1,9 @@
+.carousel__arrow {
+  &.carousel__arrow--next {
+    right: 10%;
+  }
+
+  &.carousel__arrow--prev {
+    left: 10%;
+  }
+}
