@@ -3,7 +3,7 @@
   background-image: url("https://media.finnkino.fi/1012/Event_13314/landscape_hd/DrStrange_1920.jpg?width=1411");
   background-position: center;
   background-size: cover;
-  height: 500px;
+  height: 100%;
   padding-bottom: 50px;
 
   &:before {
@@ -44,12 +44,6 @@
   width: 70%;
   text-align: start;
 
-  .top-info__content-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--primary);
-  }
-
   .top-info__btn {
     font-size: 18px;
     padding: 10px 16px;
@@ -59,6 +53,12 @@
   .top-info__btn + .top-info__btn {
     margin-left: 20px;
   }
+}
+
+.top-info__content-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .top-info__btn.filled {
@@ -71,11 +71,11 @@
 
 .movie-detail__top-desc {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 15px;
   font-size: 13px;
-  background-color: var(--dark-gray);
+  background: var(--gray);
 
   p {
     margin: 0;
@@ -152,7 +152,12 @@
 
   p {
     font-size: 14px;
+    text-align: justify;
   }
+}
+
+.movie-detail__content {
+  flex-direction: row;
 }
 
 .movie-detail__syno,
@@ -178,14 +183,8 @@
     align-items: center;
   }
 
-  .movie-detail__top-info {
-    padding-bottom: 0;
-  }
   .top-info__img {
-    width: unset;
-    img {
-      width: 100%;
-    }
+    padding: 20px 0 50px 0;
   }
 
   .top-info__btn {
@@ -194,13 +193,53 @@
   }
 
   .movie-detail__top-desc {
-    background-color: var(--dark-gray);
     padding: 18px;
+  }
+
+  .movie-detail__desc-btn {
+    min-width: unset;
+  }
+
+  .movie-detail__content {
+    flex-direction: column-reverse;
   }
 }
 
 @media (min-width: 740px) and (max-width: 1023px) {
+  .movie-detail__top-info {
+    padding-bottom: 0;
+  }
+  .top-info__img {
+    img {
+      width: 240px;
+      height: 363px;
+      object-fit: cover;
+    }
+  }
 }
 
 @media (max-width: 739px) {
+  .movie-detail__top-info-wrapper {
+    justify-content: center;
+  }
+
+  .movie-detail__top-info {
+    padding-bottom: 0;
+  }
+
+  .top-info__img {
+    img {
+      width: 94px;
+      height: 142px;
+      object-fit: cover;
+    }
+  }
+
+  .top-info__btn {
+    bottom: 0;
+  }
+
+  .movie-detail__top-desc {
+    padding: 13px 0;
+  }
 }
