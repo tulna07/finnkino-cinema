@@ -21,6 +21,7 @@ const AdminRoutes = {
     { path: "", element: <Navigate to="user-management" /> },
     { path: "user-management", element: <div>User Management</div> },
     { path: "movie-management", element: <div>Movie Management </div> },
+    { path: "showtime-management", element: <div>Showtime Management </div> },
   ],
 };
 
