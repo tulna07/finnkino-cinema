@@ -205,14 +205,18 @@ const Navbar = () => {
             renderProfile()
           ) : (
             <>
-              <Button className="main-header__navbar-btn">
-                <span className="hide-on-mobile">Đăng nhập</span>
-                <FontAwesomeIcon className="btn__right-icon" icon={faSignIn} />
-              </Button>
-              <Button className="main-header__navbar-btn">
-                <span className="hide-on-mobile">Đăng ký</span>
-                <FontAwesomeIcon className="btn__right-icon" icon={faUser} />
-              </Button>
+              <Link to="/auth/login">
+                <Button className="main-header__navbar-btn">
+                  <span className="hide-on-mobile">Đăng nhập</span>
+                  <FontAwesomeIcon className="btn__right-icon" icon={faSignIn} />
+                </Button>
+              </Link>
+              <Link to="/auth/register">
+                <Button className="main-header__navbar-btn">
+                  <span className="hide-on-mobile">Đăng ký</span>
+                  <FontAwesomeIcon className="btn__right-icon" icon={faUser} />
+                </Button>
+              </Link>
             </>
           )}
         </Toolbar>
