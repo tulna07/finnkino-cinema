@@ -18,7 +18,7 @@ import { faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.scss";
 import Image from "@/components/Image";
 import images from "@/assets/images";
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Hồ sơ cá nhân", "Thẻ thành viên", "Đăng xuất"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -35,7 +35,11 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = (e) => {
+    if (e.target.innerHTML === "Đăng xuất") {
+      localStorage.removeItem("user");
+    }
+
     setAnchorElUser(null);
   };
 
@@ -44,7 +48,7 @@ const Navbar = () => {
   const renderProfile = () => {
     return (
       <Box sx={{ flexGrow: 0 }}>
-        <Tooltip title="Open settings">
+        <Tooltip title="Tài khoản cá nhân">
           <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
           </IconButton>
