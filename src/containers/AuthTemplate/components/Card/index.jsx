@@ -5,10 +5,10 @@ import { Stack, Avatar, Typography } from "@mui/material";
 
 import FinnkinoLogo from "@/assets/images/header-logo.png";
 
-const AuthCard = ({ children }) => {
+const Card = ({ children }) => {
   const { pathname } = useLocation();
 
-  const cardTitle = pathname === "/auth/login" ? "Log In" : "Register";
+  const cardTitle = pathname === "/auth/login" ? "Đăng Nhập" : "Đăng Ký";
 
   return (
     <Stack direction="column" alignItems="center" spacing={1} p={5} bgcolor="#fff">
@@ -21,4 +21,4 @@ const AuthCard = ({ children }) => {
   );
 };
 
-export default AuthCard;
+export default Card;
