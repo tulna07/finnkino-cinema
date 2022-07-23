@@ -3,7 +3,17 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks";
 
 // Material UI
-import { Avatar, Menu, MenuItem, ListItemIcon, Divider, IconButton, Tooltip } from "@mui/material";
+import {
+  Avatar,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Divider,
+  IconButton,
+  Tooltip,
+  Typography,
+  Stack,
+} from "@mui/material";
 import { Logout, AccountCircle } from "@mui/icons-material";
 
 const AccountAvatar = () => {
@@ -26,22 +36,27 @@ const AccountAvatar = () => {
 
   return (
     <>
-      <Tooltip title="Account settings">
-        <IconButton
-          onClick={handleOpenMenu}
-          size="small"
-          sx={{ ml: 2 }}
-          aria-controls={open ? "account-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-        >
-          <Avatar
-            alt="admin avatar"
-            src="https://i.pinimg.com/564x/e4/07/e7/e407e755e604c253887d8bf7ce1f9c3c.jpg"
-            sx={{ width: 60, height: 60 }}
-          />
-        </IconButton>
-      </Tooltip>
+      <Stack direction="row" alignItems="center" spacing={2}>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleOpenMenu}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <Avatar
+              alt="admin avatar"
+              src="https://i.pinimg.com/564x/e4/07/e7/e407e755e604c253887d8bf7ce1f9c3c.jpg"
+              sx={{ width: 60, height: 60 }}
+            />
+          </IconButton>
+        </Tooltip>
+        <Typography color="#000" variant="h6">
+          {auth.user.taiKhoan}
+        </Typography>
+      </Stack>
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -81,14 +96,14 @@ const AccountAvatar = () => {
           <ListItemIcon>
             <AccountCircle fontSize="medium" />
           </ListItemIcon>
-          Profile
+          Thông tin tài khoản
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Đăng xuất
         </MenuItem>
       </Menu>
     </>
