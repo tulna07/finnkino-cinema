@@ -1,0 +1,51 @@
+.admin-drawer {
+  &__avatar {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--logo-size);
+    height: var(--logo-size);
+  }
+
+  &__divider {
+    background-color: var(--light-gray);
+  }
+
+  &-list {
+    color: var(--white) !important;
+  }
+
+  &-list__item {
+    position: relative;
+    transition: padding-left 0.3s;
+
+    &.active {
+      background-color: var(--light-gray);
+    }
+
+    &::after {
+      background-color: var(--primary);
+
+      content: "";
+      display: block;
+      width: 0;
+      height: 3px;
+
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+
+      transition: width 0.3s;
+    }
+
+    &:not(.active):hover {
+      padding-left: 38px;
+
+      &::after {
+        width: 17px;
+      }
+    }
+  }
+}

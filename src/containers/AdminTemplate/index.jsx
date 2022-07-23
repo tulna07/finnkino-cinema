@@ -3,12 +3,12 @@ import { Outlet } from "react-router-dom";
 
 // Material UI
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { CssBaseline, Box, Toolbar, Container, Grid, Paper } from "@mui/material";
+import { Stack, Box, Toolbar, Grid, Paper } from "@mui/material";
 
 // Components
-import AdminAppBar from "./AdminAppBar";
-import AdminDrawer from "./AdminDrawer";
-import AdminFooter from "./AdminFooter";
+import AdminAppBar from "./components/AdminAppBar";
+import AdminDrawer from "./components/AdminDrawer";
+import AdminFooter from "./components/AdminFooter";
 
 const theme = createTheme();
 
@@ -18,8 +18,7 @@ function AdminTemplate() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
+      <Stack direction="row">
         <AdminAppBar toggleDrawer={toggleDrawer} open={open} />
         <AdminDrawer toggleDrawer={toggleDrawer} open={open} />
         <Box
@@ -33,41 +32,21 @@ function AdminTemplate() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Outlet />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                ></Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}></Paper>
-              </Grid>
+          <Grid container p={4}>
+            <Grid item xs={12}>
+              <Paper
+                sx={{
+                  p: 2,
+                  width: "100%",
+                }}
+              >
+                <Outlet />
+              </Paper>
             </Grid>
-            <AdminFooter sx={{ pt: 4 }} />
-          </Container>
+          </Grid>
+          <AdminFooter />
         </Box>
-      </Box>
+      </Stack>
     </ThemeProvider>
   );
 }

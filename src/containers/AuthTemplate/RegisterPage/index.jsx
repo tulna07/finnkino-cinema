@@ -14,11 +14,12 @@ import {
   Alert,
   IconButton,
 } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 // Components
-import AuthInput from "./AuthInput";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 // Yup resolver
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,17 +33,14 @@ import { userApi } from "@/services";
 // Constants
 import { GROUP_ID } from "@/constants";
 
-// Utils
-import { responseMapper } from "@/utils";
-
-const Register = () => {
+const RegisterPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmedPassword, setShowConfirmedPassword] = useState(true);
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [error, setError] = useState("");
   const { control, handleSubmit } = useForm({
     reValidateMode: "onSubmit",
     defaultValues: {
@@ -81,8 +79,7 @@ const Register = () => {
         auth.login(user);
         navigate("/", { replace: true });
       } catch (error) {
-        const msg = responseMapper(error);
-        setErrorMsg(msg);
+        setError(error);
       } finally {
         setLoading(false);
       }
@@ -91,50 +88,19 @@ const Register = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit(handleRegister)} noValidate mt={1}>
-      {errorMsg && (
+      {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
-          {errorMsg}
+          {error}
         </Alert>
       )}
-      <AuthInput
-        name="fullName"
-        control={control}
-        label="Full name"
-        fullWidth
-        variant="standard"
-        sx={{ mb: 2 }}
-      />
-      <AuthInput
-        name="username"
-        control={control}
-        label="Username"
-        fullWidth
-        variant="standard"
-        sx={{ mb: 2 }}
-      />
-      <AuthInput
-        name="email"
-        control={control}
-        type="email"
-        label="Email"
-        fullWidth
-        variant="standard"
-        sx={{ mb: 2 }}
-      />
-      <AuthInput
-        name="phoneNumber"
-        control={control}
-        label="Phone number"
-        fullWidth
-        variant="standard"
-        sx={{ mb: 2 }}
-      />
-      <AuthInput
+      <Input name="fullName" control={control} label="Họ và tên" />
+      <Input name="username" control={control} label="Tài khoản" />
+      <Input name="email" control={control} type="email" label="Email" />
+      <Input name="phoneNumber" control={control} label="Số điện thoại" />
+      <Input
         name="password"
         control={control}
-        label="Password"
-        fullWidth
-        variant="standard"
+        label="Mật khẩu"
         type={showPassword ? "password" : "text"}
         InputProps={{
           endAdornment: (
@@ -145,14 +111,11 @@ const Register = () => {
             </InputAdornment>
           ),
         }}
-        sx={{ mb: 2 }}
       />
-      <AuthInput
+      <Input
         name="confirmedPassword"
         control={control}
-        label="Confirm password"
-        fullWidth
-        variant="standard"
+        label="Xác nhận mật khẩu"
         type={showConfirmedPassword ? "password" : "text"}
         InputProps={{
           endAdornment: (
@@ -166,7 +129,6 @@ const Register = () => {
             </InputAdornment>
           ),
         }}
-        sx={{ mb: 2 }}
       />
       <FormControlLabel
         control={
@@ -174,42 +136,23 @@ const Register = () => {
         }
         label={
           <Box component="p">
-            I accept Finnkino web's <Link href="#">terms and conditions</Link>.
+            Tôi chấp nhận <Link href="#">điều khoản và dịch vụ</Link> của Finnkino.
           </Box>
         }
       />
-      <LoadingButton
-        onClick={() => setErrorMsg("")}
-        disabled={!checked}
-        loading={loading}
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{
-          p: 2,
-          mt: 3,
-          mb: 2,
-          backgroundColor: "#fdca00",
-          color: "#070707",
-          fontWeight: 700,
-          fontSize: 16,
-          "&:hover": {
-            backgroundColor: "#caa100;",
-          },
-        }}
-      >
-        Register
-      </LoadingButton>
+      <Button onClick={() => setError("")} disabled={!checked} loading={loading}>
+        Đăng ký
+      </Button>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Link href="#" variant="body2">
-          Forgot password?
+          Quên mật khẩu?
         </Link>
         <Link href="" variant="body2" onClick={() => navigate("/auth/login")}>
-          Already have an account? Log in
+          Đã có tài khoản? Đăng nhập
         </Link>
       </Stack>
     </Box>
   );
 };
 
-export default Register;
+export default RegisterPage;

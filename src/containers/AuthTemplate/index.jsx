@@ -6,10 +6,10 @@ import { useAuth } from "@/hooks";
 import { Box, Grid, Stack } from "@mui/material";
 
 // Components
-import AuthBackground from "./AuthBackground";
-import AuthHeader from "./AuthHeader";
-import AuthCard from "./AuthCard";
-import AuthFooter from "./AuthFooter";
+import AuthBackground from "./components/Background";
+import AuthHeader from "./components/Header";
+import AuthCard from "./components/Card";
+import AuthFooter from "./components/Footer";
 
 const AuthTemplate = () => {
   const auth = useAuth();
