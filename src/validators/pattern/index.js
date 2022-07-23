@@ -4,7 +4,7 @@
  *        - contains no special characters or numbers
  *        - Vietnamese name supported
  *   - username:
- *        - from 4 to 16 alphanumeric characters
+ *        - from 4 to 16 alphanumeric characters, lowercase
  *   - password:
  *        - minimum eight characters, at least one letter and one number
  */

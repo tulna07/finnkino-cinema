@@ -14,11 +14,11 @@ import {
   Alert,
   IconButton,
 } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 // Components
-import AuthInput from "./AuthInput";
+import Input from "../components/Input";
+import Button from "../components/Button";
 
 // Yup resolver
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -32,7 +32,7 @@ import { userApi } from "@/services";
 // Constants
 import { ROLE } from "@/constants";
 
-const Login = () => {
+const LoginPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(true);
@@ -63,7 +63,7 @@ const Login = () => {
           navigate("/admin", { replace: true });
         }
       } catch (error) {
-        setError(true);
+        setError(error);
       } finally {
         setLoading(false);
       }
@@ -74,23 +74,14 @@ const Login = () => {
     <Box component="form" onSubmit={handleSubmit(handleLogin)} noValidate mt={1}>
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
-          Incorrect username or password.
+          {error}
         </Alert>
       )}
-      <AuthInput
-        name="username"
-        control={control}
-        label="Username"
-        fullWidth
-        variant="standard"
-        sx={{ mb: 3 }}
-      />
-      <AuthInput
+      <Input name="username" control={control} label="Tài khoản" />
+      <Input
         name="password"
         control={control}
-        label="Password"
-        fullWidth
-        variant="standard"
+        label="Mật khẩu"
         type={showPassword ? "password" : "text"}
         InputProps={{
           endAdornment: (
@@ -105,39 +96,21 @@ const Login = () => {
       />
       <FormControlLabel
         control={<Checkbox value="remember" color="primary" />}
-        label="Remember me"
+        label="Ghi nhớ đăng nhập"
       />
-      <LoadingButton
-        onClick={() => setError(false)}
-        loading={loading}
-        type="submit"
-        fullWidth
-        variant="contained"
-        sx={{
-          p: 2,
-          mt: 3,
-          mb: 2,
-          backgroundColor: "#fdca00",
-          color: "#070707",
-          fontWeight: 700,
-          fontSize: 16,
-          "&:hover": {
-            backgroundColor: "#caa100;",
-          },
-        }}
-      >
-        Log In
-      </LoadingButton>
+      <Button onClick={() => setError(false)} loading={loading}>
+        Đăng nhập
+      </Button>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Link href="#" variant="body2">
-          Forgot password?
+          Quên mật khẩu?
         </Link>
         <Link href="" variant="body2" onClick={() => navigate("/auth/register")}>
-          Don't have an account? Register
+          Không có tài khoản? Đăng ký
         </Link>
       </Stack>
     </Box>
   );
 };
 
-export default Login;
+export default LoginPage;
