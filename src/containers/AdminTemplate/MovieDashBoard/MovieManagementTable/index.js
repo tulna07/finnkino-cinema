@@ -1,31 +1,37 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import { alpha } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
+
+// Material UI
+import {
+  alpha,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TableSortLabel,
+  Toolbar,
+  Typography,
+  Paper,
+  IconButton,
+  Tooltip,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { visuallyHidden } from "@mui/utils";
 import { BorderColor } from "@mui/icons-material";
+import { visuallyHidden } from "@mui/utils";
+
+// Components
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
+import MovieModal from "../components/MovieModal";
 
-//Actions of table
+//Actions of table -> fix
 const tableActions = [
   {
     id: "fixData",
@@ -40,6 +46,12 @@ const tableActions = [
     classes: { color: "error" },
   },
 ];
+
+const EditMovieBtn = (props) => (
+  <IconButton color="info" {...props}>
+    <BorderColor />
+  </IconButton>
+);
 
 //Customize Data
 function createData(movieID, movieImg, movieTitle, movieDesc, actions) {
@@ -278,7 +290,7 @@ function MovieManagementTable({ movieList, loading }) {
       ) : (
         <Box sx={{ width: "100%" }}>
           <Paper sx={{ width: "100%", mb: 2 }}>
-            <EnhancedTableToolbar numSelected={selected.length} />
+            {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
             <TableContainer>
               <Table
                 sx={{ minWidth: 750 }}
@@ -337,11 +349,12 @@ function MovieManagementTable({ movieList, loading }) {
                             {row.moTa}
                           </TableCell>
                           <TableCell align="right" sx={{ width: "150px" }}>
-                            {tableActions.map((action) => (
+                            {/* {tableActions.map((action) => (
                               <Tooltip key={action.id} title={action.label}>
                                 <IconButton {...action.classes}>{action.icon}</IconButton>
                               </Tooltip>
-                            ))}
+                            ))} */}
+                            <MovieModal ModalButton={EditMovieBtn} />
                           </TableCell>
                         </TableRow>
                       );
