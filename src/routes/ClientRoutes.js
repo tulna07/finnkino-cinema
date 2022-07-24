@@ -10,6 +10,7 @@ import { ROLE } from "@/constants";
 const HomeTemp = lazy(() => import("@/containers/HomeTemplate"));
 const HomePage = lazy(() => import("@/containers/HomeTemplate/HomePage"));
 const MovieDetailPage = lazy(() => import("@/containers/HomeTemplate/MovieDetailsPage"));
+const TicketBookingPage = lazy(() => import("@/containers/HomeTemplate/TicketBookingPage"));
 
 const ClientRoutes = {
   path: "/",
@@ -24,7 +25,7 @@ const ClientRoutes = {
       path: "ticket-booking",
       element: (
         <RequireAuth roles={[ROLE.ADMIN, ROLE.CLIENT]}>
-          <div>Ticket Booking</div>
+          <TicketBookingPage />
         </RequireAuth>
       ),
     },
