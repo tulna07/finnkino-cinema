@@ -29,9 +29,6 @@ import { loginSchema } from "@/validators";
 // Api
 import { userApi } from "@/services";
 
-// Constants
-import { ROLE } from "@/constants";
-
 const LoginPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -55,13 +52,7 @@ const LoginPage = () => {
         user = await userApi.login(user);
         auth.login(user);
 
-        if (user.maLoaiNguoiDung === ROLE.CLIENT) {
-          navigate("/", { replace: true });
-        }
-
-        if (user.maLoaiNguoiDung === ROLE.ADMIN) {
-          navigate("/admin", { replace: true });
-        }
+        navigate(-1);
       } catch (error) {
         setError(error);
       } finally {
