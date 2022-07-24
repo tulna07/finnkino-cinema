@@ -1,0 +1,15 @@
+.modal__input-label {
+  &:hover,
+  &:focus,
+  &.Mui-focused {
+    color: var(--primary);
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 739px) {
+  .movie-modal {
+    width: 96%;
+  }
+}
