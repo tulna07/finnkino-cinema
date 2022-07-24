@@ -33,6 +33,19 @@ body {
     border: 1px solid transparent;
     cursor: pointer;
   }
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 16px;
+
+    &-thumb {
+      background-color: var(--primary);
+
+      &:hover {
+        background-color: var(--hover-primary);
+      }
+    }
+  }
 }
 
 .btn-wrapper {
@@ -59,9 +72,6 @@ body {
       border-color: #e0e0e0;
     }
   }
-}
-
-.btn-outline {
 }
 
 a[href] {
