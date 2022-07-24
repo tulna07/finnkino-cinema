@@ -8,7 +8,7 @@ import {
   faLinkedin,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import "./Footer.scss";
+import "./style.scss";
 import Image from "@/components/Image";
 import { Grid } from "@mui/material";
 import images from "@/assets/images";

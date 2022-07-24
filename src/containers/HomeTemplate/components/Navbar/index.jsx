@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignIn, faUser } from "@fortawesome/free-solid-svg-icons";
 
-import "./Navbar.scss";
+import "./style.scss";
 import Image from "@/components/Image";
 import images from "@/assets/images";
 const settings = ["Hồ sơ cá nhân", "Thẻ thành viên", "Đăng xuất"];
