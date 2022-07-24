@@ -40,6 +40,7 @@ const AdminAppBar = ({ toggleDrawer, open }) => (
         onClick={toggleDrawer}
         sx={{
           marginRight: "36px",
+          color: "var(--black)",
           ...(open && { display: "none" }),
         }}
       >
@@ -52,4 +53,5 @@ const AdminAppBar = ({ toggleDrawer, open }) => (
     </Toolbar>
   </AppBar>
 );
+
 export default AdminAppBar;
