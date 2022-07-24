@@ -1,19 +1,27 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Container, Typography } from "@mui/material";
+
+//FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-import "./style.scss";
-import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/redux/constants/movieList";
-import actGetMovieList from "@/redux/actions/movieList";
+//Material UI
+import { Box, Button, Container, Typography } from "@mui/material";
+
+//Components
 import MultipleItems from "@/components/ReactSlick/MultipleItems";
 import Loader from "@/components/Loader";
+
+import "./style.scss";
+import actGetMovieList from "@/redux/actions/movieList";
+import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/redux/constants/movieList";
+import { Link } from "react-router-dom";
 
 function MovieList() {
   useEffect(() => {
     dispatch(actGetMovieList());
   }, []);
+
   const dispatch = useDispatch();
   const movieList = useSelector((state) => state.movieList.data);
   const loading = useSelector((state) => state.movieList.loading);
@@ -30,7 +38,7 @@ function MovieList() {
   };
 
   return (
-    <div className="home__movie-list">
+    <Box className="home__movie-list">
       <Typography align="center" className="home-list__btn-list">
         <Button
           variant="text"
@@ -47,6 +55,7 @@ function MovieList() {
           Phim sắp chiếu
         </Button>
       </Typography>
+
       <Box className="movie-list__carousel-wrapper">
         <Container maxWidth="lg" sx={{ mx: "auto" }}>
           {loading ? (
@@ -64,22 +73,25 @@ function MovieList() {
               prevArrow={<FontAwesomeIcon icon={faAngleLeft} />}
             />
           )}
+
           <Container maxWidth="lg" sx={{ mx: "auto" }}>
-            <Button
-              variant="contained"
-              size="small"
-              className="btn-wrapper btn-filled movie-list__carousel-btn"
-            >
-              Show all
-              <FontAwesomeIcon
-                icon={faAngleDoubleRight}
-                className="movie-list__carousel-btn-icon"
-              />
-            </Button>
+            <Link to="/">
+              <Button
+                variant="contained"
+                size="small"
+                className="btn-wrapper btn-filled movie-list__carousel-btn"
+              >
+                Show all
+                <FontAwesomeIcon
+                  icon={faAngleDoubleRight}
+                  className="movie-list__carousel-btn-icon"
+                />
+              </Button>
+            </Link>
           </Container>
         </Container>
       </Box>
-    </div>
+    </Box>
   );
 }
 

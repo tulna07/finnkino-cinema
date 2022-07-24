@@ -46,11 +46,11 @@ body {
 
 .btn-wrapper {
   &.btn-filled {
-    color: var(--dark);
+    color: var(--dark-gray);
     background-color: var(--primary);
 
     > a {
-      color: var(--dark);
+      color: var(--dark-gray);
     }
 
     &:hover {
