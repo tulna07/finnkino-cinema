@@ -1,10 +1,10 @@
 .admin-drawer {
   &__avatar {
-    position: absolute;
+    position: absolute !important;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: var(--logo-size);
+    width: var(--logo-size) !important;
     height: var(--logo-size);
   }
 
@@ -18,10 +18,10 @@
 
   &-list__item {
     position: relative;
-    transition: padding-left 0.3s;
+    transition: padding-left 0.3s !important;
 
     &.active {
-      background-color: var(--light-gray);
+      background-color: var(--light-gray) !important;
     }
 
     &::after {
@@ -37,7 +37,7 @@
       left: 10px;
       transform: translateY(-50%);
 
-      transition: width 0.3s;
+      transition: width 0.3s !important;
     }
 
     &:not(.active):hover {
