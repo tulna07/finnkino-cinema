@@ -1,0 +1,43 @@
+.seat-selector {
+  height: 700px;
+  padding: 17px 22px;
+  background-color: var(--white);
+
+  &__title {
+    margin-bottom: 15px;
+  }
+
+  &__map {
+    padding: 20px;
+    background-color: var(--dark-gray);
+
+    &-grid {
+      margin: 0 auto;
+      width: 600px;
+    }
+  }
+
+  &__screen {
+    height: 7px;
+    width: 80%;
+    margin-bottom: 20px;
+    margin: 20px auto;
+    background-color: var(--primary);
+
+    &-title {
+      text-align: center;
+    }
+  }
+
+  &__seat {
+    width: 32px;
+    height: 32px;
+    color: var(--white) !important;
+    font-size: 13px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 3px;
+    background-color: var(--light-gray);
+    color: var(--black);
+  }
+}

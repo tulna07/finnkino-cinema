@@ -1,0 +1,40 @@
+.ticket-booking-card {
+  padding: 16px;
+  color: var(--white);
+  background-color: var(--gray);
+
+  &__media {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 16px;
+  }
+
+  &__content {
+    font-size: 18px;
+    padding: 0;
+  }
+
+  &__movie-name {
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__divider {
+    background-color: var(--light-gray);
+  }
+
+  &__btn-booking {
+    padding: 15px 42px;
+    font: {
+      size: 16px;
+      weight: 700;
+    }
+    color: var(--black);
+    background-color: var(--primary);
+    border-radius: 0;
+
+    &:hover {
+      background-color: var(--hover-primary);
+    }
+  }
+}
