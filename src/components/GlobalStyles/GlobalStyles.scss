@@ -39,11 +39,7 @@ body {
     width: 16px;
 
     &-thumb {
-      background-color: var(--primary);
-
-      &:hover {
-        background-color: var(--hover-primary);
-      }
+      background-color: var(--light-gray);
     }
   }
 }

@@ -5,7 +5,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: var(--logo-size) !important;
-    height: var(--logo-size);
+    height: var(--logo-size) !important;
   }
 
   &__divider {

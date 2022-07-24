@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import moment from "moment";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./MovieSchedule.scss";
+import "./style.scss";
 
 function MovieSchedule({ movie, cinemaGroup }) {
   const renderSchedule = () => {

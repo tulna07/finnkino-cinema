@@ -9,7 +9,7 @@ import Box from "@mui/material/Box";
 
 import actGetCinemaList from "@/redux/actions/cinemaSystem";
 import Image from "@/components/Image";
-import "./CinemaSystem.scss";
+import "./style.scss";
 import CinemaGroup from "./CinemaGroup";
 import Loader from "@/components/Loader";
 

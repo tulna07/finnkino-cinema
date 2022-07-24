@@ -4,7 +4,7 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-import "./Carousel.scss";
+import "./style.scss";
 import actFetchBanners from "@/redux/actions/movieBanner";
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";

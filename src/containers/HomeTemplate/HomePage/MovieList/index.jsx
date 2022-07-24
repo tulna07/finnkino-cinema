@@ -4,7 +4,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-import "./MovieList.scss";
+import "./style.scss";
 import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/redux/constants/movieList";
 import actGetMovieList from "@/redux/actions/movieList";
 import MultipleItems from "@/components/ReactSlick/MultipleItems";

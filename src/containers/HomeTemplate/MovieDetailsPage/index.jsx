@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faAt, faHeart, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faTwitter, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
-import "./MovieDetailsPage.scss";
+import "./style.scss";
 import Image from "@/components/Image";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
 import Loader from "@/components/Loader";

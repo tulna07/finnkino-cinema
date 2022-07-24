@@ -1,4 +1,4 @@
-import "./HomePage.scss";
+import "./style.scss";
 import Carousel from "@/containers/HomeTemplate/HomePage/Carousel";
 import MovieList from "./MovieList";
 import CinemaSystem from "./CinemaSystem";
