@@ -8,7 +8,7 @@
   }
 
   &__map {
-    padding: 20px;
+    padding: 24px;
     background-color: var(--dark-gray);
 
     &-grid {
@@ -30,14 +30,41 @@
   }
 
   &__seat {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     color: var(--white) !important;
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
     line-height: 32px;
     border-radius: 3px;
     background-color: var(--light-gray);
     color: var(--black);
+  }
+
+  &__seat-notes-container {
+    padding: 0 40px;
+    margin-top: 16px;
+    color: var(--black);
+  }
+
+  &__seat-notes {
+    width: 17px;
+    height: 17px;
+
+    &--selected {
+      background-color: #7dc71d;
+    }
+
+    &--sold {
+      background-color: #e11c01;
+    }
+
+    &--selectable {
+      background-color: var(--light-gray);
+    }
+
+    &--unavailable {
+      background-color: #0cbfca;
+    }
   }
 }
