@@ -195,18 +195,19 @@
 
   .movie-detail__top-desc {
     padding: 18px;
-  }
 
-  .movie-detail__desc-btn {
-    min-width: unset;
+    .movie-detail__desc-btn {
+      padding: 5px 4px;
+      min-width: unset;
+    }
+
+    .movie-detail__desc-btn-icon {
+      margin-left: 11px !important;
+    }
   }
 
   .movie-detail__content {
     flex-direction: column-reverse;
-  }
-
-  .movie-detail__desc-btn-icon {
-    margin-right: 0 !important;
   }
 }
 
