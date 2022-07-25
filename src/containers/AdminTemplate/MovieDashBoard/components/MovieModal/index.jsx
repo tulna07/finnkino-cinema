@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 
-import "./MovieModal.scss";
+import "./style.scss";
 
 // Material UI
 import {
@@ -32,15 +32,45 @@ function MovieModal({ ModalButton, modalType, data }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { register, handleSubmit } = useForm();
 
-  register("test");
-  const onSubmit = () => {
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      movieName: "",
+      movieTrailer: "",
+      moviedesc: "",
+      movieReleaseDate: "",
+      movieOnAir: "",
+      movieAirSoon: "",
+      movieHotness: "",
+      movieImg: "",
+    },
+  });
+
+  // const formValues = {
+  //   movieName: "",
+  //   movieTrailer: "",
+  //   moviedesc: "",
+  //   movieReleaseDate: "",
+  //   movieOnAir: "",
+  //   movieAirSoon: "",
+  //   movieHotness: "",
+  //   movieImg: "",
+  // };
+
+  register("movieName", { required: "Trường này không được để trống" });
+  register("movieTrailer", {
+    required: {
+      value: true,
+      required: "Trường này không được để trống",
+    },
+  });
+
+  const onSubmit = (data) => {
     console.log(data);
   };
 
-  const onError = () => {
-    console.log("wrong");
+  const onError = (error) => {
+    console.error(error);
   };
 
   return (
@@ -61,49 +91,89 @@ function MovieModal({ ModalButton, modalType, data }) {
               <FormLabel className="modal__input-label" htmlFor="movie-name">
                 Tên phim
               </FormLabel>
-              <TextField id="movie-name" variant="outlined" fullWidth className="modal__input" />
+              <TextField
+                {...register("movieName", { required: true })}
+                id="movie-name"
+                variant="outlined"
+                fullWidth
+                className="modal__input"
+              />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1 }}>
               <FormLabel className="modal__input-label" htmlFor="movie-trailer">
                 Trailer
               </FormLabel>
-              <TextField id="movie-trailer" variant="outlined" fullWidth />
+              <TextField
+                {...register("movieTrailer", { required: true })}
+                id="movie-trailer"
+                variant="outlined"
+                fullWidth
+              />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1 }}>
               <FormLabel className="modal__input-label" htmlFor="movie-desc">
                 Mô tả
               </FormLabel>
-              <TextField id="movie-desc" variant="outlined" fullWidth multiline rows={4} />
+              <TextField
+                {...register("moviedesc", { required: true })}
+                id="movie-desc"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={4}
+              />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row" }}>
               <FormLabel className="modal__input-label" htmlFor="movie-release-date" sx={{ mr: 1 }}>
                 Ngày khởi chiếu
               </FormLabel>
-              <input id="movie-release-date" type="date" style={{ width: "fit-content" }} />
+              <input
+                {...register("movieReleaseDate", { required: true })}
+                id="movie-release-date"
+                type="date"
+                style={{ width: "fit-content" }}
+              />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
               <FormLabel className="modal__input-label" htmlFor="movie-on-air" sx={{ mr: 1 }}>
                 Đang chiếu
               </FormLabel>
-              <FormControlLabel id="movie-on-air" control={<Switch defaultChecked />} />
+              <FormControlLabel
+                {...register("movieOnAir", { required: true })}
+                id="movie-on-air"
+                control={<Switch defaultChecked />}
+              />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
               <FormLabel className="modal__input-label" sx={{ mr: 1 }}>
                 Sắp chiếu
               </FormLabel>
-              <FormControlLabel id="movie-air-soon" control={<Switch defaultChecked />} />
+              <FormControlLabel
+                {...register("movieAirSoon", { required: true })}
+                id="movie-air-soon"
+                control={<Switch defaultChecked />}
+              />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
               <FormLabel className="modal__input-label" htmlFor="movie-hotness" sx={{ mr: 1 }}>
                 Hot
               </FormLabel>
-              <FormControlLabel id="movie-hotness" control={<Switch defaultChecked />} />
+              <FormControlLabel
+                {...register("movieHotness", { required: true })}
+                id="movie-hotness"
+                control={<Switch defaultChecked />}
+              />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row" }}>
               <FormLabel className="modal__input-label" htmlFor="movie-img" sx={{ mr: 1 }}>
                 Hình ảnh
               </FormLabel>
-              <input id="movie-img" type="file" style={{ flex: 1 }} />
+              <input
+                {...register("movieImg", { required: true })}
+                id="movie-img"
+                type="file"
+                style={{ flex: 1 }}
+              />
             </FormControl>
             <Button sx={{ backgroundColor: "var(--primary)", color: "var(--dark-gray)" }}>
               Thêm phim

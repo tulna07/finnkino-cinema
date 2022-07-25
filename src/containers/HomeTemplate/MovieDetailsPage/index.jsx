@@ -81,7 +81,7 @@ function MovieDetailsPage() {
         className={`btn-wrapper movie-detail__desc-btn ${item.className}`}
         startIcon={item.icon}
       >
-        <Typography sx={{ display: { xs: "none", lg: "block", xl: "none" } }}>
+        <Typography sx={{ display: { xs: "none", lg: "block", xl: "block" } }}>
           {item.name}
         </Typography>
       </Button>
