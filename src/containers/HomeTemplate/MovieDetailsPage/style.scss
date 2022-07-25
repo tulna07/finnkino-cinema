@@ -92,7 +92,7 @@
 
   .movie-detail__desc-btn {
     color: var(--white);
-    padding: 5px 6px;
+    padding: 5px 15px 5px 6px;
     margin: 0 3px;
   }
 }
@@ -203,6 +203,10 @@
 
   .movie-detail__content {
     flex-direction: column-reverse;
+  }
+
+  .movie-detail__desc-btn-icon {
+    margin-right: 0 !important;
   }
 }
 
