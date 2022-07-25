@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
+
+//FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-import "./style.scss";
-import actFetchBanners from "@/redux/actions/movieBanner";
+//Components
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
+
+import "./style.scss";
+import actFetchBanners from "@/redux/actions/movieBanner";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;

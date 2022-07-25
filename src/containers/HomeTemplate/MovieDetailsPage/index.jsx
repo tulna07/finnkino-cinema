@@ -1,21 +1,26 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import moment from "moment";
+
+//FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight, faAt, faHeart, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faTwitter, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
-import "./style.scss";
+//Material UI
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
+
+//Components
 import Image from "@/components/Image";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
 import Loader from "@/components/Loader";
-import moment from "moment";
+
+import "./style.scss";
 
 function MovieDetailsPage() {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.movieDetails.data);
-  console.log(data);
   const loading = useSelector((state) => state.movieDetails.loading);
 
   const movieID = useParams();
@@ -24,6 +29,64 @@ function MovieDetailsPage() {
     dispatch(actFetchMovieDetails(movieID.id));
   }, []);
 
+  const socialList = [
+    {
+      name: "Share",
+      icon: (
+        <FontAwesomeIcon
+          className="movie-detail__desc-btn movie-detail__desc-btn-icon"
+          icon={faFacebookF}
+        />
+      ),
+      className: "desc-btn--facebook",
+    },
+    {
+      name: "Tweet",
+      icon: (
+        <FontAwesomeIcon
+          className="movie-detail__desc-btn movie-detail__desc-btn-icon"
+          icon={faTwitter}
+        />
+      ),
+      className: "desc-btn--twitter",
+    },
+    {
+      name: "WhatsApp",
+      icon: (
+        <FontAwesomeIcon
+          className="movie-detail__desc-btn movie-detail__desc-btn-icon"
+          icon={faWhatsapp}
+        />
+      ),
+      className: "desc-btn--whatsapp",
+    },
+    {
+      name: "E-mail",
+      icon: (
+        <FontAwesomeIcon
+          className="movie-detail__desc-btn movie-detail__desc-btn-icon"
+          icon={faAt}
+        />
+      ),
+      className: "desc-btn--email",
+    },
+  ];
+
+  const renderSocialBtn = () => {
+    return socialList.map((item, index) => (
+      <Button
+        key={index}
+        variant="contained"
+        size="small"
+        className={`btn-wrapper movie-detail__desc-btn ${item.className}`}
+        startIcon={item.icon}
+      >
+        <Typography sx={{ display: { xs: "none", lg: "block", xl: "none" } }}>
+          {item.name}
+        </Typography>
+      </Button>
+    ));
+  };
   const renderLoader = () => {
     if (loading) return <Loader />;
   };
@@ -32,104 +95,66 @@ function MovieDetailsPage() {
     <>
       {renderLoader()}
       {data && (
-        <div id="movie-detail-page">
+        <Box id="movie-detail-page">
           <Box>
             <Box
-              className="movie-detail__img-wrapper"
+              className="movie-detail__top-info"
               sx={{ height: { xs: "210px", sm: "420px", md: "630px" } }}
             >
-              <div className="movie-detail__top-info">
-                <Container className="movie-detail__top-info-wrapper container">
-                  <div className="top-info__img">
-                    <Image src={data.hinhAnh} alt={data.tenPhim} />
-                  </div>
-                  {/* Top info for PC screen */}
-                  <div className="top-info__content hide-on-mobile-tablet">
-                    <h3 className="top-info__content-title mb-3">{data.tenPhim}</h3>
-                    <Button
-                      variant="outlined"
-                      size="large"
-                      className="btn-wrapper btn-outline top-info__btn"
-                      startIcon={<FontAwesomeIcon icon={faPlay} />}
-                      href="https://www.youtube.com/"
-                    >
-                      Play Trailer
-                    </Button>
-                    <Button
-                      variant="contained"
-                      size="large"
-                      className="btn-wrapper btn-filled top-info__btn"
-                      endIcon={<FontAwesomeIcon icon={faAnglesRight} />}
-                    >
-                      <Link to="/">Tickets</Link>
-                    </Button>
-                  </div>
+              <Container className="movie-detail__top-info-wrapper container">
+                <Box className="top-info__img">
+                  <Image src={data.hinhAnh} alt={data.tenPhim} />
+                </Box>
 
-                  {/* Top info for tablet + mobile screens */}
+                {/* Top info for PC screen */}
+                <Box className="top-info__content hide-on-mobile-tablet">
+                  <Typography variant="h3" className="top-info__content-title" sx={{ mb: 2 }}>
+                    {data.tenPhim}
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    className="btn-wrapper btn-outline top-info__btn"
+                    startIcon={<FontAwesomeIcon icon={faPlay} />}
+                    href={data.trailer}
+                  >
+                    Play Trailer
+                  </Button>
                   <Button
                     variant="contained"
                     size="large"
-                    className="btn-wrapper btn-filled top-info__btn hide-on-pc"
+                    className="btn-wrapper btn-filled top-info__btn"
                     endIcon={<FontAwesomeIcon icon={faAnglesRight} />}
                   >
-                    <Link to="/">Tickets</Link>
+                    <Link to="/ticket-booking">Tickets</Link>
                   </Button>
-                </Container>
-              </div>
+                </Box>
+
+                {/* Top info for tablet + mobile screens */}
+                <Button
+                  variant="contained"
+                  size="large"
+                  className="btn-wrapper btn-filled top-info__btn hide-on-pc"
+                  endIcon={<FontAwesomeIcon icon={faAnglesRight} />}
+                >
+                  <Link to="/ticket-booking">Tickets</Link>
+                </Button>
+              </Container>
             </Box>
+
             {/* Top desc for pc */}
-            <div className="movie-detail__top-desc hide-on-mobile-tablet">
-              <div className="movie-detail__desc-left">
+            <Box className="movie-detail__top-desc hide-on-mobile-tablet">
+              <Box className="movie-detail__desc-left">
                 <p>
                   <FontAwesomeIcon className="movie-detail__desc-icon" icon={faHeart} />
                   Rating: {data.danhGia}
                 </p>
                 <p>{data.hot && "Hot"}</p>
-              </div>
-              <div className="movie-detail__desc-right">
-                <Button
-                  variant="contained"
-                  size="small"
-                  className="btn-wrapper movie-detail__desc-btn desc-btn--facebook"
-                  startIcon={
-                    <FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faFacebookF} />
-                  }
-                >
-                  Share
-                </Button>
-                <Button
-                  variant="contained"
-                  size="small"
-                  className="btn-wrapper movie-detail__desc-btn desc-btn--twitter"
-                  startIcon={
-                    <FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faTwitter} />
-                  }
-                >
-                  Tweet
-                </Button>
-                <Button
-                  variant="contained"
-                  size="small"
-                  className="btn-wrapper movie-detail__desc-btn desc-btn--whatsapp"
-                  startIcon={
-                    <FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faWhatsapp} />
-                  }
-                >
-                  WhatsApp
-                </Button>
-                <Button
-                  variant="contained"
-                  size="small"
-                  className="btn-wrapper movie-detail__desc-btn desc-btn--email"
-                  startIcon={
-                    <FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faAt} />
-                  }
-                >
-                  E-mail
-                </Button>
-              </div>
-            </div>
+              </Box>
+              <Box className="movie-detail__desc-right">{renderSocialBtn()}</Box>
+            </Box>
           </Box>
+
           <Container maxWidth="md" className="movie-detail__content-wrapper container">
             <Typography
               className="top-info__content-title"
@@ -154,64 +179,17 @@ function MovieDetailsPage() {
           </Container>
 
           {/* Top info for tablet + mobile screens */}
-          <div className="movie-detail__top-desc container hide-on-pc">
-            <div className="movie-detail__desc-left">
+          <Box className="movie-detail__top-desc container hide-on-pc">
+            <Box className="movie-detail__desc-left">
               <p>
                 <FontAwesomeIcon className="movie-detail__desc-icon" icon={faHeart} />
                 Rating: {data.danhGia}
               </p>
               <p>{data.hot && "Hot"}</p>
-            </div>
-            <div className="movie-detail__desc-right">
-              <Button
-                variant="contained"
-                size="small"
-                className="btn-wrapper movie-detail__desc-btn desc-btn--facebook"
-                startIcon={
-                  <FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faFacebookF} />
-                }
-              >
-                <Typography sx={{ display: { xs: "none", lg: "block", xl: "none" } }}>
-                  Share
-                </Typography>
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                className="btn-wrapper movie-detail__desc-btn desc-btn--twitter"
-                startIcon={
-                  <FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faTwitter} />
-                }
-              >
-                <Typography sx={{ display: { xs: "none", lg: "block", xl: "none" } }}>
-                  Tweet
-                </Typography>
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                className="btn-wrapper movie-detail__desc-btn desc-btn--whatsapp"
-                startIcon={
-                  <FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faWhatsapp} />
-                }
-              >
-                <Typography sx={{ display: { xs: "none", lg: "block", xl: "none" } }}>
-                  WhatsApp
-                </Typography>
-              </Button>
-              <Button
-                variant="contained"
-                size="small"
-                className="btn-wrapper movie-detail__desc-btn desc-btn--email"
-                startIcon={<FontAwesomeIcon className="movie-detail__desc-btn-icon" icon={faAt} />}
-              >
-                <Typography sx={{ display: { xs: "none", lg: "block", xl: "none" } }}>
-                  E-mail
-                </Typography>
-              </Button>
-            </div>
-          </div>
-        </div>
+            </Box>
+            <Box className="movie-detail__desc-right">{renderSocialBtn()}</Box>
+          </Box>
+        </Box>
       )}
     </>
   );

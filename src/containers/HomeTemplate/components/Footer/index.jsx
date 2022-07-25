@@ -1,4 +1,6 @@
 import React from "react";
+
+//FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTwitter,
@@ -8,10 +10,15 @@ import {
   faLinkedin,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import "./style.scss";
-import Image from "@/components/Image";
+
+// Material UI
 import { Grid } from "@mui/material";
+
+// Components
+import Image from "@/components/Image";
 import images from "@/assets/images";
+
+import "./style.scss";
 
 function Footer() {
   return (
