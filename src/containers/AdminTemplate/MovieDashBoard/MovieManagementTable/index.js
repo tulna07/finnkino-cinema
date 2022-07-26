@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // Material UI
 import {
@@ -227,6 +228,9 @@ function MovieManagementTable({ movieList, loading }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+  //Get edited movie
+  const movieEdit = useSelector((state) => state.movieManagement.data);
+
   //Customize Data
   const rows = movieList ? movieList : [];
 
@@ -354,7 +358,8 @@ function MovieManagementTable({ movieList, loading }) {
                                 <IconButton {...action.classes}>{action.icon}</IconButton>
                               </Tooltip>
                             ))} */}
-                            <MovieModal ModalButton={EditMovieBtn} />
+                            {console.log(row)}
+                            <MovieModal ModalButton={EditMovieBtn} data={row} />
                           </TableCell>
                         </TableRow>
                       );

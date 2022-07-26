@@ -1,7 +1,15 @@
 import * as React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
+// Yup resolver
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 import "./style.scss";
+import { movieSchema } from "@/validators";
+import { actFetchMovieEdit } from "@/redux/actions/movieManagement";
 
 // Material UI
 import {
@@ -14,7 +22,10 @@ import {
   Button,
   Switch,
   FormControlLabel,
+  Alert,
+  FormHelperText,
 } from "@mui/material";
+import UploadButtons from "@/containers/AdminTemplate/components/UploadButton";
 
 const style = {
   position: "absolute",
@@ -33,49 +44,53 @@ function MovieModal({ ModalButton, modalType, data }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      movieName: "",
-      movieTrailer: "",
-      moviedesc: "",
-      movieReleaseDate: "",
-      movieOnAir: "",
-      movieAirSoon: "",
-      movieHotness: "",
-      movieImg: "",
-    },
+  const dispatch = useDispatch();
+
+  const [image, setImage] = React.useState("");
+
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({
+    resolver: yupResolver(movieSchema),
   });
 
-  // const formValues = {
-  //   movieName: "",
-  //   movieTrailer: "",
-  //   moviedesc: "",
-  //   movieReleaseDate: "",
-  //   movieOnAir: "",
-  //   movieAirSoon: "",
-  //   movieHotness: "",
-  //   movieImg: "",
-  // };
-
-  register("movieName", { required: "Trường này không được để trống" });
-  register("movieTrailer", {
-    required: {
-      value: true,
-      required: "Trường này không được để trống",
-    },
-  });
-
-  const onSubmit = (data) => {
-    console.log(data);
+  const handleClick = (data) => {
+    handleOpen();
+    handleMovieEdit(data);
+  };
+  const onError = (err) => {
+    console.error(err);
   };
 
-  const onError = (error) => {
-    console.error(error);
+  const handleMovieEdit = (data) => {
+    dispatch(actFetchMovieEdit(data));
+  };
+
+  const handleMovie = async (movie) => {
+    try {
+      movie = {
+        movieName: movie.movieName,
+        movieTrailer: movie.movieTrailer,
+        movieDesc: movie.movieDesc,
+        movieReleaseDate: movie.movieReleaseDate,
+        movieOnAir: movie.movieOnAir,
+        movieAirSoon: movie.movieAirSoon,
+        movieHotness: movie.movieHotness,
+        movieImg: movie,
+      };
+      console.log(movie);
+    } catch (error) {
+      console.log(error);
+    }
+
+    const isValidMovie = await movieSchema.isValid(movie);
   };
 
   return (
     <div>
-      <ModalButton onClick={handleOpen} />
+      <ModalButton onClick={() => handleClick(data)} />
       <Modal
         open={open}
         onClose={handleClose}
@@ -86,17 +101,19 @@ function MovieModal({ ModalButton, modalType, data }) {
           <Typography id="modal-modal-title" variant="h5" component="h2">
             {data ? "Sửa thông tin phim" : "Thêm phim mới"}
           </Typography>
-          <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit(onSubmit, onError)}>
+          <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit(handleMovie, onError)}>
             <FormControl fullWidth sx={{ my: 1 }}>
               <FormLabel className="modal__input-label" htmlFor="movie-name">
                 Tên phim
               </FormLabel>
               <TextField
-                {...register("movieName", { required: true })}
+                name="movieName"
                 id="movie-name"
                 variant="outlined"
                 fullWidth
                 className="modal__input"
+                {...register("movieName")}
+                helperText={errors.movieName?.message}
               />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1 }}>
@@ -104,10 +121,12 @@ function MovieModal({ ModalButton, modalType, data }) {
                 Trailer
               </FormLabel>
               <TextField
-                {...register("movieTrailer", { required: true })}
+                name="movieTrailer"
                 id="movie-trailer"
                 variant="outlined"
                 fullWidth
+                {...register("movieTrailer")}
+                helperText={errors.movieTrailer?.message}
               />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1 }}>
@@ -115,12 +134,14 @@ function MovieModal({ ModalButton, modalType, data }) {
                 Mô tả
               </FormLabel>
               <TextField
-                {...register("moviedesc", { required: true })}
+                name="movieDesc"
                 id="movie-desc"
                 variant="outlined"
                 fullWidth
                 multiline
                 rows={4}
+                {...register("movieDesc")}
+                helperText={errors.movieDesc?.message}
               />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row" }}>
@@ -128,52 +149,63 @@ function MovieModal({ ModalButton, modalType, data }) {
                 Ngày khởi chiếu
               </FormLabel>
               <input
-                {...register("movieReleaseDate", { required: true })}
+                name="movieReleaseDate"
                 id="movie-release-date"
                 type="date"
                 style={{ width: "fit-content" }}
+                {...register("movieReleaseDate")}
               />
+              <FormHelperText>{errors.movimovieTrailer?.message}</FormHelperText>
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
               <FormLabel className="modal__input-label" htmlFor="movie-on-air" sx={{ mr: 1 }}>
                 Đang chiếu
               </FormLabel>
               <FormControlLabel
-                {...register("movieOnAir", { required: true })}
+                name="movieOnAir"
                 id="movie-on-air"
                 control={<Switch defaultChecked />}
+                {...register("movieOnAir")}
               />
+              <FormHelperText>{errors.momovieOnAir?.message}</FormHelperText>
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
               <FormLabel className="modal__input-label" sx={{ mr: 1 }}>
                 Sắp chiếu
               </FormLabel>
               <FormControlLabel
-                {...register("movieAirSoon", { required: true })}
+                name="movieAirSoon"
                 id="movie-air-soon"
                 control={<Switch defaultChecked />}
+                {...register("movieAirSoon")}
               />
+              <FormHelperText>{errors.movimovieAirSoon?.message}</FormHelperText>
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
               <FormLabel className="modal__input-label" htmlFor="movie-hotness" sx={{ mr: 1 }}>
                 Hot
               </FormLabel>
               <FormControlLabel
-                {...register("movieHotness", { required: true })}
+                name="movieHotness"
                 id="movie-hotness"
                 control={<Switch defaultChecked />}
+                {...register("movieHotness")}
               />
+              <FormHelperText>{errors.movimovieHotness?.message}</FormHelperText>
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row" }}>
               <FormLabel className="modal__input-label" htmlFor="movie-img" sx={{ mr: 1 }}>
                 Hình ảnh
               </FormLabel>
               <input
-                {...register("movieImg", { required: true })}
+                name="movieImg"
                 id="movie-img"
                 type="file"
                 style={{ flex: 1 }}
+                {...register("movieImg")}
+                //onChange={handleImageInput}
               />
+              <FormHelperText>{errors.movieImg?.message}</FormHelperText>
             </FormControl>
             <Button sx={{ backgroundColor: "var(--primary)", color: "var(--dark-gray)" }}>
               Thêm phim

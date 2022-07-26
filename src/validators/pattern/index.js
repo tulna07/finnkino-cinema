@@ -15,6 +15,8 @@ const pattern = {
   username: /^[a-z0-9]{4,16}$/,
   phoneNumber: /(84|0[3|5|7|8|9])+([0-9]{8})\b/,
   password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+  url: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/g,
+  imageUrl: /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g,
 };
 
 export default pattern;

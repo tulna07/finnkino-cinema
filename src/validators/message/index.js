@@ -7,6 +7,9 @@ const msg = {
   phoneNumber: "Số điện thoại không hiệu lực.",
   password: "Mật khẩu tối thiểu 8 ký tự, ít nhất 1 ký tự chữ và 1 số.",
   confirmedPassword: "Xác nhận mật khẩu không đúng.",
+  url: "Trường này phải là đường dẫn URL",
+  imageUrl: "Trường này phải là đường dẫn hình ảnh",
+  movieDesc: "Mô tả phim phải ở dạng chữ cái và không quá 300 kí tự",
 };
 
 export default msg;
