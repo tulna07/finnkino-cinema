@@ -1,12 +1,15 @@
+import { useState, useEffect } from "react";
+
 const useAuth = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
-  const login = (user) => {
-    user = { ...user, role: user.maLoaiNguoiDung };
+  useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
-  };
+  }, [user]);
 
-  const logout = () => localStorage.removeItem("user");
+  const login = (user) => setUser({ ...user, role: user.maLoaiNguoiDung });
+
+  const logout = () => setUser(null);
 
   return { user, login, logout };
 };
