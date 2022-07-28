@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks";
 import { useForm } from "react-hook-form";
 
@@ -53,6 +53,10 @@ const RegisterPage = () => {
     },
     resolver: yupResolver(registerSchema),
   });
+
+  if (auth.user) {
+    return <Navigate to="/" />;
+  }
 
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleShowConfirmedPassword = () => setShowConfirmedPassword(!showConfirmedPassword);
