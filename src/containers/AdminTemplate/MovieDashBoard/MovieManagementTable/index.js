@@ -1,6 +1,7 @@
 import * as React from "react";
+import { Fragment } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // Material UI
 import {
@@ -31,6 +32,9 @@ import { visuallyHidden } from "@mui/utils";
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
 import MovieModal from "../components/MovieModal";
+
+import { actFetchMovieEdit } from "@/redux/actions/movieManagement";
+import actFetchMovieDetails from "@/redux/actions/movieDetails";
 
 //Actions of table -> fix
 const tableActions = [
@@ -227,9 +231,16 @@ function MovieManagementTable({ movieList, loading }) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [openModal, setOpenModal] = React.useState(false);
 
-  //Get edited movie
-  const movieEdit = useSelector((state) => state.movieManagement.data);
+  const dispatch = useDispatch();
+  const movieEditData = useSelector((state) => state.movieDetails.data);
+
+  const handleEditMovie = (movieId) => {
+    setOpenModal(true);
+    console.log(movieId);
+    dispatch(actFetchMovieDetails(movieId));
+  };
 
   //Customize Data
   const rows = movieList ? movieList : [];
@@ -292,105 +303,108 @@ function MovieManagementTable({ movieList, loading }) {
       {loading ? (
         <Loader />
       ) : (
-        <Box sx={{ width: "100%" }}>
-          <Paper sx={{ width: "100%", mb: 2 }}>
-            {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
-            <TableContainer>
-              <Table
-                sx={{ minWidth: 750 }}
-                aria-labelledby="tableTitle"
-                size={dense ? "small" : "medium"}
-              >
-                <EnhancedTableHead
-                  numSelected={selected.length}
-                  order={order}
-                  orderBy={orderBy}
-                  onSelectAllClick={handleSelectAllClick}
-                  onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
-                />
-                <TableBody>
-                  {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
-                  {stableSort(rows, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
-                      const isItemSelected = isSelected(row.name);
-                      const labelId = `enhanced-table-checkbox-${index}`;
+        <Fragment>
+          <Box sx={{ width: "100%" }}>
+            <Paper sx={{ width: "100%", mb: 2 }}>
+              {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
+              <TableContainer>
+                <Table
+                  sx={{ minWidth: 750 }}
+                  aria-labelledby="tableTitle"
+                  size={dense ? "small" : "medium"}
+                >
+                  <EnhancedTableHead
+                    numSelected={selected.length}
+                    order={order}
+                    orderBy={orderBy}
+                    onSelectAllClick={handleSelectAllClick}
+                    onRequestSort={handleRequestSort}
+                    rowCount={rows.length}
+                  />
+                  <TableBody>
+                    {/* if you don't need to support IE11, you can replace the `stableSort` call with:
+                   rows.slice().sort(getComparator(order, orderBy)) */}
+                    {stableSort(rows, getComparator(order, orderBy))
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((row, index) => {
+                        const isItemSelected = isSelected(row.name);
+                        const labelId = `enhanced-table-checkbox-${index}`;
 
-                      return (
-                        <TableRow
-                          hover
-                          onClick={(event) => handleClick(event, row.name)}
-                          role="checkbox"
-                          aria-checked={isItemSelected}
-                          tabIndex={-1}
-                          key={index}
-                          selected={isItemSelected}
-                        >
-                          <TableCell
-                            align="right"
-                            component="th"
-                            id={labelId}
-                            scope="row"
-                            padding="none"
+                        return (
+                          <TableRow
+                            hover
+                            onClick={(event) => handleClick(event, row.name)}
+                            role="checkbox"
+                            aria-checked={isItemSelected}
+                            tabIndex={-1}
+                            key={index}
+                            selected={isItemSelected}
                           >
-                            {row.maPhim}
-                          </TableCell>
-                          <TableCell align="right" sx={{ width: "100px", height: "100px" }}>
-                            <Image
-                              src={row.hinhAnh}
-                              style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                                objectPosition: "center",
-                              }}
-                            />
-                          </TableCell>
-                          <TableCell align="left">{row.tenPhim}</TableCell>
-                          <TableCell align="left" sx={{ width: "300px" }}>
-                            {row.moTa}
-                          </TableCell>
-                          <TableCell align="right" sx={{ width: "150px" }}>
-                            {/* {tableActions.map((action) => (
-                              <Tooltip key={action.id} title={action.label}>
-                                <IconButton {...action.classes}>{action.icon}</IconButton>
-                              </Tooltip>
-                            ))} */}
-                            {console.log(row)}
-                            <MovieModal ModalButton={EditMovieBtn} data={row} />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  {emptyRows > 0 && (
-                    <TableRow
-                      style={{
-                        height: (dense ? 33 : 53) * emptyRows,
-                      }}
-                    >
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
+                            <TableCell
+                              align="right"
+                              component="th"
+                              id={labelId}
+                              scope="row"
+                              padding="none"
+                            >
+                              {row.maPhim}
+                            </TableCell>
+                            <TableCell align="right" sx={{ width: "100px", height: "100px" }}>
+                              <Image
+                                src={row.hinhAnh}
+                                style={{
+                                  width: "100%",
+                                  height: "100%",
+                                  objectFit: "cover",
+                                  objectPosition: "center",
+                                }}
+                              />
+                            </TableCell>
+                            <TableCell align="left">{row.tenPhim}</TableCell>
+                            <TableCell align="left" sx={{ width: "300px" }}>
+                              {row.moTa}
+                            </TableCell>
+                            <TableCell align="right" sx={{ width: "150px" }}>
+                              <EditMovieBtn onClick={() => handleEditMovie(row.maPhim)} />
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    {emptyRows > 0 && (
+                      <TableRow
+                        style={{
+                          height: (dense ? 33 : 53) * emptyRows,
+                        }}
+                      >
+                        <TableCell colSpan={6} />
+                      </TableRow>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+            <FormControlLabel
+              control={<Switch checked={dense} onChange={handleChangeDense} />}
+              label="Dense padding"
             />
-          </Paper>
-          <FormControlLabel
-            control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
+          </Box>
+          <MovieModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            title="Sửa thông tin phim"
+            button="Cập nhập"
+            data={movieEditData}
           />
-        </Box>
+        </Fragment>
       )}
     </>
   );

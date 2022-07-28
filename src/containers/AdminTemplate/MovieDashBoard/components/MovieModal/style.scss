@@ -1,4 +1,4 @@
-.modal__input-label {
+.movie-form__input-label {
   &:hover,
   &:focus,
   &.Mui-focused {
@@ -6,6 +6,22 @@
     transition: all 0.2s;
     cursor: pointer;
   }
+}
+
+.movie-form__error {
+  &.muioutlinedinput-root {
+    & fieldset {
+      border-color: red;
+    }
+  }
+}
+
+.modal__img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (max-width: 739px) {

@@ -27,6 +27,10 @@ const movieApi = {
     const url = resourceName + "XoaPhim";
     return axiosClient.delete(url, { params });
   },
+  addMovie: (movie) => {
+    const url = resourceName + "ThemPhimUploadHinh";
+    return axiosClient.post(url, movie);
+  },
 };
 
 export default movieApi;

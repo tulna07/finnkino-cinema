@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Material UI
@@ -8,12 +8,12 @@ import { Button } from "@mui/material";
 //Components
 import SearchBar from "../components/SearchBar";
 import MovieManagementTable from "./MovieManagementTable";
-import AddMovieModal from "./AddMovie";
 import MovieModal from "./components/MovieModal";
 
 import actGetMovieList from "@/redux/actions/movieList";
 
 function MovieDashBoard() {
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const movieList = useSelector((state) => state.movieList.data);
   const movieListLoading = useSelector((state) => state.movieList.loading);
@@ -40,11 +40,19 @@ function MovieDashBoard() {
   );
 
   return (
-    <Container>
-      <SearchBar />
-      <MovieModal ModalButton={AddMovieBtn} />
-      <MovieManagementTable movieList={movieList} loading={movieListLoading} />
-    </Container>
+    <>
+      <Container>
+        <SearchBar />
+        <AddMovieBtn onClick={() => setOpenModal(true)} />
+        <MovieManagementTable movieList={movieList} loading={movieListLoading} />
+      </Container>
+      <MovieModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        title="Thêm phim mới"
+        button="Thêm phim"
+      />
+    </>
   );
 }
 

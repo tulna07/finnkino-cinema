@@ -1,15 +1,16 @@
-import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
 // Yup resolver
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+
+//formik
+import { Formik, useFormik } from "formik";
 
 import "./style.scss";
 import { movieSchema } from "@/validators";
-import { actFetchMovieEdit } from "@/redux/actions/movieManagement";
+import { actFetchMovieEdit, actFetchMovieAdd } from "@/redux/actions/movieManagement";
 
 // Material UI
 import {
@@ -19,13 +20,14 @@ import {
   FormControl,
   TextField,
   FormLabel,
-  Button,
   Switch,
   FormControlLabel,
-  Alert,
   FormHelperText,
+  Rating,
 } from "@mui/material";
-import UploadButtons from "@/containers/AdminTemplate/components/UploadButton";
+import Button from "../Button";
+import moment from "moment";
+import Image from "@/components/Image";
 
 const style = {
   position: "absolute",
@@ -39,37 +41,122 @@ const style = {
   p: 4,
 };
 
-function MovieModal({ ModalButton, modalType, data }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+function MovieModal(props) {
+  const { title, button, openModal, setOpenModal, data } = props;
 
+  const [imgSrc, setImgSrc] = useState(null);
   const dispatch = useDispatch();
+  const handleClose = () => setOpenModal(false);
 
-  const [image, setImage] = React.useState("");
+  const { errors, values, touched, setFieldValue, handleSubmit, handleChange, handleBlur } =
+    useFormik({
+      initialValues: {
+        tenPhim: "",
+        trailer: "",
+        moTa: "",
+        ngayKhoiChieu: "",
+        dangChieu: false,
+        sapChieu: false,
+        hot: false,
+        danhGia: 0,
+        hinhAnh: {},
+      },
+      validationSchema: movieSchema,
+      onSubmit: (values) => {
+        console.log("values ", values);
+      },
+    });
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    resolver: yupResolver(movieSchema),
-  });
+  console.log("errors ", errors);
+  console.log("values 2 ", values);
 
-  const handleClick = (data) => {
-    handleOpen();
-    handleMovieEdit(data);
+  const initalState = {
+    tenPhim: "",
+    trailer: "",
+    moTa: "",
+    ngayKhoiChieu: "",
+    dangChieu: false,
+    sapChieu: false,
+    hot: false,
+    danhGia: 0,
+    hinhAnh: {},
   };
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [formValues, setFormValues] = useState();
+
+  useEffect(() => {
+    setFormValues(data);
+  }, [data]);
+
+  const handleChangeDatePicker = (date) => {
+    let ngayKhoiChieu = moment(date.target.value).format("DD/MM/YYYY");
+    setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
+  };
+
+  const handleChangeSwitch = (name) => {
+    return (value) => {
+      setFieldValue(name, value.target.checked);
+    };
+  };
+
+  const handleChangeNumberInput = (name) => {
+    return (value) => {
+      setFieldValue(name, value.target.value);
+    };
+  };
+
+  const handleChangeFile = (e) => {
+    let file = e.target.files[0];
+
+    if (
+      file.type === "image/jpeg" ||
+      file.type === "image/jpg" ||
+      file.type === "image/gif" ||
+      file.type === "image/png"
+    ) {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setImgSrc(e.target.result);
+      };
+
+      setFieldValue("hinhAnh", file);
+    }
+  };
+
+  const initialValues = {};
+  //Get edited movie
+  // if (movieId) {
+  //   console.log(movieId);
+  //   dispatch(actFetchMovieDetails(movieId));
+  // }
+
+  // const handleClick = () => {
+  //   handleOpen();
+  // };
+
+  // const onSubmit = (data) => {
+  //   //const actionResult = modalType === "Edit" ? handleMovieEdit(data) : handleMovieAdd(data);
+  //   //handleClose();
+
+  //   console.log(data);
+  // };
+
   const onError = (err) => {
-    console.error(err);
+    setError(err);
+    console.log(error);
   };
 
   const handleMovieEdit = (data) => {
-    dispatch(actFetchMovieEdit(data));
+    // dispatch(actFetchMovieEdit(data));
   };
 
-  const handleMovie = async (movie) => {
+  const handleMovieAdd = async (movie) => {
     try {
+      setLoading(true);
+
       movie = {
         movieName: movie.movieName,
         movieTrailer: movie.movieTrailer,
@@ -80,137 +167,171 @@ function MovieModal({ ModalButton, modalType, data }) {
         movieHotness: movie.movieHotness,
         movieImg: movie,
       };
-      console.log(movie);
+      const isValidMovie = await movieSchema.isValid(movie);
+      if (isValidMovie) {
+        dispatch(actFetchMovieAdd(movie));
+      }
     } catch (error) {
-      console.log(error);
+      setError(error);
+    } finally {
+      setLoading(false);
     }
-
-    const isValidMovie = await movieSchema.isValid(movie);
   };
 
   return (
     <div>
-      <ModalButton onClick={() => handleClick(data)} />
       <Modal
-        open={open}
+        open={openModal}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style} className="movie-modal">
           <Typography id="modal-modal-title" variant="h5" component="h2">
-            {data ? "Sửa thông tin phim" : "Thêm phim mới"}
+            {title}
           </Typography>
-          <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit(handleMovie, onError)}>
+          <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit}>
             <FormControl fullWidth sx={{ my: 1 }}>
-              <FormLabel className="modal__input-label" htmlFor="movie-name">
+              <FormLabel
+                className={`${
+                  errors.tenPhim
+                    ? "movie-form__error movie-form__input-label"
+                    : "movie-form__input-label"
+                }`}
+                htmlFor="movie-name"
+              >
                 Tên phim
               </FormLabel>
               <TextField
-                name="movieName"
+                name="tenPhim"
+                value={values.tenPhim}
                 id="movie-name"
                 variant="outlined"
                 fullWidth
-                className="modal__input"
-                {...register("movieName")}
-                helperText={errors.movieName?.message}
+                className={`${errors.tenPhim ? "movie-form__error modal__input" : "modal__input"}`}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.tenPhim}
               />
+              {console.log(errors.tenPhim)}
+              {errors.tenPhim && touched.email && <p>{errors.tenPhim}</p>}
             </FormControl>
             <FormControl fullWidth sx={{ my: 1 }}>
-              <FormLabel className="modal__input-label" htmlFor="movie-trailer">
+              <FormLabel className="movie-form__input-label" htmlFor="movie-trailer">
                 Trailer
               </FormLabel>
               <TextField
-                name="movieTrailer"
+                name="trailer"
+                value={values.trailer}
                 id="movie-trailer"
                 variant="outlined"
                 fullWidth
-                {...register("movieTrailer")}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 helperText={errors.movieTrailer?.message}
               />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1 }}>
-              <FormLabel className="modal__input-label" htmlFor="movie-desc">
+              <FormLabel className="movie-form__input-label" htmlFor="movie-desc">
                 Mô tả
               </FormLabel>
               <TextField
-                name="movieDesc"
+                name="moTa"
+                value={values.moTa}
                 id="movie-desc"
                 variant="outlined"
                 fullWidth
                 multiline
                 rows={4}
-                {...register("movieDesc")}
+                onChange={handleChange}
+                onBlur={handleBlur}
                 helperText={errors.movieDesc?.message}
               />
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row" }}>
-              <FormLabel className="modal__input-label" htmlFor="movie-release-date" sx={{ mr: 1 }}>
+              <FormLabel
+                className="movie-form__input-label"
+                htmlFor="movie-release-date"
+                sx={{ mr: 1 }}
+              >
                 Ngày khởi chiếu
               </FormLabel>
               <input
-                name="movieReleaseDate"
+                name="ngayKhoiChieu"
+                value={values.ngayKhoiChieu}
                 id="movie-release-date"
                 type="date"
                 style={{ width: "fit-content" }}
-                {...register("movieReleaseDate")}
+                onChange={handleChangeDatePicker}
+                onBlur={handleBlur}
               />
               <FormHelperText>{errors.movimovieTrailer?.message}</FormHelperText>
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
-              <FormLabel className="modal__input-label" htmlFor="movie-on-air" sx={{ mr: 1 }}>
+              <FormLabel className="movie-form__input-label" htmlFor="movie-on-air" sx={{ mr: 1 }}>
                 Đang chiếu
               </FormLabel>
-              <FormControlLabel
-                name="movieOnAir"
-                id="movie-on-air"
-                control={<Switch defaultChecked />}
-                {...register("movieOnAir")}
+              <Switch
+                name="dangChieu"
+                value={values.dangChieu}
+                onClick={handleChangeSwitch("dangChieu")}
               />
               <FormHelperText>{errors.momovieOnAir?.message}</FormHelperText>
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
-              <FormLabel className="modal__input-label" sx={{ mr: 1 }}>
+              <FormLabel className="movie-form__input-label" sx={{ mr: 1 }}>
                 Sắp chiếu
               </FormLabel>
-              <FormControlLabel
-                name="movieAirSoon"
-                id="movie-air-soon"
-                control={<Switch defaultChecked />}
-                {...register("movieAirSoon")}
+              <Switch
+                name="sapChieu"
+                value={values.sapChieu}
+                label="Sắp chiếu"
+                onClick={handleChangeSwitch("sapChieu")}
+                onBlur={handleBlur}
+                inputProps={{ "aria-label": "controlled" }}
               />
               <FormHelperText>{errors.movimovieAirSoon?.message}</FormHelperText>
             </FormControl>
             <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
-              <FormLabel className="modal__input-label" htmlFor="movie-hotness" sx={{ mr: 1 }}>
+              <FormLabel className="movie-form__input-label" htmlFor="movie-hotness" sx={{ mr: 1 }}>
                 Hot
               </FormLabel>
-              <FormControlLabel
-                name="movieHotness"
-                id="movie-hotness"
-                control={<Switch defaultChecked />}
-                {...register("movieHotness")}
+              <Switch name="hot" value={values.hot} onClick={handleChangeSwitch("hot")} />
+              <FormHelperText>{errors.movimovieHotness?.message}</FormHelperText>
+            </FormControl>
+            <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
+              <FormLabel className="movie-form__input-label" htmlFor="movie-hotness" sx={{ mr: 1 }}>
+                Đánh giá
+              </FormLabel>
+              <Rating
+                name="danhGia"
+                defaultValue={0}
+                max={10}
+                onChange={handleChangeNumberInput("danhGia")}
+                onBlur={handleBlur}
               />
               <FormHelperText>{errors.movimovieHotness?.message}</FormHelperText>
             </FormControl>
-            <FormControl fullWidth sx={{ my: 1, flexDirection: "row" }}>
-              <FormLabel className="modal__input-label" htmlFor="movie-img" sx={{ mr: 1 }}>
-                Hình ảnh
-              </FormLabel>
-              <input
-                name="movieImg"
-                id="movie-img"
-                type="file"
-                style={{ flex: 1 }}
-                {...register("movieImg")}
-                //onChange={handleImageInput}
-              />
-              <FormHelperText>{errors.movieImg?.message}</FormHelperText>
+            <FormControl>
+              <Box fullWidth sx={{ my: 1, flexDirection: "row" }}>
+                <FormLabel className="movie-form__input-label" htmlFor="movie-img" sx={{ mr: 1 }}>
+                  Hình ảnh
+                </FormLabel>
+                <input
+                  name="hinhAnh"
+                  id="movie-img"
+                  type="file"
+                  accept="image/png, image/jpeg, image/gif, image/png"
+                  onChange={handleChangeFile}
+                  onBlur={handleBlur}
+                />
+                <FormHelperText>{errors.movieImg?.message}</FormHelperText>
+              </Box>
+              <Image src={imgSrc} alt="..." className="modal__img" />
             </FormControl>
-            <Button sx={{ backgroundColor: "var(--primary)", color: "var(--dark-gray)" }}>
-              Thêm phim
-            </Button>
-            <button type="submit">Submit</button>
+            <Box sx={{ mt: 2 }}>
+              <Button loading={loading}>{button}</Button>
+            </Box>
           </Box>
         </Box>
       </Modal>
