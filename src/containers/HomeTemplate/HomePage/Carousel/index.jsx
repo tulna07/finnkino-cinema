@@ -4,6 +4,10 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
+// React Slick config
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 import "./style.scss";
 import actFetchBanners from "@/store/actions/movieBanner";
 import Image from "@/components/Image";
