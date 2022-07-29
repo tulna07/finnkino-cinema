@@ -3,7 +3,7 @@ import {
   GET_MOVIE_BANNER_SUCCESS,
   GET_MOVIE_BANNER_FAIL,
 } from "../constants/movieBanner";
-import { movieApi } from "@/services";
+import { movieApi } from "@/api";
 
 const actFetchBanners = () => {
   return (dispatch) => {

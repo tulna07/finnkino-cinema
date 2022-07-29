@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 import "./style.scss";
-import actFetchBanners from "@/redux/actions/movieBanner";
+import actFetchBanners from "@/store/actions/movieBanner";
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
 

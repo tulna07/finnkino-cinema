@@ -11,7 +11,7 @@ import MovieManagementTable from "./MovieManagementTable";
 import AddMovieModal from "./AddMovie";
 import MovieModal from "./components/MovieModal";
 
-import actGetMovieList from "@/redux/actions/movieList";
+import actGetMovieList from "@/store/actions/movieList";
 
 function MovieDashBoard() {
   const dispatch = useDispatch();

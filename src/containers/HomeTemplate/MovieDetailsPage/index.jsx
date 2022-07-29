@@ -8,7 +8,7 @@ import { faFacebookF, faTwitter, faWhatsapp } from "@fortawesome/free-brands-svg
 
 import "./style.scss";
 import Image from "@/components/Image";
-import actFetchMovieDetails from "@/redux/actions/movieDetails";
+import actFetchMovieDetails from "@/store/actions/movieDetails";
 import Loader from "@/components/Loader";
 import moment from "moment";
 

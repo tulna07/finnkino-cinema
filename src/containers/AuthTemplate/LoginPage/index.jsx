@@ -27,7 +27,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/validators";
 
 // Api
-import { userApi } from "@/services";
+import { userApi } from "@/api";
 
 const LoginPage = () => {
   const auth = useAuth();

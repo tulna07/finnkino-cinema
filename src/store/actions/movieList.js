@@ -1,6 +1,6 @@
 import * as actType from "../constants/movieList";
 import { GROUP_ID } from "@/constants";
-import { movieApi } from "@/services";
+import { movieApi } from "@/api";
 
 const actGetMovieList = () => {
   return (dispatch) => {

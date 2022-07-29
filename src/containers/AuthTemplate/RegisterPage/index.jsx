@@ -28,7 +28,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "@/validators";
 
 // Api
-import { userApi } from "@/services";
+import { userApi } from "@/api";
 
 // Constants
 import { GROUP_ID } from "@/constants";

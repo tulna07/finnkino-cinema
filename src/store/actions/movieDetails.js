@@ -3,7 +3,7 @@ import {
   GET_MOVIE_DETAILS_SUCCESS,
   GET_MOVIE_DETAILS_FAIL,
 } from "../constants/movieDetails";
-import { movieApi } from "@/services";
+import { movieApi } from "@/api";
 
 const actFetchMovieDetails = (movieId) => {
   return (dispatch) => {

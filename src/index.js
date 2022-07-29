@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 
 // Redux config
 import { Provider } from "react-redux";
-import configureStore from "@/redux";
+import configureStore from "@/store";
 
 //React Slick config
 import "slick-carousel/slick/slick.css";

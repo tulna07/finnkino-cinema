@@ -7,7 +7,7 @@ import Tabs, { tabsClasses } from "@mui/material/Tabs";
 import { Grid, TabScrollButton } from "@mui/material";
 import Box from "@mui/material/Box";
 
-import actGetCinemaList from "@/redux/actions/cinemaSystem";
+import actGetCinemaList from "@/store/actions/cinemaSystem";
 import Image from "@/components/Image";
 import "./style.scss";
 import CinemaGroup from "./CinemaGroup";
