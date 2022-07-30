@@ -11,6 +11,9 @@ import MovieManagementTable from "./MovieManagementTable";
 import MovieModal from "./components/MovieModal";
 
 import actGetMovieList from "@/redux/actions/movieList";
+import actFetchMovieDetails from "@/redux/actions/movieDetails";
+
+import AddMovie from "./MovieManagementTable/components/AddMovie";
 
 function MovieDashBoard() {
   const [openModal, setOpenModal] = useState(false);
@@ -51,7 +54,15 @@ function MovieDashBoard() {
         setOpenModal={setOpenModal}
         title="Thêm phim mới"
         button="Thêm phim"
+        modalType="addMovie"
       />
+      {/* <AddMovie
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        title="Thêm phim mới"
+        button="Thêm phim"
+        modalType="addMovie"
+      /> */}
     </>
   );
 }

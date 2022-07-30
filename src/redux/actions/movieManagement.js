@@ -1,57 +1,58 @@
 import {
-  GET_MOVIE_EDIT_REQUEST,
-  GET_MOVIE_EDIT_SUCCESS,
-  GET_MOVIE_EDIT_FAIL,
-  GET_MOVIE_ADD_REQUEST,
-  GET_MOVIE_ADD_SUCCESS,
-  GET_MOVIE_ADD_FAIL,
+  GET_MOVIE_MANAGEMENT_REQUEST,
+  GET_MOVIE_MANAGEMENT_SUCCESS,
+  GET_MOVIE_MANAGEMENT_FAIL,
 } from "../constants/movieManagement";
 import { movieApi } from "@/services";
 
-const actFetchMovieEdit = (data) => {
-  return (dispatch) => {
-    dispatch(actGetMovieEditRequest());
-
-    const fetchMovieEdit = async () => {
-      try {
-        dispatch(actGetMovieEditSuccess(data));
-      } catch (error) {
-        dispatch(actGetMovieEditFail(error));
-      }
-    };
+const actMovieManagementRequest = () => {
+  return {
+    type: GET_MOVIE_MANAGEMENT_REQUEST,
   };
 };
 
-const actGetMovieEditRequest = () => {
+const actMovieManagementSuccess = (data) => {
   return {
-    type: GET_MOVIE_EDIT_REQUEST,
-  };
-};
-
-const actGetMovieEditSuccess = (data) => {
-  return {
-    type: GET_MOVIE_EDIT_SUCCESS,
+    type: GET_MOVIE_MANAGEMENT_SUCCESS,
     payload: data,
   };
 };
 
-const actGetMovieEditFail = (error) => {
+const actMovieManagementFail = (error) => {
   return {
-    type: GET_MOVIE_EDIT_FAIL,
+    type: GET_MOVIE_MANAGEMENT_FAIL,
     payload: error,
+  };
+};
+
+const actFetchMovieEdit = (movie) => {
+  return (dispatch) => {
+    dispatch(actMovieManagementRequest());
+
+    const fetchMovieEdit = async () => {
+      try {
+        const movieEdit = await movieApi.editMovie(movie);
+        dispatch(actMovieManagementSuccess(movieEdit));
+        alert("Edit movie successfully");
+      } catch (error) {
+        dispatch(actMovieManagementFail(error));
+      }
+    };
+
+    fetchMovieEdit();
   };
 };
 
 const actFetchMovieAdd = (movie) => {
   return (dispatch) => {
-    dispatch(actGetMovieAddRequest());
+    dispatch(actMovieManagementRequest());
 
     const fetchMovieAdd = async () => {
       try {
         const movieAdd = await movieApi.addMovie(movie);
-        dispatch(actGetMovieAddSuccess(movieAdd));
+        dispatch(actMovieManagementSuccess(movieAdd));
       } catch (error) {
-        dispatch(actGetMovieAddFail(error));
+        dispatch(actMovieManagementFail(error));
       }
     };
 
@@ -59,24 +60,21 @@ const actFetchMovieAdd = (movie) => {
   };
 };
 
-const actGetMovieAddRequest = () => {
-  return {
-    type: GET_MOVIE_ADD_REQUEST,
+const actFetchMovieDelete = (movieId) => {
+  return (dispatch) => {
+    dispatch(actMovieManagementRequest());
+
+    const fetchMovieAdd = async () => {
+      try {
+        const movieAdd = await movieApi.deleteMovie(movieId);
+        dispatch(actMovieManagementSuccess(movieAdd));
+      } catch (error) {
+        dispatch(actMovieManagementFail(error));
+      }
+    };
+
+    fetchMovieAdd();
   };
 };
 
-const actGetMovieAddSuccess = (data) => {
-  return {
-    type: GET_MOVIE_ADD_SUCCESS,
-    payload: data,
-  };
-};
-
-const actGetMovieAddFail = (error) => {
-  return {
-    type: GET_MOVIE_ADD_FAIL,
-    payload: error,
-  };
-};
-
-export { actFetchMovieEdit, actFetchMovieAdd };
+export { actFetchMovieEdit, actFetchMovieAdd, actFetchMovieDelete };

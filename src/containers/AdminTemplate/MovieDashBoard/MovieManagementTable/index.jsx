@@ -25,49 +25,18 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { BorderColor } from "@mui/icons-material";
 import { visuallyHidden } from "@mui/utils";
 
 // Components
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
 import MovieModal from "../components/MovieModal";
+import { EditMovieBtn, DeleteMovieBtn } from "../components/Button";
 
-import { actFetchMovieEdit } from "@/redux/actions/movieManagement";
+//Others
+import { actFetchMovieDelete } from "@/redux/actions/movieManagement";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
-
-//Actions of table -> fix
-const tableActions = [
-  {
-    id: "fixData",
-    label: "Sửa thông tin",
-    icon: <BorderColor />,
-    classes: { color: "info" },
-  },
-  {
-    id: "deleteData",
-    label: "Xoá dữ liệu",
-    icon: <DeleteIcon />,
-    classes: { color: "error" },
-  },
-];
-
-const EditMovieBtn = (props) => (
-  <IconButton color="info" {...props}>
-    <BorderColor />
-  </IconButton>
-);
-
-//Customize Data
-function createData(movieID, movieImg, movieTitle, movieDesc, actions) {
-  return {
-    movieID,
-    movieImg,
-    movieTitle,
-    movieDesc,
-    actions,
-  };
-}
+import "./style.scss";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -85,8 +54,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -99,37 +66,41 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-//Customize Data
 const headCells = [
   {
-    id: "movieID",
+    id: "maPhim",
     numeric: true,
     disablePadding: true,
     label: "Mã phim",
+    sortFunction: true,
   },
   {
-    id: "movieImg",
+    id: "hinhAnh",
     numeric: false,
     disablePadding: false,
     label: "Hình ảnh",
+    sortFunction: false,
   },
   {
-    id: "movieTitle",
+    id: "tenPhim",
     numeric: false,
     disablePadding: false,
     label: "Tên phim",
+    sortFunction: true,
   },
   {
-    id: "movieDesc",
+    id: "moTa",
     numeric: false,
     disablePadding: false,
     label: "Mô tả phim",
+    sortFunction: true,
   },
   {
-    id: "actions",
+    id: "hanhDong",
     numeric: false,
     disablePadding: false,
     label: "Hành động",
+    sortFunction: false,
   },
 ];
 
@@ -149,19 +120,26 @@ function EnhancedTableHead(props) {
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-              sx={{ fontWeight: "600" }}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+            {headCell.sortFunction ? (
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
+                sx={{ fontWeight: "600" }}
+                className="movie-table__head-item"
+              >
+                {headCell.label}
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === "desc" ? "sorted descending" : "sorted ascending"}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            ) : (
+              <Typography sx={{ fontWeight: "600" }} className="movie-table__head-item">
+                {headCell.label}
+              </Typography>
+            )}
           </TableCell>
         ))}
       </TableRow>
@@ -226,26 +204,34 @@ EnhancedTableToolbar.propTypes = {
 
 function MovieManagementTable({ movieList, loading }) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("movieID");
+  const [orderBy, setOrderBy] = React.useState("maPhim");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [openModal, setOpenModal] = React.useState(false);
+  const [movieEdit, setMovieEdit] = React.useState("");
 
   const dispatch = useDispatch();
   const movieEditData = useSelector((state) => state.movieDetails.data);
 
   const handleEditMovie = (movieId) => {
     setOpenModal(true);
-    console.log(movieId);
+    setMovieEdit(movieId);
     dispatch(actFetchMovieDetails(movieId));
   };
 
+  const handleDeleteMovie = (movieId) => {
+    if (window.confirm("Bạn có chắc muốn xoá phim có mã " + movieId)) {
+      dispatch(actFetchMovieDelete(movieId));
+      window.location.reload();
+    }
+  };
   //Customize Data
   const rows = movieList ? movieList : [];
 
   const handleRequestSort = (event, property) => {
+    console.log("click", property);
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
@@ -295,7 +281,6 @@ function MovieManagementTable({ movieList, loading }) {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
@@ -306,7 +291,6 @@ function MovieManagementTable({ movieList, loading }) {
         <Fragment>
           <Box sx={{ width: "100%" }}>
             <Paper sx={{ width: "100%", mb: 2 }}>
-              {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
               <TableContainer>
                 <Table
                   sx={{ minWidth: 750 }}
@@ -322,8 +306,6 @@ function MovieManagementTable({ movieList, loading }) {
                     rowCount={rows.length}
                   />
                   <TableBody>
-                    {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                   rows.slice().sort(getComparator(order, orderBy)) */}
                     {stableSort(rows, getComparator(order, orderBy))
                       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .map((row, index) => {
@@ -341,30 +323,35 @@ function MovieManagementTable({ movieList, loading }) {
                             selected={isItemSelected}
                           >
                             <TableCell
-                              align="right"
                               component="th"
                               id={labelId}
                               scope="row"
-                              padding="none"
+                              className="movie-table__table-cell table-cell__movie-id"
                             >
                               {row.maPhim}
                             </TableCell>
-                            <TableCell align="right" sx={{ width: "100px", height: "100px" }}>
-                              <Image
-                                src={row.hinhAnh}
-                                style={{
-                                  width: "100%",
-                                  height: "100%",
-                                  objectFit: "cover",
-                                  objectPosition: "center",
-                                }}
-                              />
+                            <TableCell
+                              sx={{ width: "200px", height: "100px" }}
+                              className="movie-table__table-cell table-cell__movie-img"
+                            >
+                              <Image src={row.hinhAnh} alt="movie image" />
                             </TableCell>
-                            <TableCell align="left">{row.tenPhim}</TableCell>
-                            <TableCell align="left" sx={{ width: "300px" }}>
+                            <TableCell
+                              align="left"
+                              sx={{ width: "200px", height: "100px" }}
+                              className="movie-table__table-cell table-cell__movie-name"
+                            >
+                              {row.tenPhim}
+                            </TableCell>
+                            <TableCell className="movie-table__table-cell table-cell__movie-desc">
                               {row.moTa}
                             </TableCell>
-                            <TableCell align="right" sx={{ width: "150px" }}>
+                            <TableCell
+                              align="right"
+                              sx={{ width: "150px" }}
+                              className="movie-table__table-cell table-cell__movie-actions"
+                            >
+                              <DeleteMovieBtn onClick={() => handleDeleteMovie(row.maPhim)} />
                               <EditMovieBtn onClick={() => handleEditMovie(row.maPhim)} />
                             </TableCell>
                           </TableRow>
@@ -403,6 +390,8 @@ function MovieManagementTable({ movieList, loading }) {
             title="Sửa thông tin phim"
             button="Cập nhập"
             data={movieEditData}
+            modalType="editMovie"
+            movieId={movieEdit}
           />
         </Fragment>
       )}

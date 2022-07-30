@@ -1,5 +1,5 @@
 import loginSchema from "./login";
 import registerSchema from "./register";
-import movieSchema from "./movieValidator";
+import { editMovieSchema, addMovieSchema } from "./movieValidator";
 
-export { loginSchema, registerSchema, movieSchema };
+export { loginSchema, registerSchema, editMovieSchema, addMovieSchema };

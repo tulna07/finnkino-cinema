@@ -1,10 +1,13 @@
 // Material UI
 import { LoadingButton } from "@mui/lab";
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { BorderColor } from "@mui/icons-material";
 
 // Scss
 import "./style.scss";
 
-const Button = ({ children, onClick, ...others }) => (
+const SubmitButton = ({ children, onClick, ...others }) => (
   <LoadingButton
     onClick={onClick}
     {...others}
@@ -16,4 +19,16 @@ const Button = ({ children, onClick, ...others }) => (
   </LoadingButton>
 );
 
-export default Button;
+const EditMovieBtn = (props) => (
+  <IconButton color="info" {...props}>
+    <BorderColor />
+  </IconButton>
+);
+
+const DeleteMovieBtn = (props) => (
+  <IconButton color="error" {...props}>
+    <DeleteIcon />
+  </IconButton>
+);
+
+export { SubmitButton, EditMovieBtn, DeleteMovieBtn };

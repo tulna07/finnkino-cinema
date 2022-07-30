@@ -10,6 +10,7 @@ const msg = {
   url: "Trường này phải là đường dẫn URL",
   imageUrl: "Trường này phải là đường dẫn hình ảnh",
   movieDesc: "Mô tả phim phải ở dạng chữ cái và không quá 300 kí tự",
+  rating: "Đánh giá phải có giá trị lớn hơn 0",
 };
 
 export default msg;

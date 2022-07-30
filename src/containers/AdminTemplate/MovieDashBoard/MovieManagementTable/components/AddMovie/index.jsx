@@ -8,8 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 //formik
 import { Formik, useFormik } from "formik";
 
-import "./style.scss";
-import { editMovieSchema, addMovieSchema } from "@/validators";
+import { movieSchema } from "@/validators";
 import { actFetchMovieEdit, actFetchMovieAdd } from "@/redux/actions/movieManagement";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
 import { GROUP_ID } from "@/constants";
@@ -26,10 +25,13 @@ import {
   FormHelperText,
   Rating,
 } from "@mui/material";
-import { SubmitButton } from "../Button";
+import { SubmitButton } from "@/containers/AdminTemplate/MovieDashBoard/components/Button";
 import moment from "moment";
 import Image from "@/components/Image";
 import MuiDatePicker from "@/components/MuiPicker";
+import * as yup from "yup";
+import msg from "@/validators/message";
+import pattern from "@/validators/pattern";
 
 const style = {
   position: "absolute",
@@ -46,13 +48,14 @@ const style = {
 function MovieModal(props) {
   const { title, button, openModal, setOpenModal, movieId, modalType } = props;
   const [imgSrc, setImgSrc] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [datePicker, setDatePicker] = useState(null);
 
   const dispatch = useDispatch();
-  const movieEdit = useSelector((state) => state.movieDetails.data);
-  const loadingEditMovie = useSelector((state) => state.movieDetails.loading);
   const handleClose = () => setOpenModal(false);
 
-  const initialValuesAddMovie = {
+  const initialValues = {
     tenPhim: "",
     trailer: "",
     moTa: "",
@@ -64,58 +67,48 @@ function MovieModal(props) {
     hinhAnh: "",
   };
 
-  const initialValuesEditMovie = {
-    maPhim: movieId,
-    tenPhim: movieEdit?.tenPhim,
-    trailer: movieEdit?.trailer,
-    moTa: movieEdit?.moTa,
-    ngayKhoiChieu: movieEdit?.ngayKhoiChieu,
-    dangChieu: movieEdit?.dangChieu,
-    sapChieu: movieEdit?.sapChieu,
-    hot: movieEdit?.hot,
-    danhGia: movieEdit?.danhGia,
-    hinhAnh: null,
-  };
-
-  let movieSchema = modalType === "addMovie" ? addMovieSchema : editMovieSchema;
-
+  const addMovieSchema = yup.object({
+    tenPhim: yup.string().required(msg.required),
+    trailer: yup.string().required(msg.required).matches(pattern.url, msg.url),
+    moTa: yup.string().required(msg.required),
+    ngayKhoiChieu: yup.string().required(msg.required),
+    dangChieu: yup.boolean().required(msg.required),
+    sapChieu: yup.boolean().required(msg.required),
+    hot: yup.boolean().required(msg.required),
+    danhGia: yup.number().min(1, msg.rating).required(msg.required),
+    hinhAnh: yup.mixed().required(msg.required),
+  });
   const { errors, values, touched, setFieldValue, handleSubmit, handleChange, handleBlur } =
     useFormik({
-      enableReinitialize: true,
-      initialValues: modalType === "addMovie" ? initialValuesAddMovie : initialValuesEditMovie,
-      validationSchema: movieSchema,
+      initialValues: {
+        tenPhim: "",
+      },
+      validationSchema: addMovieSchema,
       onSubmit: (values) => {
-        values.maNhom = GROUP_ID;
-        let formData = new FormData();
-        for (var key in values) {
-          if (key !== "hinhAnh") {
-            formData.append(key, values[key]);
-          } else {
-            if (values.hinhAnh !== null) {
-              formData.append("File", values.hinhAnh, values.hinhAnh.name);
-            }
-          }
-        }
+        // values.maNhom = GROUP_ID;
+        // let formData = new FormData();
+        // for (var key in values) {
+        //   if (key !== "hinhAnh") {
+        //     formData.append(key, values[key]);
+        //   } else {
+        //     if (values.hinhAnh !== null) {
+        //       formData.append("File", values.hinhAnh, values.hinhAnh.name);
+        //     }
+        //   }
+        // }
 
-        if (modalType === "addMovie") {
-          dispatch(actFetchMovieAdd(formData));
-        } else if (modalType === "editMovie") {
-          values.mapPhim = movieId;
-          dispatch(actFetchMovieEdit(formData));
-        }
+        console.log("add ", values);
 
-        window.location.reload();
+        //dispatch(actFetchMovieAdd(formData));
       },
     });
 
-  useEffect(() => {
-    if (movieId) {
-      dispatch(actFetchMovieDetails(movieId));
-    }
-  }, [movieId]);
+  console.log("errors ", errors);
+  console.log("values ", values);
 
   const handleChangeDatePicker = (date) => {
     let ngayKhoiChieu = moment(date).format("DD/MM/YYYY");
+    setDatePicker(date);
     setFieldValue("ngayKhoiChieu", ngayKhoiChieu);
   };
 
@@ -177,13 +170,12 @@ function MovieModal(props) {
                 </FormLabel>
                 <TextField
                   name="tenPhim"
-                  value={values.tenPhim}
+                  //   value={values.tenPhim}
                   id="movie-name"
                   variant="outlined"
                   fullWidth
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.tenPhim}
                   error={errors.tenPhim && touched.tenPhim ? true : false}
                 />
                 {errors.tenPhim && touched.tenPhim && (
@@ -196,7 +188,7 @@ function MovieModal(props) {
                 </FormLabel>
                 <TextField
                   name="trailer"
-                  value={values.trailer}
+                  //   value={values.trailer}
                   id="movie-trailer"
                   variant="outlined"
                   fullWidth
@@ -212,7 +204,7 @@ function MovieModal(props) {
                 </FormLabel>
                 <TextField
                   name="moTa"
-                  value={values.moTa}
+                  //   value={values.moTa}
                   id="movie-desc"
                   variant="outlined"
                   fullWidth
@@ -226,10 +218,7 @@ function MovieModal(props) {
                 <FormHelperText error>{errors.moTa}</FormHelperText>
               </FormControl>
               <FormControl>
-                <Box
-                  fullWidth
-                  sx={{ my: 1, flexDirection: "row", display: "flex", alignItems: "center" }}
-                >
+                <Box fullWidth sx={{ my: 1, flexDirection: "row" }}>
                   <FormLabel
                     className="movie-form__input-label"
                     htmlFor="movie-release-date"
@@ -244,10 +233,9 @@ function MovieModal(props) {
                     onChange={handleChangeDatePicker}
                     onBlur={handleBlur}
                     inputFormat={"DD/MM/YYYY"}
-                    value={values.ngayKhoiChieu}
                   />
-                  <FormHelperText error>{errors.ngayKhoiChieu}</FormHelperText>
                 </Box>
+                <FormHelperText error>{errors.ngayKhoiChieu}</FormHelperText>
               </FormControl>
               <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
                 <FormLabel
@@ -257,11 +245,7 @@ function MovieModal(props) {
                 >
                   Đang chiếu
                 </FormLabel>
-                <Switch
-                  name="dangChieu"
-                  onClick={handleChangeSwitch("dangChieu")}
-                  checked={values.dangChieu}
-                />
+                <Switch name="dangChieu" onClick={handleChangeSwitch("dangChieu")} />
                 <FormHelperText>{errors.momovieOnAir?.message}</FormHelperText>
               </FormControl>
               <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
@@ -274,7 +258,6 @@ function MovieModal(props) {
                   onClick={handleChangeSwitch("sapChieu")}
                   onBlur={handleBlur}
                   inputProps={{ "aria-label": "controlled" }}
-                  checked={values.sapChieu}
                 />
                 <FormHelperText>{errors.movimovieAirSoon?.message}</FormHelperText>
               </FormControl>
@@ -286,10 +269,10 @@ function MovieModal(props) {
                 >
                   Hot
                 </FormLabel>
-                <Switch name="hot" onClick={handleChangeSwitch("hot")} checked={values.hot} />
+                <Switch name="hot" onClick={handleChangeSwitch("hot")} />
                 <FormHelperText>{errors.movimovieHotness?.message}</FormHelperText>
               </FormControl>
-              <FormControl sx={{ display: "flex", flexDirection: "row" }}>
+              <FormControl>
                 <Box
                   fullWidth
                   sx={{ my: 1, display: "flex", flexDirection: "row", alignItems: "center" }}
@@ -303,9 +286,9 @@ function MovieModal(props) {
                   </FormLabel>
                   <Rating
                     name="danhGia"
-                    defaultValue={modalType === "addMovie" ? 0 : null}
+                    defaultValue={0}
                     max={10}
-                    value={values.danhGia}
+                    // value={values.danhGia}
                     onChange={handleChangeNumberInput("danhGia")}
                     onBlur={handleBlur}
                     error={errors.danhGia && touched.danhGia ? "true" : undefined}
@@ -325,16 +308,12 @@ function MovieModal(props) {
                     onChange={handleChangeFile}
                     onBlur={handleBlur}
                   />
+                  <Image src={imgSrc} alt="..." className="modal__img" />
+                  <FormHelperText error>{errors.hinhAnh}</FormHelperText>
                 </Box>
-                <FormHelperText error>{errors.hinhAnh}</FormHelperText>
-                <Image
-                  src={imgSrc === null && modalType === "editMovie" ? movieEdit?.hinhAnh : imgSrc}
-                  alt="..."
-                  className="modal__img"
-                />
               </FormControl>
               <Box sx={{ mt: 2 }}>
-                <SubmitButton>{button}</SubmitButton>
+                <SubmitButton loading={loading}>{button}</SubmitButton>
               </Box>
             </Box>
           </Formik>

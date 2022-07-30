@@ -24,12 +24,16 @@ const movieApi = {
     return axiosClient.get(url);
   },
   deleteMovie: (params) => {
-    const url = resourceName + "XoaPhim";
-    return axiosClient.delete(url, { params });
+    const url = resourceName + `XoaPhim?MaPhim=${params}`;
+    return axiosClient.delete(url);
   },
-  addMovie: (movie) => {
+  addMovie: (formData) => {
     const url = resourceName + "ThemPhimUploadHinh";
-    return axiosClient.post(url, movie);
+    return axiosClient.post(url, formData);
+  },
+  editMovie: (formData) => {
+    const url = resourceName + "CapNhatPhimUpload";
+    return axiosClient.post(url, formData);
   },
 };
 
