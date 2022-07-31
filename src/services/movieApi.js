@@ -7,9 +7,15 @@ const movieApi = {
     const url = resourceName + "LayDanhSachBanner";
     return axiosClient.get(url);
   },
-  getMovieList: (params) => {
-    const url = resourceName + "LayDanhSachPhim";
-    return axiosClient.get(url, { params });
+  getMovieList: (params, movieName) => {
+    let url;
+    if (movieName !== "") {
+      url = resourceName + `LayDanhSachPhim?maNhom=${params.maNhom}&tenPhim=${movieName}`;
+      return axiosClient.get(url);
+    } else {
+      url = resourceName + "LayDanhSachPhim";
+      return axiosClient.get(url, { params });
+    }
   },
   getPaginatedMovieList: (params) => {
     const url = resourceName + "LayDanhSachPhimPhanTrang";

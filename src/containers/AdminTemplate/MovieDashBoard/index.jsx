@@ -11,9 +11,6 @@ import MovieManagementTable from "./MovieManagementTable";
 import MovieModal from "./components/MovieModal";
 
 import actGetMovieList from "@/redux/actions/movieList";
-import actFetchMovieDetails from "@/redux/actions/movieDetails";
-
-import AddMovie from "./MovieManagementTable/components/AddMovie";
 
 function MovieDashBoard() {
   const [openModal, setOpenModal] = useState(false);
@@ -42,10 +39,13 @@ function MovieDashBoard() {
     </Button>
   );
 
+  const handleSearch = (value) => {
+    dispatch(actGetMovieList(value));
+  };
   return (
     <>
       <Container>
-        <SearchBar />
+        <SearchBar onSubmit={handleSearch} />
         <AddMovieBtn onClick={() => setOpenModal(true)} />
         <MovieManagementTable movieList={movieList} loading={movieListLoading} />
       </Container>
@@ -56,13 +56,6 @@ function MovieDashBoard() {
         button="Thêm phim"
         modalType="addMovie"
       />
-      {/* <AddMovie
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        title="Thêm phim mới"
-        button="Thêm phim"
-        modalType="addMovie"
-      /> */}
     </>
   );
 }
