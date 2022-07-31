@@ -28,7 +28,7 @@ const TicketBookingPage = () => {
   return (
     <Box className="ticket-booking-page" component="section">
       <Container maxWidth={false} sx={{ maxWidth: "90%" }}>
-        <Grid container spacing={7} columns={12}>
+        <Grid container spacing={7}>
           <Grid item md={8} xs={12}>
             <SeatSelector />
           </Grid>
