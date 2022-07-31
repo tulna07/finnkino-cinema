@@ -10,6 +10,7 @@ import { ROLE } from "@/constants";
 // Pages
 const AdminTemplate = lazy(() => import("@/containers/AdminTemplate"));
 const MovieDashboard = lazy(() => import("@/containers/AdminTemplate/MovieDashBoard"));
+const UserDashboard = lazy(() => import("@/containers/AdminTemplate/UserDashBoard"));
 
 const AdminRoutes = {
   path: "admin",
@@ -20,7 +21,7 @@ const AdminRoutes = {
   ),
   children: [
     { path: "", element: <Navigate to="user-management" /> },
-    { path: "user-management", element: <div>User Management</div> },
+    { path: "user-management", element: <UserDashboard /> },
     { path: "movie-management", element: <MovieDashboard /> },
     { path: "showtime-management", element: <div>Showtime Management </div> },
   ],

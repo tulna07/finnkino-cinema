@@ -30,8 +30,9 @@ import { visuallyHidden } from "@mui/utils";
 // Components
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
-import MovieModal from "../components/MovieModal";
-import { EditMovieBtn, DeleteMovieBtn } from "../../components/Buttons";
+import MovieModal from "../../MovieDashBoard/components/MovieModal";
+import { EditMovieBtn, DeleteMovieBtn } from "../Buttons";
+import { headCells, TableCellList } from "./constants";
 
 //Others
 import { actFetchMovieDelete } from "@/redux/actions/movieManagement";
@@ -66,50 +67,12 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
-  {
-    id: "maPhim",
-    numeric: true,
-    disablePadding: true,
-    label: "Mã phim",
-    sortFunction: true,
-  },
-  {
-    id: "hinhAnh",
-    numeric: false,
-    disablePadding: false,
-    label: "Hình ảnh",
-    sortFunction: false,
-  },
-  {
-    id: "tenPhim",
-    numeric: false,
-    disablePadding: false,
-    label: "Tên phim",
-    sortFunction: true,
-  },
-  {
-    id: "moTa",
-    numeric: false,
-    disablePadding: false,
-    label: "Mô tả phim",
-    sortFunction: true,
-  },
-  {
-    id: "hanhDong",
-    numeric: false,
-    disablePadding: false,
-    label: "Hành động",
-    sortFunction: false,
-  },
-];
-
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, headCells } =
+    props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
-
   return (
     <TableHead>
       <TableRow>
@@ -136,7 +99,7 @@ function EnhancedTableHead(props) {
                 ) : null}
               </TableSortLabel>
             ) : (
-              <Typography sx={{ fontWeight: "600" }} className="movie-table__head-item">
+              <Typography sx={{ fontWeight: "600" }} className="management-table__head-item">
                 {headCell.label}
               </Typography>
             )}
@@ -201,7 +164,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-function MovieManagementTable({ movieList, loading }) {
+function MuiEnhancedTable({ dataList, loading, headCells, TableCellList, ...props }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("maPhim");
   const [selected, setSelected] = React.useState([]);
@@ -227,7 +190,7 @@ function MovieManagementTable({ movieList, loading }) {
     }
   };
   //Customize Data
-  const rows = movieList ? movieList : [];
+  const rows = dataList ? dataList : [];
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -302,6 +265,7 @@ function MovieManagementTable({ movieList, loading }) {
                     onSelectAllClick={handleSelectAllClick}
                     onRequestSort={handleRequestSort}
                     rowCount={rows.length}
+                    headCells={headCells}
                   />
                   <TableBody>
                     {stableSort(rows, getComparator(order, orderBy))
@@ -309,7 +273,6 @@ function MovieManagementTable({ movieList, loading }) {
                       .map((row, index) => {
                         const isItemSelected = isSelected(row.name);
                         const labelId = `enhanced-table-checkbox-${index}`;
-
                         return (
                           <TableRow
                             hover
@@ -320,38 +283,13 @@ function MovieManagementTable({ movieList, loading }) {
                             key={index}
                             selected={isItemSelected}
                           >
-                            <TableCell
-                              component="th"
-                              id={labelId}
-                              scope="row"
-                              className="movie-table__table-cell table-cell__movie-id"
-                            >
-                              {row.maPhim}
-                            </TableCell>
-                            <TableCell
-                              sx={{ width: "200px", height: "100px" }}
-                              className="movie-table__table-cell table-cell__movie-img"
-                            >
-                              <Image src={row.hinhAnh} alt="movie image" />
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              sx={{ width: "200px", height: "100px" }}
-                              className="movie-table__table-cell table-cell__movie-name"
-                            >
-                              {row.tenPhim}
-                            </TableCell>
-                            <TableCell className="movie-table__table-cell table-cell__movie-desc">
-                              {row.moTa}
-                            </TableCell>
-                            <TableCell
-                              align="right"
-                              sx={{ width: "150px" }}
-                              className="movie-table__table-cell table-cell__movie-actions"
-                            >
-                              <DeleteMovieBtn onClick={() => handleDeleteMovie(row.maPhim)} />
-                              <EditMovieBtn onClick={() => handleEditMovie(row.maPhim)} />
-                            </TableCell>
+                            <TableCellList
+                              row={row}
+                              index={index}
+                              labelId={labelId}
+                              handleDeleteMovie={handleDeleteMovie}
+                              handleEditMovie={handleEditMovie}
+                            />
                           </TableRow>
                         );
                       })}
@@ -397,4 +335,4 @@ function MovieManagementTable({ movieList, loading }) {
   );
 }
 
-export default MovieManagementTable;
+export default MuiEnhancedTable;

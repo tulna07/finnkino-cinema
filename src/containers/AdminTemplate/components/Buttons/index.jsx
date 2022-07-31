@@ -1,6 +1,6 @@
 // Material UI
 import { LoadingButton } from "@mui/lab";
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { BorderColor } from "@mui/icons-material";
 
@@ -19,6 +19,24 @@ const SubmitButton = ({ children, onClick, ...others }) => (
   </LoadingButton>
 );
 
+const AddItemBtn = ({ children, onClick, ...props }) => (
+  <Button
+    variant="contained"
+    sx={{
+      m: "5px 0 20px 0",
+      backgroundColor: "var(--primary)",
+      color: "var(--white)",
+      "&:hover": {
+        backgroundColor: "#caa100;",
+      },
+    }}
+    onClick={onClick}
+    {...props}
+  >
+    {children}
+  </Button>
+);
+
 const EditMovieBtn = (props) => (
   <IconButton color="info" {...props}>
     <BorderColor className="movie-management__btn-icon" />
@@ -31,4 +49,4 @@ const DeleteMovieBtn = (props) => (
   </IconButton>
 );
 
-export { SubmitButton, EditMovieBtn, DeleteMovieBtn };
+export { SubmitButton, EditMovieBtn, DeleteMovieBtn, AddItemBtn };

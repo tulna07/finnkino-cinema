@@ -7,29 +7,49 @@ import { Button } from "@mui/material";
 
 //Components
 import SearchBar from "../components/SearchBar";
-import MovieManagementTable from "./MovieManagementTable";
-import MovieModal from "./components/MovieModal";
-import MuiEnhancedTable from "../components/MuiEnhancedTable";
-import MovieTableCells from "./components/TableCellList";
-import { AddItemBtn } from "../components/Buttons";
+// import MovieManagementTable from "./MovieManagementTable";
+// import MovieModal from "./components/MovieModal";
 
 //Others
-import actGetMovieList from "@/redux/actions/movieList";
-import { headCells } from "./constants";
-import "./style.scss";
+import actGetUserList from "@/redux/actions/userList";
+import MuiEnhancedTable from "../components/MuiEnhancedTable";
+import UserTableCells from "./component/TableCellList";
+import headCells from "./constants";
+import { AddItemBtn } from "../components/Buttons";
 
-function MovieDashBoard() {
+function UserDashBoard() {
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
-  const movieList = useSelector((state) => state.movieList.data);
+  const userList = useSelector((state) => state.userList.data);
   const movieListLoading = useSelector((state) => state.movieList.loading);
 
   useEffect(() => {
-    dispatch(actGetMovieList());
+    dispatch(actGetUserList());
   }, []);
 
+  console.log(userList);
+
+  const movieList1 = useSelector((state) => state.movieList.data);
+
+  const AddMovieBtn = (props) => (
+    <Button
+      variant="contained"
+      sx={{
+        m: "5px 0 20px 0",
+        backgroundColor: "var(--primary)",
+        color: "var(--white)",
+        "&:hover": {
+          backgroundColor: "#caa100;",
+        },
+      }}
+      {...props}
+    >
+      Thêm phim
+    </Button>
+  );
+
   const handleSearch = (value) => {
-    dispatch(actGetMovieList(value));
+    dispatch(actGetUserList(value));
   };
   return (
     <>
@@ -39,22 +59,22 @@ function MovieDashBoard() {
         }}
       >
         <SearchBar onSubmit={handleSearch} className="movie-dashboard__search" />
-        <AddItemBtn onClick={() => setOpenModal(true)}>Thêm phim</AddItemBtn>
+        <AddItemBtn>Thêm người dùng</AddItemBtn>
         <MuiEnhancedTable
           headCells={headCells}
-          dataList={movieList}
-          TableCellList={MovieTableCells}
+          dataList={userList}
+          TableCellList={UserTableCells}
         />
       </Container>
-      <MovieModal
+      {/* <MovieModal
         openModal={openModal}
         setOpenModal={setOpenModal}
         title="Thêm phim mới"
         button="Thêm phim"
         modalType="addMovie"
-      />
+      /> */}
     </>
   );
 }
 
-export default MovieDashBoard;
+export default UserDashBoard;
