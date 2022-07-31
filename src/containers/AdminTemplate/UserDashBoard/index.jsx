@@ -11,7 +11,7 @@ import SearchBar from "../components/SearchBar";
 // import MovieModal from "./components/MovieModal";
 
 //Others
-import actGetUserList from "@/redux/actions/userList";
+import { actGetUserList } from "@/redux/actions/userManagement";
 import MuiEnhancedTable from "../components/MuiEnhancedTable";
 import UserTableCells from "./component/TableCellList";
 import headCells from "./constants";
@@ -26,27 +26,6 @@ function UserDashBoard() {
   useEffect(() => {
     dispatch(actGetUserList());
   }, []);
-
-  console.log(userList);
-
-  const movieList1 = useSelector((state) => state.movieList.data);
-
-  const AddMovieBtn = (props) => (
-    <Button
-      variant="contained"
-      sx={{
-        m: "5px 0 20px 0",
-        backgroundColor: "var(--primary)",
-        color: "var(--white)",
-        "&:hover": {
-          backgroundColor: "#caa100;",
-        },
-      }}
-      {...props}
-    >
-      Thêm phim
-    </Button>
-  );
 
   const handleSearch = (value) => {
     dispatch(actGetUserList(value));
@@ -64,6 +43,7 @@ function UserDashBoard() {
           headCells={headCells}
           dataList={userList}
           TableCellList={UserTableCells}
+          tableType="user"
         />
       </Container>
       {/* <MovieModal

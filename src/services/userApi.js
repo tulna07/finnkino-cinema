@@ -20,6 +20,10 @@ const userApi = {
       return axiosClient.get(url, params);
     }
   },
+  deleteUser: (userAccount) => {
+    const url = resourceName + `XoaNguoiDung?TaiKhoan=${userAccount}`;
+    return axiosClient.delete(url);
+  },
 };
 
 export default userApi;

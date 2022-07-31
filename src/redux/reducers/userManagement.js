@@ -1,8 +1,4 @@
-import {
-  GET_USER_LIST_REQUEST,
-  GET_USER_LIST_SUCCESS,
-  GET_USER_LIST_FAIL,
-} from "../constants/userList";
+import * as actType from "../constants/userManagement";
 
 const initialState = {
   loading: false,
@@ -13,19 +9,22 @@ const initialState = {
 
 const userListReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER_LIST_REQUEST:
+    case actType.GET_USER_LIST_REQUEST:
+    case actType.GET_USER_DELETE_REQUEST:
       state.loading = true;
       state.data = null;
       state.error = null;
       return { ...state };
 
-    case GET_USER_LIST_SUCCESS:
+    case actType.GET_USER_LIST_SUCCESS:
+    case actType.GET_USER_DELETE_SUCCESS:
       state.loading = false;
       state.data = action.payload;
       state.error = null;
       return { ...state };
 
-    case GET_USER_LIST_FAIL:
+    case actType.GET_USER_LIST_FAIL:
+    case actType.GET_USER_DELETE_FAIL:
       state.loading = false;
       state.data = null;
       state.error = action.payload;

@@ -1,3 +1,5 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import { TableCell } from "@mui/material";
 
 // Components
@@ -9,6 +11,8 @@ import "./style.scss";
 
 const UserTableCells = (props) => {
   const { row, index, labelId, handleDeleteMovie, handleEditMovie } = props;
+  const dispatch = useDispatch();
+
   return (
     <>
       <TableCell
@@ -43,8 +47,8 @@ const UserTableCells = (props) => {
         sx={{ width: "150px" }}
         className="management-table__table-cell table-cell__management-actions"
       >
-        <DeleteMovieBtn onClick={() => handleDeleteMovie(row.maPhim)} />
-        <EditMovieBtn onClick={() => handleEditMovie(row.maPhim)} />
+        <DeleteMovieBtn onClick={() => handleDeleteMovie(row.taiKhoan)} />
+        <EditMovieBtn onClick={() => handleEditMovie(row.taiKhoan)} />
       </TableCell>
     </>
   );

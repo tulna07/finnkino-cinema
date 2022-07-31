@@ -44,6 +44,7 @@ function MovieDashBoard() {
           headCells={headCells}
           dataList={movieList}
           TableCellList={MovieTableCells}
+          tableType="movie"
         />
       </Container>
       <MovieModal

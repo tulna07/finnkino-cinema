@@ -64,7 +64,7 @@ const actFetchMovieDelete = (movieId) => {
   return (dispatch) => {
     dispatch(actMovieManagementRequest());
 
-    const fetchMovieAdd = async () => {
+    const fetchMovieDelete = async () => {
       try {
         const movieAdd = await movieApi.deleteMovie(movieId);
         dispatch(actMovieManagementSuccess(movieAdd));
@@ -73,7 +73,7 @@ const actFetchMovieDelete = (movieId) => {
       }
     };
 
-    fetchMovieAdd();
+    fetchMovieDelete();
   };
 };
 

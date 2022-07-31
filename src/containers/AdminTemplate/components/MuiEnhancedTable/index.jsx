@@ -36,6 +36,7 @@ import { headCells, TableCellList } from "./constants";
 
 //Others
 import { actFetchMovieDelete } from "@/redux/actions/movieManagement";
+import { actGetUserDetele } from "@/redux/actions/userManagement";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
 import "./style.scss";
 
@@ -164,7 +165,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-function MuiEnhancedTable({ dataList, loading, headCells, TableCellList, ...props }) {
+function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellList, ...props }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("maPhim");
   const [selected, setSelected] = React.useState([]);
@@ -183,13 +184,20 @@ function MuiEnhancedTable({ dataList, loading, headCells, TableCellList, ...prop
     dispatch(actFetchMovieDetails(movieId));
   };
 
-  const handleDeleteMovie = (movieId) => {
-    if (window.confirm("Bạn có chắc muốn xoá phim có mã " + movieId)) {
-      dispatch(actFetchMovieDelete(movieId));
-      window.location.reload();
+  const handleDeleteItem = (id) => {
+    const msg =
+      tableType === "user" ? "Bạn có chắc muốn xoá tài khoản " : "Bạn có chắc muốn xoá phim có mã ";
+
+    if (window.confirm(msg + id)) {
+      if (tableType === "user") {
+        dispatch(actGetUserDetele(id));
+      } else {
+        dispatch(actFetchMovieDelete(id));
+        window.location.reload();
+      }
     }
   };
-  //Customize Data
+
   const rows = dataList ? dataList : [];
 
   const handleRequestSort = (event, property) => {
@@ -287,7 +295,7 @@ function MuiEnhancedTable({ dataList, loading, headCells, TableCellList, ...prop
                               row={row}
                               index={index}
                               labelId={labelId}
-                              handleDeleteMovie={handleDeleteMovie}
+                              handleDeleteMovie={handleDeleteItem}
                               handleEditMovie={handleEditMovie}
                             />
                           </TableRow>
