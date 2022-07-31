@@ -19,13 +19,13 @@ const movieDetailsReducer = (state = initialState, action) => {
       return { ...state };
 
     case GET_MOVIE_DETAILS_SUCCESS:
-      state.loading = true;
+      state.loading = false;
       state.data = action.payload;
       state.error = null;
       return { ...state };
 
     case GET_MOVIE_DETAILS_FAIL:
-      state.loading = true;
+      state.loading = false;
       state.data = null;
       state.error = action.payload;
       return { ...state };

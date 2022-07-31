@@ -1,17 +1,18 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Tabs, { tabsClasses } from "@mui/material/Tabs";
-import { Grid, TabScrollButton } from "@mui/material";
-import Box from "@mui/material/Box";
 
 import actGetCinemaList from "@/store/actions/cinemaSystem";
+
+//Material UI
+import { Tab, Typography, Tabs, Box } from "@mui/material";
+
+//Components
 import Image from "@/components/Image";
-import "./style.scss";
 import CinemaGroup from "./CinemaGroup";
 import Loader from "@/components/Loader";
+
+import "./style.scss";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

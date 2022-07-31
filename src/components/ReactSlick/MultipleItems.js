@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 
-import "./MultipleItems.scss";
+//Components
 import Image from "@/components/Image";
-import { Link } from "react-router-dom";
-import { Box } from "@mui/system";
+
+import "./MultipleItems.scss";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -101,13 +102,13 @@ function MultipleItems({
         case "img":
         case "Image":
           return (
-            <Link key={item.maPhim} to={`/detail/${item.maPhim}`}>
+            <Link key={item.maPhim} to={`/movie-detail/${item.maPhim}`}>
               <Image className="multi-carousel__img" src={item.hinhAnh} />
             </Link>
           );
         default:
           return (
-            <Link key={item.maPhim} to={`/detail/${item.maPhim}`}>
+            <Link key={item.maPhim} to={`/movie-detail/${item.maPhim}`}>
               {item.tenPhim}
             </Link>
           );
