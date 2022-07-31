@@ -1,0 +1,40 @@
+.seat-selector {
+  &__seat {
+    background-color: #dbdee1;
+
+    &.selected {
+      background-color: #7dc71d;
+    }
+
+    &.sold {
+      cursor: no-drop;
+    }
+
+    &.vip {
+      background-color: var(--primary);
+    }
+
+    &.selectable {
+      background-color: var(--light-gray);
+    }
+
+    &.unavailable {
+      background-color: #0cbfca;
+    }
+  }
+
+  &__indicator-wrapper {
+    &--left {
+      margin-left: -15px;
+    }
+
+    &--right {
+      margin-left: 15px;
+    }
+  }
+
+  &__indicator {
+    color: var(--white);
+    border: 0.5px solid var(--white);
+  }
+}
