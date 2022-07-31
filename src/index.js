@@ -1,5 +1,8 @@
 import ReactDOM from "react-dom/client";
 
+// i18next translation
+import "./i18n";
+
 // Redux config
 import { Provider } from "react-redux";
 import configureStore from "@/store";
