@@ -22,7 +22,7 @@ const ClientRoutes = {
     },
     { path: "movie-detail/:id", element: <MovieDetailPage /> },
     {
-      path: "ticket-booking",
+      path: "ticket-booking/:scheduleId",
       element: (
         <RequireAuth roles={[ROLE.ADMIN, ROLE.CLIENT]}>
           <TicketBookingPage />

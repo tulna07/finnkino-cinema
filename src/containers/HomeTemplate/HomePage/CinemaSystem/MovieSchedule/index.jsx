@@ -14,7 +14,10 @@ function MovieSchedule({ movie, cinemaGroup }) {
   const renderSchedule = () => {
     return movie.lstLichChieuTheoPhim?.slice(0, 6).map((schedule, index) => (
       <Grid item key={index} xs={4}>
-        <NavLink to="/ticket-booking" className="movie-schedule__schedule-item">
+        <NavLink
+          to={`/ticket-booking/${schedule.maLichChieu}`}
+          className="movie-schedule__schedule-item"
+        >
           {moment(schedule.ngayChieuGioChieu).format("hh:mm A")}
         </NavLink>
       </Grid>
