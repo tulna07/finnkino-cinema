@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useScrollToTop } from "@/hooks";
 
 // Material UI
 import { Box, Container, Grid } from "@mui/material";
@@ -15,10 +17,12 @@ import actGetTicketBookingDetails from "@/store/actions/ticketBooking";
 import "./style.scss";
 
 const TicketBookingPage = () => {
+  useScrollToTop();
+  const { scheduleId } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(actGetTicketBookingDetails(40324));
+    dispatch(actGetTicketBookingDetails(scheduleId));
   }, []);
 
   return (
