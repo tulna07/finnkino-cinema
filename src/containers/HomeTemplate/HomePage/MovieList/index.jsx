@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
+import "./style.scss";
+import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/store/constants/movieList";
+import actGetMovieList from "@/store/actions/movieList";
 //Material UI
 import { Box, Button, Container, Typography } from "@mui/material";
 
@@ -12,9 +15,6 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import MultipleItems from "@/components/ReactSlick/MultipleItems";
 import Loader from "@/components/Loader";
 
-import "./style.scss";
-import actGetMovieList from "@/redux/actions/movieList";
-import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/redux/constants/movieList";
 import { Link } from "react-router-dom";
 
 function MovieList() {

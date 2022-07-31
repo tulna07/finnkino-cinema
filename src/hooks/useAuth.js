@@ -1,12 +1,18 @@
+import { useState } from "react";
+
 const useAuth = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   const login = (user) => {
     user = { ...user, role: user.maLoaiNguoiDung };
     localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
   };
 
-  const logout = () => localStorage.removeItem("user");
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser({});
+  };
 
   return { user, login, logout };
 };

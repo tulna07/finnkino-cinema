@@ -6,12 +6,17 @@ import Slider from "react-slick";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-//Components
+// React Slick config
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+import actFetchBanners from "@/store/actions/movieBanner";
+
+// Components
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
 
 import "./style.scss";
-import actFetchBanners from "@/redux/actions/movieBanner";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;

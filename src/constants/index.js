@@ -4,3 +4,5 @@ export const ROLE = {
   ADMIN: "QuanTri",
   CLIENT: "KhachHang",
 };
+
+export const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
