@@ -10,7 +10,9 @@ import SearchBar from "../components/SearchBar";
 import MovieManagementTable from "./MovieManagementTable";
 import MovieModal from "./components/MovieModal";
 
+//Others
 import actGetMovieList from "@/redux/actions/movieList";
+import "./style.scss";
 
 function MovieDashBoard() {
   const [openModal, setOpenModal] = useState(false);
@@ -44,8 +46,12 @@ function MovieDashBoard() {
   };
   return (
     <>
-      <Container>
-        <SearchBar onSubmit={handleSearch} />
+      <Container
+        sx={{
+          overflow: "hidden",
+        }}
+      >
+        <SearchBar onSubmit={handleSearch} className="movie-dashboard__search" />
         <AddMovieBtn onClick={() => setOpenModal(true)} />
         <MovieManagementTable movieList={movieList} loading={movieListLoading} />
       </Container>

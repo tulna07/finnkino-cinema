@@ -16,7 +16,7 @@ SearchBar.defaultProps = {
 };
 
 function SearchBar(props) {
-  const { onSubmit } = props;
+  const { onSubmit, className } = props;
   const [searchTerms, setSearchTerms] = useState("");
   const typingTimeoutRef = useRef(null);
 
@@ -41,13 +41,21 @@ function SearchBar(props) {
   return (
     <Paper
       component="form"
-      sx={{ p: "2px 4px", m: "10px 0", display: "flex", alignItems: "center", width: "100%" }}
+      sx={{
+        p: "2px 4px",
+        m: "10px 0",
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+      }}
+      className={className}
     >
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Nhập thông tin tìm kiếm"
         onChange={handleSearchTermChange}
         value={searchTerms}
+        className="search-bar__input"
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <IconButton

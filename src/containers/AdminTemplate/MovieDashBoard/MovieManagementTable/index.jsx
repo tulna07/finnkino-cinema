@@ -176,7 +176,6 @@ const EnhancedTableToolbar = (props) => {
         </Typography>
       ) : (
         <Typography sx={{ flex: "1 1 100%" }} variant="h6" id="tableTitle" component="div">
-          {/* Custom data */}
           Quản lý Phim
         </Typography>
       )}
@@ -231,7 +230,6 @@ function MovieManagementTable({ movieList, loading }) {
   const rows = movieList ? movieList : [];
 
   const handleRequestSort = (event, property) => {
-    console.log("click", property);
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);

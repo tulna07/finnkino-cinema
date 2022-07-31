@@ -244,7 +244,7 @@ function MovieModal(props) {
                     onChange={handleChangeDatePicker}
                     onBlur={handleBlur}
                     inputFormat={"DD/MM/YYYY"}
-                    value={values.ngayKhoiChieu}
+                    value={values.ngayKhoiChieu || null}
                   />
                   <FormHelperText error>{errors.ngayKhoiChieu}</FormHelperText>
                 </Box>

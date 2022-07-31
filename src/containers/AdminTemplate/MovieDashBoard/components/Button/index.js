@@ -21,13 +21,13 @@ const SubmitButton = ({ children, onClick, ...others }) => (
 
 const EditMovieBtn = (props) => (
   <IconButton color="info" {...props}>
-    <BorderColor />
+    <BorderColor className="movie-management__btn-icon" />
   </IconButton>
 );
 
 const DeleteMovieBtn = (props) => (
   <IconButton color="error" {...props}>
-    <DeleteIcon />
+    <DeleteIcon className="movie-management__btn-icon" />
   </IconButton>
 );
 
