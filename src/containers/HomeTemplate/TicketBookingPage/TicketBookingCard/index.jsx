@@ -74,7 +74,7 @@ const TicketBookingCard = () => {
             </List>
             <Divider className="ticket-booking-card__divider" />
             {/* Total payment */}
-            <Typography variant="h5" sx={{ mt: "13px" }}>
+            <Typography className="ticket-booking-card__total" variant="h5" sx={{ mt: "13px" }}>
               <strong>Tổng:</strong> <strong style={{ color: "var(--primary)" }}>0 VNĐ</strong>
             </Typography>
           </CardContent>
