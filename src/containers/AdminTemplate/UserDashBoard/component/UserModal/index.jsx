@@ -25,7 +25,7 @@ import Loader from "@/components/Loader";
 import "./style.scss";
 import { userSchema } from "@/validators";
 import { GROUP_ID } from "@/constants";
-import { actGetUserAdd, actGetUserEdit } from "@/redux/actions/userManagement";
+import { actGetUserAdd, actGetUserEdit } from "@/store/actions/userManagement";
 
 const style = {
   position: "absolute",

@@ -9,7 +9,7 @@ import { Button, Modal } from "@mui/material";
 import SearchBar from "../components/SearchBar";
 
 //Others
-import { actGetUserSearch, actGetUserList } from "@/redux/actions/userManagement";
+import { actGetUserSearch, actGetUserList } from "@/store/actions/userManagement";
 import MuiEnhancedTable from "../components/MuiEnhancedTable";
 import UserTableCells from "./component/TableCellList";
 import headCells from "./constants";

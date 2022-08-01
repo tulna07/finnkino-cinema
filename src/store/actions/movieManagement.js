@@ -3,7 +3,7 @@ import {
   GET_MOVIE_MANAGEMENT_SUCCESS,
   GET_MOVIE_MANAGEMENT_FAIL,
 } from "../constants/movieManagement";
-import { movieApi } from "@/services";
+import { movieApi } from "@/api";
 
 const actMovieManagementRequest = () => {
   return {

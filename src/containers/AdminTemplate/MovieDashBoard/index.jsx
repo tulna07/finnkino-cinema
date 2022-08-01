@@ -14,7 +14,7 @@ import MovieTableCells from "./components/TableCellList";
 import { AddItemBtn } from "../components/Buttons";
 
 //Others
-import actGetMovieList from "@/redux/actions/movieList";
+import actGetMovieList from "@/store/actions/movieList";
 import { headCells } from "./constants";
 import "./style.scss";
 

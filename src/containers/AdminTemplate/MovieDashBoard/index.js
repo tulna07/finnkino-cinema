@@ -8,7 +8,7 @@ import { Button } from "@mui/material";
 //Components
 import SearchBar from "../components/SearchBar";
 import MovieManagementTable from "./MovieManagementTable";
-import AddMovieModal from "./AddMovie";
+// import AddMovieModal from "./AddMovie";
 import MovieModal from "./components/MovieModal";
 
 import actGetMovieList from "@/store/actions/movieList";

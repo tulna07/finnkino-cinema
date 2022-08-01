@@ -88,7 +88,7 @@ TablePaginationActions.propTypes = {
 };
 
 const columns = [
-  { id: "ticket-id", label: "Mã phim", align: "center", minWidth: 100 },
+  { id: "ticket-id", label: "Mã vé", align: "center", minWidth: 100 },
   { id: "movie-name", label: "Tên phim", align: "center", minWidth: 100 },
   { id: "showtime", label: "Ngày chiếu", align: "center", minWidth: 100 },
   { id: "movie-duration", label: "Thời lượng", align: "center", minWidth: 120 },
