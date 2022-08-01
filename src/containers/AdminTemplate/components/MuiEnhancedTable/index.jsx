@@ -177,7 +177,13 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
   const [userEdit, setUserEdit] = React.useState("");
 
   const dispatch = useDispatch();
+
+  const rows = dataList ? dataList : [];
+  const movieEditData = useSelector((state) => state.movieDetails.data);
+  const movieLoading = useSelector((state) => state.movieDetails.loading);
   let userEditData = useSelector((state) => state.userDetails.data);
+  const userLoading = useSelector((state) => state.userDetails.loading);
+
   const handleEditMovie = (id) => {
     if (tableType === "user") {
       setOpenModalUser(true);
@@ -203,8 +209,6 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
       }
     }
   };
-
-  const rows = dataList ? dataList : [];
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -257,7 +261,6 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   return (
     <>
       {loading ? (
@@ -339,7 +342,8 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
             setOpenModalMovie={setOpenModalMovie}
             title="Sửa thông tin phim"
             button="Cập nhập"
-            // data={movieEditData}
+            data={movieEditData}
+            loading={movieLoading}
             modalType="editMovie"
             movieId={movieEdit}
           />
@@ -349,6 +353,7 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
             title="Sửa thông tin người dùng"
             button="Sửa thông tin"
             data={userEditData}
+            loading={userLoading}
             modalType="editUser"
             userAccount={userEdit}
           />

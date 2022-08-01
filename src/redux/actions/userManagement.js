@@ -155,7 +155,6 @@ const actGetUserEdit = (data) => {
   return (dispatch) => {
     dispatch(actUserEditRequest());
     const fetchUserEdit = async () => {
-      const params = { maNhom: GROUP_ID };
       try {
         const userEdit = await userApi.editUser(data);
         dispatch(actUserEditSuccess(userEdit));

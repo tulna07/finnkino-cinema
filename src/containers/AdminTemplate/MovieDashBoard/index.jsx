@@ -31,6 +31,7 @@ function MovieDashBoard() {
   const handleSearch = (value) => {
     dispatch(actGetMovieList(value));
   };
+
   return (
     <>
       <Container
@@ -45,6 +46,7 @@ function MovieDashBoard() {
           dataList={movieList}
           TableCellList={MovieTableCells}
           tableType="movie"
+          loading={movieListLoading}
         />
       </Container>
       <MovieModal

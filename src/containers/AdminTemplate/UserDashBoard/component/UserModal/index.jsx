@@ -19,6 +19,7 @@ import {
 
 //Components
 import { SubmitButton } from "@/containers/AdminTemplate/components/Buttons";
+import Loader from "@/components/Loader";
 
 //Others
 import "./style.scss";
@@ -39,13 +40,16 @@ const style = {
 };
 
 function UserModal(props) {
-  const { openModalUser, setOpenModalUser, title, button, data, userAccount, modalType } = props;
+  const { openModalUser, setOpenModalUser, title, button, data, loading, userAccount, modalType } =
+    props;
   const dispatch = useDispatch();
   const handleClose = () => setOpenModalUser(false);
+
   let userEdit;
   if (data) {
     userEdit = data[0];
   }
+
   const initialValuesAddUser = {
     taiKhoan: "",
     matKhau: "",
@@ -83,28 +87,25 @@ function UserModal(props) {
         window.location.reload();
       },
     });
+
   const handleChangeSelect = (e) => {
     setFieldValue("maLoaiNguoiDung", e.target.value);
   };
 
   return (
-    <div>
-      <Modal
-        open={openModalUser}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style} className="user-modal">
-          <Typography
-            variant="h5"
-            component="h2"
-            id="modal-modal-title"
-            variant="h5"
-            component="h2"
-          >
-            {title}
-          </Typography>
+    <Modal
+      open={openModalUser}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style} className="user-modal">
+        <Typography variant="h5" component="h2" id="modal-modal-title" variant="h5" component="h2">
+          {title}
+        </Typography>
+        {loading ? (
+          <Loader />
+        ) : (
           <Formik>
             <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit}>
               <FormControl fullWidth className="movie-form__input-wrapper">
@@ -201,9 +202,9 @@ function UserModal(props) {
               </Box>
             </Box>
           </Formik>
-        </Box>
-      </Modal>
-    </div>
+        )}
+      </Box>
+    </Modal>
   );
 }
 

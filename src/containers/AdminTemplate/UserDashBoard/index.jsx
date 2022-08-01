@@ -21,7 +21,7 @@ function UserDashBoard() {
 
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList.userList);
-  const movieListLoading = useSelector((state) => state.movieList.loading);
+  const userListLoading = useSelector((state) => state.userList.loading);
 
   useEffect(() => {
     dispatch(actGetUserList());
@@ -30,6 +30,7 @@ function UserDashBoard() {
   const handleSearch = (value) => {
     dispatch(actGetUserSearch(value));
   };
+
   return (
     <>
       <Container
@@ -44,6 +45,7 @@ function UserDashBoard() {
           dataList={userList}
           TableCellList={UserTableCells}
           tableType="user"
+          loading={userListLoading}
         />
       </Container>
       <UserModal

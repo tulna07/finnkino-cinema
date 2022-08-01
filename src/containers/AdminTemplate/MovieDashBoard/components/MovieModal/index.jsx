@@ -11,7 +11,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 //formik
 import { Formik, useFormik } from "formik";
 
-import "./style.scss";
 import { editMovieSchema, addMovieSchema } from "@/validators";
 import { actFetchMovieEdit, actFetchMovieAdd } from "@/redux/actions/movieManagement";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
@@ -31,9 +30,13 @@ import {
 } from "@mui/material";
 import MuiDatePicker from "@/components/MuiPicker";
 
-//Others
+//Components
+import Loader from "@/components/Loader";
 import { SubmitButton } from "../../../components/Buttons";
 import Image from "@/components/Image";
+
+//Others
+import "./style.scss";
 
 const style = {
   position: "absolute",
@@ -48,10 +51,10 @@ const style = {
 };
 
 function MovieModal(props) {
-  const { title, button, openModalMovie, setOpenModalMovie, movieId, modalType } = props;
+  const { openModalMovie, setOpenModalMovie, title, button, data, loading, movieId, modalType } =
+    props;
   const [imgSrc, setImgSrc] = useState(null);
   const dispatch = useDispatch();
-  const movieEdit = useSelector((state) => state.movieDetails.data);
   const loadingEditMovie = useSelector((state) => state.movieDetails.loading);
   const handleClose = () => setOpenModalMovie(false);
 
@@ -69,14 +72,14 @@ function MovieModal(props) {
 
   const initialValuesEditMovie = {
     maPhim: movieId,
-    tenPhim: movieEdit?.tenPhim,
-    trailer: movieEdit?.trailer,
-    moTa: movieEdit?.moTa,
-    ngayKhoiChieu: movieEdit?.ngayKhoiChieu,
-    dangChieu: movieEdit?.dangChieu,
-    sapChieu: movieEdit?.sapChieu,
-    hot: movieEdit?.hot,
-    danhGia: movieEdit?.danhGia,
+    tenPhim: data?.tenPhim,
+    trailer: data?.trailer,
+    moTa: data?.moTa,
+    ngayKhoiChieu: data?.ngayKhoiChieu,
+    dangChieu: data?.dangChieu,
+    sapChieu: data?.sapChieu,
+    hot: data?.hot,
+    danhGia: data?.danhGia,
     hinhAnh: null,
   };
 
@@ -166,181 +169,189 @@ function MovieModal(props) {
           <Typography id="modal-modal-title" variant="h5" component="h2">
             {title}
           </Typography>
-          <Formik>
-            <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit}>
-              <FormControl fullWidth sx={{ my: 1 }}>
-                <FormLabel
-                  className={`${
-                    errors.tenPhim
-                      ? "movie-form__error movie-form__input-label"
-                      : "movie-form__input-label"
-                  }`}
-                  htmlFor="movie-name"
-                >
-                  Tên phim
-                </FormLabel>
-                <TextField
-                  name="tenPhim"
-                  id="movie-name"
-                  variant="outlined"
-                  fullWidth
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.tenPhim}
-                  error={errors.tenPhim && touched.tenPhim ? true : false}
-                />
-                {errors.tenPhim && touched.tenPhim && (
-                  <FormHelperText error>{errors.tenPhim}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl fullWidth sx={{ my: 1 }}>
-                <FormLabel className="movie-form__input-label" htmlFor="movie-trailer">
-                  Trailer
-                </FormLabel>
-                <TextField
-                  name="trailer"
-                  value={values.trailer}
-                  id="movie-trailer"
-                  variant="outlined"
-                  fullWidth
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={errors.trailer && touched.trailer ? true : false}
-                />
-                <FormHelperText error>{errors.trailer}</FormHelperText>
-              </FormControl>
-              <FormControl fullWidth sx={{ my: 1 }}>
-                <FormLabel className="movie-form__input-label" htmlFor="movie-desc">
-                  Mô tả
-                </FormLabel>
-                <TextField
-                  name="moTa"
-                  value={values.moTa}
-                  id="movie-desc"
-                  variant="outlined"
-                  fullWidth
-                  multiline
-                  rows={4}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  helperText={errors.movieDesc?.message}
-                  error={errors.moTa && touched.moTa ? true : false}
-                />
-                <FormHelperText error>{errors.moTa}</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <Box
-                  fullWidth
-                  sx={{ my: 1, flexDirection: "row", display: "flex", alignItems: "center" }}
-                >
+          {loading ? (
+            <Loader />
+          ) : (
+            <Formik>
+              <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit}>
+                <FormControl fullWidth sx={{ my: 1 }}>
+                  <FormLabel
+                    className={`${
+                      errors.tenPhim
+                        ? "movie-form__error movie-form__input-label"
+                        : "movie-form__input-label"
+                    }`}
+                    htmlFor="movie-name"
+                  >
+                    Tên phim
+                  </FormLabel>
+                  <TextField
+                    name="tenPhim"
+                    id="movie-name"
+                    variant="outlined"
+                    fullWidth
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.tenPhim}
+                    error={errors.tenPhim && touched.tenPhim ? true : false}
+                  />
+                  {errors.tenPhim && touched.tenPhim && (
+                    <FormHelperText error>{errors.tenPhim}</FormHelperText>
+                  )}
+                </FormControl>
+                <FormControl fullWidth sx={{ my: 1 }}>
+                  <FormLabel className="movie-form__input-label" htmlFor="movie-trailer">
+                    Trailer
+                  </FormLabel>
+                  <TextField
+                    name="trailer"
+                    value={values.trailer}
+                    id="movie-trailer"
+                    variant="outlined"
+                    fullWidth
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={errors.trailer && touched.trailer ? true : false}
+                  />
+                  <FormHelperText error>{errors.trailer}</FormHelperText>
+                </FormControl>
+                <FormControl fullWidth sx={{ my: 1 }}>
+                  <FormLabel className="movie-form__input-label" htmlFor="movie-desc">
+                    Mô tả
+                  </FormLabel>
+                  <TextField
+                    name="moTa"
+                    value={values.moTa}
+                    id="movie-desc"
+                    variant="outlined"
+                    fullWidth
+                    multiline
+                    rows={4}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    helperText={errors.movieDesc?.message}
+                    error={errors.moTa && touched.moTa ? true : false}
+                  />
+                  <FormHelperText error>{errors.moTa}</FormHelperText>
+                </FormControl>
+                <FormControl>
+                  <Box
+                    fullWidth
+                    sx={{ my: 1, flexDirection: "row", display: "flex", alignItems: "center" }}
+                  >
+                    <FormLabel
+                      className="movie-form__input-label"
+                      htmlFor="movie-release-date"
+                      sx={{ mr: 1 }}
+                    >
+                      Ngày khởi chiếu
+                    </FormLabel>
+
+                    <MuiDatePicker
+                      name="ngayKhoiChieu"
+                      style={{ width: "fit-content" }}
+                      onChange={handleChangeDatePicker}
+                      onBlur={handleBlur}
+                      inputFormat={"DD/MM/YYYY"}
+                      value={values.ngayKhoiChieu || null}
+                    />
+                    <FormHelperText error>{errors.ngayKhoiChieu}</FormHelperText>
+                  </Box>
+                </FormControl>
+                <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
                   <FormLabel
                     className="movie-form__input-label"
-                    htmlFor="movie-release-date"
+                    htmlFor="movie-on-air"
                     sx={{ mr: 1 }}
                   >
-                    Ngày khởi chiếu
+                    Đang chiếu
                   </FormLabel>
-
-                  <MuiDatePicker
-                    name="ngayKhoiChieu"
-                    style={{ width: "fit-content" }}
-                    onChange={handleChangeDatePicker}
-                    onBlur={handleBlur}
-                    inputFormat={"DD/MM/YYYY"}
-                    value={values.ngayKhoiChieu || null}
+                  <Switch
+                    name="dangChieu"
+                    onClick={handleChangeSwitch("dangChieu")}
+                    checked={values.dangChieu}
                   />
-                  <FormHelperText error>{errors.ngayKhoiChieu}</FormHelperText>
-                </Box>
-              </FormControl>
-              <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
-                <FormLabel
-                  className="movie-form__input-label"
-                  htmlFor="movie-on-air"
-                  sx={{ mr: 1 }}
-                >
-                  Đang chiếu
-                </FormLabel>
-                <Switch
-                  name="dangChieu"
-                  onClick={handleChangeSwitch("dangChieu")}
-                  checked={values.dangChieu}
-                />
-                <FormHelperText>{errors.momovieOnAir?.message}</FormHelperText>
-              </FormControl>
-              <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
-                <FormLabel className="movie-form__input-label" sx={{ mr: 1 }}>
-                  Sắp chiếu
-                </FormLabel>
-                <Switch
-                  name="sapChieu"
-                  label="Sắp chiếu"
-                  onClick={handleChangeSwitch("sapChieu")}
-                  onBlur={handleBlur}
-                  inputProps={{ "aria-label": "controlled" }}
-                  checked={values.sapChieu}
-                />
-                <FormHelperText>{errors.movimovieAirSoon?.message}</FormHelperText>
-              </FormControl>
-              <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
-                <FormLabel
-                  className="movie-form__input-label"
-                  htmlFor="movie-hotness"
-                  sx={{ mr: 1 }}
-                >
-                  Hot
-                </FormLabel>
-                <Switch name="hot" onClick={handleChangeSwitch("hot")} checked={values.hot} />
-                <FormHelperText>{errors.movimovieHotness?.message}</FormHelperText>
-              </FormControl>
-              <FormControl sx={{ display: "flex", flexDirection: "row" }}>
-                <Box
-                  fullWidth
-                  sx={{ my: 1, display: "flex", flexDirection: "row", alignItems: "center" }}
-                >
+                  <FormHelperText>{errors.momovieOnAir?.message}</FormHelperText>
+                </FormControl>
+                <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
+                  <FormLabel className="movie-form__input-label" sx={{ mr: 1 }}>
+                    Sắp chiếu
+                  </FormLabel>
+                  <Switch
+                    name="sapChieu"
+                    label="Sắp chiếu"
+                    onClick={handleChangeSwitch("sapChieu")}
+                    onBlur={handleBlur}
+                    inputProps={{ "aria-label": "controlled" }}
+                    checked={values.sapChieu}
+                  />
+                  <FormHelperText>{errors.movimovieAirSoon?.message}</FormHelperText>
+                </FormControl>
+                <FormControl fullWidth sx={{ my: 1, flexDirection: "row", alignItems: "center" }}>
                   <FormLabel
                     className="movie-form__input-label"
                     htmlFor="movie-hotness"
                     sx={{ mr: 1 }}
                   >
-                    Đánh giá
+                    Hot
                   </FormLabel>
-                  <Rating
-                    name="danhGia"
-                    defaultValue={modalType === "addMovie" ? 0 : null}
-                    max={10}
-                    value={values.danhGia}
-                    onChange={handleChangeNumberInput("danhGia")}
-                    onBlur={handleBlur}
-                    error={errors.danhGia && touched.danhGia ? "true" : undefined}
+                  <Switch name="hot" onClick={handleChangeSwitch("hot")} checked={values.hot} />
+                  <FormHelperText>{errors.movimovieHotness?.message}</FormHelperText>
+                </FormControl>
+                <FormControl sx={{ display: "flex", flexDirection: "row" }}>
+                  <Box
+                    fullWidth
+                    sx={{ my: 1, display: "flex", flexDirection: "row", alignItems: "center" }}
+                  >
+                    <FormLabel
+                      className="movie-form__input-label"
+                      htmlFor="movie-hotness"
+                      sx={{ mr: 1 }}
+                    >
+                      Đánh giá
+                    </FormLabel>
+                    <Rating
+                      name="danhGia"
+                      defaultValue={modalType === "addMovie" ? 0 : null}
+                      max={10}
+                      value={values.danhGia}
+                      onChange={handleChangeNumberInput("danhGia")}
+                      onBlur={handleBlur}
+                      error={errors.danhGia && touched.danhGia ? "true" : undefined}
+                    />
+                  </Box>
+                  <FormHelperText error>{errors.danhGia}</FormHelperText>
+                </FormControl>
+                <FormControl>
+                  <Box fullWidth sx={{ my: 1, flexDirection: "row" }}>
+                    <FormLabel
+                      className="movie-form__input-label"
+                      htmlFor="movie-img"
+                      sx={{ mr: 1 }}
+                    >
+                      Hình ảnh
+                    </FormLabel>
+                    <input
+                      name="hinhAnh"
+                      type="file"
+                      accept="image/png, image/jpeg, image/gif, image/png"
+                      onChange={handleChangeFile}
+                      onBlur={handleBlur}
+                    />
+                  </Box>
+                  <FormHelperText error>{errors.hinhAnh}</FormHelperText>
+                  <Image
+                    src={imgSrc === null && modalType === "editMovie" ? data?.hinhAnh : imgSrc}
+                    alt="..."
+                    className="modal__img"
                   />
+                </FormControl>
+                <Box sx={{ mt: 2 }}>
+                  <SubmitButton>{button}</SubmitButton>
                 </Box>
-                <FormHelperText error>{errors.danhGia}</FormHelperText>
-              </FormControl>
-              <FormControl>
-                <Box fullWidth sx={{ my: 1, flexDirection: "row" }}>
-                  <FormLabel className="movie-form__input-label" htmlFor="movie-img" sx={{ mr: 1 }}>
-                    Hình ảnh
-                  </FormLabel>
-                  <input
-                    name="hinhAnh"
-                    type="file"
-                    accept="image/png, image/jpeg, image/gif, image/png"
-                    onChange={handleChangeFile}
-                    onBlur={handleBlur}
-                  />
-                </Box>
-                <FormHelperText error>{errors.hinhAnh}</FormHelperText>
-                <Image
-                  src={imgSrc === null && modalType === "editMovie" ? movieEdit?.hinhAnh : imgSrc}
-                  alt="..."
-                  className="modal__img"
-                />
-              </FormControl>
-              <Box sx={{ mt: 2 }}>
-                <SubmitButton>{button}</SubmitButton>
               </Box>
-            </Box>
-          </Formik>
+            </Formik>
+          )}
         </Box>
       </Modal>
     </div>
