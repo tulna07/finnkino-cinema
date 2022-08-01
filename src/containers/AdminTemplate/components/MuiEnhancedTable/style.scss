@@ -1,0 +1,9 @@
+.management-table__head-item {
+  color: var(--dark-gray);
+  font-weight: 600;
+  font-size: 16px;
+
+  &.Mui-active {
+    color: var(--primary);
+  }
+}

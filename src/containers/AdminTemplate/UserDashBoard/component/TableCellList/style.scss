@@ -1,0 +1,36 @@
+.movie-table__head-item {
+  color: var(--dark-gray);
+  font-weight: 600;
+  font-size: 16px;
+
+  &.Mui-active {
+    color: var(--primary);
+  }
+}
+
+.management-table__table-cell {
+  --width-s: 100px;
+  --width-m: 150px;
+  --width-l: 200px;
+
+  max-height: var(--width-s);
+  text-align: center;
+
+  &.table-cell__user-number {
+    width: var(--width-m);
+    padding: 0;
+    text-align: center;
+  }
+
+  &.table-cell__user-account {
+    width: var(--width-m);
+  }
+
+  &.table-cell__user-password {
+    width: var(--width-m);
+  }
+
+  &.table-cell__user-email {
+    width: var(--width-l);
+  }
+}
