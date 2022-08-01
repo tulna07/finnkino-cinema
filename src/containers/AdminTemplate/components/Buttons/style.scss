@@ -1,0 +1,15 @@
+.modal__submit-btn {
+  background-color: var(--primary);
+  color: "var(--dark-gray)";
+
+  &:hover {
+    background-color: var(--hover-primary);
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 739px) {
+  .movie-management__btn-icon {
+    font-size: 18px;
+  }
+}

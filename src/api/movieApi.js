@@ -7,9 +7,15 @@ const movieApi = {
     const url = resourceName + "LayDanhSachBanner";
     return axiosClient.get(url);
   },
-  getMovieList: (params) => {
-    const url = resourceName + "LayDanhSachPhim";
-    return axiosClient.get(url, { params });
+  getMovieList: (params, movieName) => {
+    let url;
+    if (movieName !== "") {
+      url = resourceName + `LayDanhSachPhim?maNhom=${params.maNhom}&tenPhim=${movieName}`;
+      return axiosClient.get(url);
+    } else {
+      url = resourceName + "LayDanhSachPhim";
+      return axiosClient.get(url, { params });
+    }
   },
   getPaginatedMovieList: (params) => {
     const url = resourceName + "LayDanhSachPhimPhanTrang";
@@ -24,8 +30,16 @@ const movieApi = {
     return axiosClient.get(url);
   },
   deleteMovie: (params) => {
-    const url = resourceName + "XoaPhim";
-    return axiosClient.delete(url, { params });
+    const url = resourceName + `XoaPhim?MaPhim=${params}`;
+    return axiosClient.delete(url);
+  },
+  addMovie: (formData) => {
+    const url = resourceName + "ThemPhimUploadHinh";
+    return axiosClient.post(url, formData);
+  },
+  editMovie: (formData) => {
+    const url = resourceName + "CapNhatPhimUpload";
+    return axiosClient.post(url, formData);
   },
 };
 

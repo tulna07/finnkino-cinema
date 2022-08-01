@@ -27,7 +27,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const AdminAppBar = ({ toggleDrawer, open }) => (
-  <AppBar position="absolute" open={open} sx={{ backgroundColor: "#fdca00" }}>
+  <AppBar position="absolute" open={open} sx={{ backgroundColor: "#fdca00", overflow: "hidden" }}>
     <Toolbar
       sx={{
         pr: "24px",
