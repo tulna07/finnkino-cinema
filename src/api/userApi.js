@@ -28,7 +28,12 @@ const userApi = {
     return axiosClient.post(url, formData);
   },
   searchUser: (groupId, keyword) => {
-    const url = resourceName + `TimKiemNguoiDung?MaNhom=${groupId}&tuKhoa=${keyword}`;
+    let url;
+    if (keyword === "") {
+      url = resourceName + `TimKiemNguoiDung?MaNhom=${groupId}`;
+    } else {
+      url = resourceName + `TimKiemNguoiDung?MaNhom=${groupId}&tuKhoa=${keyword}`;
+    }
     return axiosClient.get(url);
   },
   editUser: (userAccount) => {

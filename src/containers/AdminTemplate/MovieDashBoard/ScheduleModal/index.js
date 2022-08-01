@@ -36,24 +36,24 @@ function ScheduleModal({ openScheduleModal, setOpenScheduleModal }) {
           </Typography>
           <Formik>
             <Box sx={{ mt: 2 }} component="form">
-              <FormControl fullWidth className="movie-form__input-wrapper">
-                <FormLabel htmlFor="user-name">Hệ thống rạp</FormLabel>
-                <TextField name="hoTen" id="user-name" variant="outlined" fullWidth />
+              <FormControl fullWidth className="form__input-wrapper">
+                <FormLabel htmlFor="cine-system">Hệ thống rạp</FormLabel>
+                <TextField name="cine-system" id="cine-system" variant="outlined" fullWidth />
                 <FormHelperText error>Truong nay la bat buoc</FormHelperText>
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
-                <FormLabel htmlFor="user-name">Cụm rạp</FormLabel>
-                <TextField name="hoTen" id="user-name" variant="outlined" fullWidth />
+              <FormControl fullWidth className="form__input-wrapper">
+                <FormLabel htmlFor="cine-group">Cụm rạp</FormLabel>
+                <TextField name="cine-group" id="cine-group" variant="outlined" fullWidth />
                 <FormHelperText error>Truong nay la bat buoc</FormHelperText>
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
-                <FormLabel htmlFor="user-name">Ngày chiếu giờ chiếu</FormLabel>
-                <TextField name="hoTen" id="user-name" variant="outlined" fullWidth />
+              <FormControl fullWidth className="form__input-wrapper">
+                <FormLabel htmlFor="movie-schedule">Ngày chiếu giờ chiếu</FormLabel>
+                <TextField name="movie-schedule" id="movie-schedule" variant="outlined" fullWidth />
                 <FormHelperText error>Truong nay la bat buoc</FormHelperText>
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
-                <FormLabel htmlFor="user-name">Giá vé</FormLabel>
-                <TextField name="hoTen" id="user-name" variant="outlined" fullWidth />
+              <FormControl fullWidth className="form__input-wrapper">
+                <FormLabel htmlFor="ticket-price">Giá vé</FormLabel>
+                <TextField name="ticket-price" id="ticket-price" variant="outlined" fullWidth />
                 <FormHelperText error>Truong nay la bat buoc</FormHelperText>
               </FormControl>
               <SubmitButton sx={{ py: 1, mt: 2 }}>Tạo lịch chiếu</SubmitButton>
