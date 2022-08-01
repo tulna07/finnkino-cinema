@@ -11,8 +11,6 @@ import "./style.scss";
 
 const UserTableCells = (props) => {
   const { row, index, labelId, handleDeleteMovie, handleEditMovie } = props;
-  const dispatch = useDispatch();
-
   return (
     <>
       <TableCell

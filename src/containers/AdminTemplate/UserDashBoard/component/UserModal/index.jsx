@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useDispatch } from "react-redux";
 
 //Formik
 import { Formik, useFormik } from "formik";
@@ -23,8 +24,7 @@ import { SubmitButton } from "@/containers/AdminTemplate/components/Buttons";
 import "./style.scss";
 import { userSchema } from "@/validators";
 import { GROUP_ID } from "@/constants";
-import { useDispatch } from "react-redux";
-import { actGetUserAdd } from "@/redux/actions/userManagement";
+import { actGetUserAdd, actGetUserEdit } from "@/redux/actions/userManagement";
 
 const style = {
   position: "absolute",
@@ -39,35 +39,50 @@ const style = {
 };
 
 function UserModal(props) {
-  const { openModalUser, setOpenModalUser, title, button, userAccount, modalType } = props;
+  const { openModalUser, setOpenModalUser, title, button, data, userAccount, modalType } = props;
   const dispatch = useDispatch();
   const handleClose = () => setOpenModalUser(false);
-
-  const initialValues = {
+  let userEdit;
+  if (data) {
+    userEdit = data[0];
+  }
+  const initialValuesAddUser = {
     taiKhoan: "",
     matKhau: "",
     email: "",
-    soDt: "",
+    soDT: "",
     maLoaiNguoiDung: "",
     hoTen: "",
   };
 
+  const initialValuesEditUser = {
+    taiKhoan: userEdit?.taiKhoan,
+    matKhau: userEdit?.matKhau,
+    email: userEdit?.email,
+    soDT: userEdit?.soDT,
+    maLoaiNguoiDung: userEdit?.maLoaiNguoiDung,
+    hoTen: userEdit?.hoTen,
+  };
+
+  const initialValues = modalType === "addUser" ? initialValuesAddUser : initialValuesEditUser;
+
   const { errors, values, touched, setFieldValue, handleSubmit, handleChange, handleBlur } =
     useFormik({
       enableReinitialize: true,
-      initialValues,
+      initialValues: initialValues,
       validationSchema: userSchema,
       onSubmit: (values) => {
-        console.log(values);
         values.maNhom = GROUP_ID;
-
         if (modalType === "addUser") {
+          dispatch(actGetUserAdd(values));
+        } else {
+          values.taiKhoan = userAccount;
+          dispatch(actGetUserEdit(values));
         }
-        dispatch(actGetUserAdd(values));
+
         window.location.reload();
       },
     });
-
   const handleChangeSelect = (e) => {
     setFieldValue("maLoaiNguoiDung", e.target.value);
   };
@@ -101,6 +116,7 @@ function UserModal(props) {
                   fullWidth
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.hoTen}
                 />
                 {errors.hoTen && touched.hoTen && (
                   <FormHelperText error>{errors.hoTen}</FormHelperText>
@@ -115,6 +131,7 @@ function UserModal(props) {
                   fullWidth
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.taiKhoan}
                 />
                 {errors.taiKhoan && touched.taiKhoan && (
                   <FormHelperText error>{errors.taiKhoan}</FormHelperText>
@@ -129,6 +146,7 @@ function UserModal(props) {
                   fullWidth
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.matKhau}
                 />
                 {errors.matKhau && touched.matKhau && (
                   <FormHelperText error>{errors.matKhau}</FormHelperText>
@@ -143,6 +161,7 @@ function UserModal(props) {
                   fullWidth
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.email}
                 />
                 {errors.email && touched.email && (
                   <FormHelperText error>{errors.email}</FormHelperText>
@@ -151,20 +170,25 @@ function UserModal(props) {
               <FormControl fullWidth className="movie-form__input-wrapper">
                 <FormLabel htmlFor="user-phoneNo">Số điện thoại</FormLabel>
                 <TextField
-                  name="soDt"
+                  name="soDT"
                   id="user-phoneNo"
                   variant="outlined"
                   fullWidth
                   onChange={handleChange}
                   onBlur={handleBlur}
+                  value={values.soDT}
                 />
-                {errors.soDt && touched.soDt && (
-                  <FormHelperText error>{errors.soDt}</FormHelperText>
+                {errors.soDT && touched.soDT && (
+                  <FormHelperText error>{errors.soDT}</FormHelperText>
                 )}
               </FormControl>
               <FormControl fullWidth className="movie-form__input-wrapper">
                 <FormLabel id="user-type">Loại người dùng</FormLabel>
-                <Select htmlFor="user-type" onChange={handleChangeSelect}>
+                <Select
+                  htmlFor="user-type"
+                  onChange={handleChangeSelect}
+                  value={values.maLoaiNguoiDung}
+                >
                   <MenuItem value="KhachHang">Khách hàng</MenuItem>
                   <MenuItem value="QuanTri">Quản trị</MenuItem>
                 </Select>

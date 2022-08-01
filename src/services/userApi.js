@@ -15,6 +15,10 @@ const userApi = {
     const url = resourceName + "LayDanhSachNguoiDung";
     return axiosClient.get(url, { params });
   },
+  getUserDetails: (params, keyword) => {
+    const url = resourceName + `LayDanhSachNguoiDung?MaNhom=${params.maNhom}&tuKhoa=${keyword}`;
+    return axiosClient.get(url);
+  },
   deleteUser: (userAccount) => {
     const url = resourceName + `XoaNguoiDung?TaiKhoan=${userAccount}`;
     return axiosClient.delete(url);
@@ -26,6 +30,10 @@ const userApi = {
   searchUser: (groupId, keyword) => {
     const url = resourceName + `TimKiemNguoiDung?MaNhom=${groupId}&tuKhoa=${keyword}`;
     return axiosClient.get(url);
+  },
+  editUser: (userAccount) => {
+    const url = resourceName + "CapNhatThongTinNguoiDung";
+    return axiosClient.post(url, userAccount);
   },
 };
 

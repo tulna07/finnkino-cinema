@@ -53,7 +53,6 @@ function MovieModal(props) {
   const dispatch = useDispatch();
   const movieEdit = useSelector((state) => state.movieDetails.data);
   const loadingEditMovie = useSelector((state) => state.movieDetails.loading);
-
   const handleClose = () => setOpenModalMovie(false);
 
   const initialValuesAddMovie = {
@@ -182,7 +181,6 @@ function MovieModal(props) {
                 </FormLabel>
                 <TextField
                   name="tenPhim"
-                  value={values.tenPhim}
                   id="movie-name"
                   variant="outlined"
                   fullWidth

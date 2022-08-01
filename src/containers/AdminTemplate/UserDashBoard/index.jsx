@@ -20,7 +20,7 @@ function UserDashBoard() {
   const [openModalUser, setOpenModalUser] = React.useState(false);
 
   const dispatch = useDispatch();
-  const userList = useSelector((state) => state.userList.data);
+  const userList = useSelector((state) => state.userList.userList);
   const movieListLoading = useSelector((state) => state.movieList.loading);
 
   useEffect(() => {
@@ -51,6 +51,7 @@ function UserDashBoard() {
         setOpenModalUser={setOpenModalUser}
         title="Thêm người dùng"
         button="Thêm người dùng"
+        modalType="addUser"
       />
     </>
   );

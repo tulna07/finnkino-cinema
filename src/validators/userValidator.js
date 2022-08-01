@@ -6,7 +6,7 @@ const userSchema = yup.object().shape({
   taiKhoan: yup.string().required(msg.required),
   matKhau: yup.string().required(msg.required).matches(pattern.password, msg.password),
   email: yup.string().required(msg.required).email(msg.email),
-  soDt: yup.string().required(msg.required).matches(pattern.phoneNumber, msg.phoneNumber),
+  soDT: yup.string().required(msg.required).matches(pattern.phoneNumber, msg.phoneNumber),
   maLoaiNguoiDung: yup.string().required(msg.required),
   hoTen: yup.string().required(msg.required),
 });

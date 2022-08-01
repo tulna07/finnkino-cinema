@@ -62,6 +62,26 @@ const actUserAddFail = (error) => {
   };
 };
 
+const actUserEditRequest = () => {
+  return {
+    type: actType.GET_USER_EDIT_REQUEST,
+  };
+};
+
+const actUserEditSuccess = (data) => {
+  return {
+    type: actType.GET_USER_EDIT_SUCCESS,
+    payload: data,
+  };
+};
+
+const actUserEditFail = (error) => {
+  return {
+    type: actType.GET_USER_EDIT_FAIL,
+    payload: error,
+  };
+};
+
 const actGetUserList = () => {
   return (dispatch) => {
     dispatch(actUserListRequest());
@@ -69,7 +89,8 @@ const actGetUserList = () => {
     const fetchUserList = async () => {
       try {
         const params = { maNhom: GROUP_ID };
-        const userList = await userApi.getUserList(params);
+        const userList = await userApi.getUserList(params, "");
+
         dispatch(actUserListSuccess(userList));
       } catch (error) {
         dispatch(actUserListFail(error));
@@ -129,4 +150,22 @@ const actGetUserSearch = (keywords) => {
     fetchUserSearch();
   };
 };
-export { actGetUserList, actGetUserDetele, actGetUserAdd, actGetUserSearch };
+
+const actGetUserEdit = (data) => {
+  return (dispatch) => {
+    dispatch(actUserEditRequest());
+    const fetchUserEdit = async () => {
+      const params = { maNhom: GROUP_ID };
+      try {
+        const userEdit = await userApi.editUser(data);
+        dispatch(actUserEditSuccess(userEdit));
+      } catch (error) {
+        dispatch(actUserEditFail(error));
+      }
+    };
+
+    fetchUserEdit();
+  };
+};
+
+export { actGetUserList, actGetUserDetele, actGetUserAdd, actGetUserSearch, actGetUserEdit };

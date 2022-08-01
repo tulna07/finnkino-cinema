@@ -28,15 +28,13 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
 // Components
-import Image from "@/components/Image";
 import Loader from "@/components/Loader";
 import MovieModal from "../../MovieDashBoard/components/MovieModal";
-import { EditMovieBtn, DeleteMovieBtn } from "../Buttons";
-import { headCells, TableCellList } from "./constants";
 
 //Others
 import { actFetchMovieDelete } from "@/redux/actions/movieManagement";
 import { actGetUserDetele } from "@/redux/actions/userManagement";
+import actGetUserDetails from "@/redux/actions/userDetails";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
 import "./style.scss";
 import UserModal from "../../UserDashBoard/component/UserModal";
@@ -179,12 +177,12 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
   const [userEdit, setUserEdit] = React.useState("");
 
   const dispatch = useDispatch();
-  const movieEditData = useSelector((state) => state.movieDetails.data);
-
+  let userEditData = useSelector((state) => state.userDetails.data);
   const handleEditMovie = (id) => {
     if (tableType === "user") {
       setOpenModalUser(true);
       setUserEdit(id);
+      dispatch(actGetUserDetails(id));
     } else {
       setOpenModalMovie(true);
       setMovieEdit(id);
@@ -341,7 +339,7 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
             setOpenModalMovie={setOpenModalMovie}
             title="Sửa thông tin phim"
             button="Cập nhập"
-            data={movieEditData}
+            // data={movieEditData}
             modalType="editMovie"
             movieId={movieEdit}
           />
@@ -350,7 +348,7 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
             setOpenModalUser={setOpenModalUser}
             title="Sửa thông tin người dùng"
             button="Sửa thông tin"
-            openModal={openModalUser}
+            data={userEditData}
             modalType="editUser"
             userAccount={userEdit}
           />

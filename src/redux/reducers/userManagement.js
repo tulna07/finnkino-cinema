@@ -3,7 +3,7 @@ import * as actType from "../constants/userManagement";
 const initialState = {
   loading: false,
   error: null,
-  data: null,
+  userList: null,
 };
 
 const userListReducer = (state = initialState, action) => {
@@ -11,24 +11,28 @@ const userListReducer = (state = initialState, action) => {
     case actType.GET_USER_LIST_REQUEST:
     case actType.GET_USER_DELETE_REQUEST:
     case actType.GET_USER_ADD_REQUEST:
+    case actType.GET_USER_ADD_REQUEST:
+    case actType.GET_USER_EDIT_REQUEST:
       state.loading = true;
-      state.data = null;
+      state.userList = null;
       state.error = null;
       return { ...state };
 
     case actType.GET_USER_LIST_SUCCESS:
     case actType.GET_USER_DELETE_SUCCESS:
     case actType.GET_USER_ADD_SUCCESS:
+    case actType.GET_USER_EDIT_SUCCESS:
       state.loading = false;
-      state.data = action.payload;
+      state.userList = action.payload;
       state.error = null;
       return { ...state };
 
     case actType.GET_USER_LIST_FAIL:
     case actType.GET_USER_DELETE_FAIL:
     case actType.GET_USER_ADD_FAIL:
+    case actType.GET_USER_EDIT_FAIL:
       state.loading = false;
-      state.data = null;
+      state.userList = null;
       state.error = action.payload;
       return { ...state };
 

@@ -7,3 +7,6 @@ export const GET_USER_DELETE_FAIL = "@movieListReducer/GET_USER_DELETE_FAIL";
 export const GET_USER_ADD_REQUEST = "@movieListReducer/GET_USER_ADD_REQUEST ";
 export const GET_USER_ADD_SUCCESS = "@movieListReducer/GET_USER_ADD_SUCCESS";
 export const GET_USER_ADD_FAIL = "@movieListReducer/GET_USER_ADD_FAIL";
+export const GET_USER_EDIT_REQUEST = "@movieListReducer/GET_USER_EDIT_REQUEST ";
+export const GET_USER_EDIT_SUCCESS = "@movieListReducer/GET_USER_EDIT_SUCCESS";
+export const GET_USER_EDIT_FAIL = "@movieListReducer/GET_USER_EDIT_FAIL";
