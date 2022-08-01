@@ -12,8 +12,8 @@ const Header = () => (
       src={FinnkinoLogo}
       sx={{
         display: { sm: "inline-block", xs: "none" },
-        width: 100,
-        height: 100,
+        width: 75,
+        height: 75,
       }}
     />
   </Link>

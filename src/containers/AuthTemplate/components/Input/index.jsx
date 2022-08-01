@@ -4,6 +4,9 @@ import { TextField } from "@mui/material";
 // React hook form
 import { useController } from "react-hook-form";
 
+// Scss
+import "./style.scss";
+
 const Input = ({ control, name, ...others }) => {
   const {
     field,
@@ -18,6 +21,7 @@ const Input = ({ control, name, ...others }) => {
       {...field}
       {...others}
       error={!!error}
+      className="auth-input"
       helperText={error?.message}
       fullWidth
       variant="standard"
