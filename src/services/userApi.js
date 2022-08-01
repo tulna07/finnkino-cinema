@@ -11,18 +11,21 @@ const userApi = {
     const url = resourceName + "DangKy";
     return axiosClient.post(url, user);
   },
-  getUserList: (params, userName) => {
-    let url;
-    if (userName !== "") {
-      url = resourceName + `LayDanhSachNguoiDung?MaNhom=${params}&tuKhoa=${userName}`;
-    } else {
-      url = resourceName + "LayDanhSachNguoiDung";
-      return axiosClient.get(url, params);
-    }
+  getUserList: (params) => {
+    const url = resourceName + "LayDanhSachNguoiDung";
+    return axiosClient.get(url, { params });
   },
   deleteUser: (userAccount) => {
     const url = resourceName + `XoaNguoiDung?TaiKhoan=${userAccount}`;
     return axiosClient.delete(url);
+  },
+  addUser: (formData) => {
+    const url = resourceName + "ThemNguoiDung";
+    return axiosClient.post(url, formData);
+  },
+  searchUser: (groupId, keyword) => {
+    const url = resourceName + `TimKiemNguoiDung?MaNhom=${groupId}&tuKhoa=${keyword}`;
+    return axiosClient.get(url);
   },
 };
 

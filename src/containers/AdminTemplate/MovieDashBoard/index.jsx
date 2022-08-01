@@ -19,7 +19,7 @@ import { headCells } from "./constants";
 import "./style.scss";
 
 function MovieDashBoard() {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalMovie, setOpenModalMovie] = useState(false);
   const dispatch = useDispatch();
   const movieList = useSelector((state) => state.movieList.data);
   const movieListLoading = useSelector((state) => state.movieList.loading);
@@ -39,7 +39,7 @@ function MovieDashBoard() {
         }}
       >
         <SearchBar onSubmit={handleSearch} className="movie-dashboard__search" />
-        <AddItemBtn onClick={() => setOpenModal(true)}>Thêm phim</AddItemBtn>
+        <AddItemBtn onClick={() => setOpenModalMovie(true)}>Thêm phim</AddItemBtn>
         <MuiEnhancedTable
           headCells={headCells}
           dataList={movieList}
@@ -48,8 +48,8 @@ function MovieDashBoard() {
         />
       </Container>
       <MovieModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
+        openModalMovie={openModalMovie}
+        setOpenModalMovie={setOpenModalMovie}
         title="Thêm phim mới"
         button="Thêm phim"
         modalType="addMovie"

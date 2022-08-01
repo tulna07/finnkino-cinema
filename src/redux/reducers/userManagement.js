@@ -4,13 +4,13 @@ const initialState = {
   loading: false,
   error: null,
   data: null,
-  movieType: "now",
 };
 
 const userListReducer = (state = initialState, action) => {
   switch (action.type) {
     case actType.GET_USER_LIST_REQUEST:
     case actType.GET_USER_DELETE_REQUEST:
+    case actType.GET_USER_ADD_REQUEST:
       state.loading = true;
       state.data = null;
       state.error = null;
@@ -18,6 +18,7 @@ const userListReducer = (state = initialState, action) => {
 
     case actType.GET_USER_LIST_SUCCESS:
     case actType.GET_USER_DELETE_SUCCESS:
+    case actType.GET_USER_ADD_SUCCESS:
       state.loading = false;
       state.data = action.payload;
       state.error = null;
@@ -25,6 +26,7 @@ const userListReducer = (state = initialState, action) => {
 
     case actType.GET_USER_LIST_FAIL:
     case actType.GET_USER_DELETE_FAIL:
+    case actType.GET_USER_ADD_FAIL:
       state.loading = false;
       state.data = null;
       state.error = action.payload;

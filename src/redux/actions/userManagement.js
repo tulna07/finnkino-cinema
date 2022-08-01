@@ -2,24 +2,6 @@ import * as actType from "../constants/userManagement";
 import { GROUP_ID } from "@/constants";
 import { userApi } from "@/services";
 
-const actGetUserList = (userName = "") => {
-  return (dispatch) => {
-    dispatch(actUserListRequest());
-
-    const fetchUserList = async () => {
-      try {
-        const params = { maNhom: GROUP_ID };
-        const userList = await userApi.getUserList(params, userName);
-        dispatch(actUserListSuccess(userList));
-      } catch (error) {
-        dispatch(actUserListFail(error));
-      }
-    };
-
-    fetchUserList();
-  };
-};
-
 const actUserListRequest = () => {
   return {
     type: actType.GET_USER_LIST_REQUEST,
@@ -60,6 +42,44 @@ const actUserDeleteFail = (error) => {
   };
 };
 
+const actUserAddRequest = () => {
+  return {
+    type: actType.GET_USER_ADD_REQUEST,
+  };
+};
+
+const actUserAddSuccess = (data) => {
+  return {
+    type: actType.GET_USER_ADD_SUCCESS,
+    payload: data,
+  };
+};
+
+const actUserAddFail = (error) => {
+  return {
+    type: actType.GET_USER_ADD_FAIL,
+    payload: error,
+  };
+};
+
+const actGetUserList = () => {
+  return (dispatch) => {
+    dispatch(actUserListRequest());
+
+    const fetchUserList = async () => {
+      try {
+        const params = { maNhom: GROUP_ID };
+        const userList = await userApi.getUserList(params);
+        dispatch(actUserListSuccess(userList));
+      } catch (error) {
+        dispatch(actUserListFail(error));
+      }
+    };
+
+    fetchUserList();
+  };
+};
+
 const actGetUserDetele = (userAccount) => {
   return (dispatch) => {
     dispatch(actUserDeleteRequest());
@@ -76,4 +96,37 @@ const actGetUserDetele = (userAccount) => {
   };
 };
 
-export { actGetUserList, actGetUserDetele };
+const actGetUserAdd = (userData) => {
+  return (dispatch) => {
+    dispatch(actUserAddRequest());
+
+    const fetchUserAdd = async () => {
+      try {
+        const userAdd = await userApi.addUser(userData);
+        dispatch(actUserAddSuccess(userAdd));
+        alert("user added successfully");
+      } catch (error) {
+        dispatch(actUserAddFail(error));
+      }
+    };
+
+    fetchUserAdd();
+  };
+};
+
+const actGetUserSearch = (keywords) => {
+  return (dispatch) => {
+    dispatch(actUserListRequest());
+    const fetchUserSearch = async () => {
+      try {
+        const userSearch = await userApi.searchUser(GROUP_ID, keywords);
+        dispatch(actUserListSuccess(userSearch));
+      } catch (error) {
+        dispatch(actUserListFail(error));
+      }
+    };
+
+    fetchUserSearch();
+  };
+};
+export { actGetUserList, actGetUserDetele, actGetUserAdd, actGetUserSearch };

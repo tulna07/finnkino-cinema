@@ -48,13 +48,13 @@ const style = {
 };
 
 function MovieModal(props) {
-  const { title, button, openModal, setOpenModal, movieId, modalType } = props;
+  const { title, button, openModalMovie, setOpenModalMovie, movieId, modalType } = props;
   const [imgSrc, setImgSrc] = useState(null);
-
   const dispatch = useDispatch();
   const movieEdit = useSelector((state) => state.movieDetails.data);
   const loadingEditMovie = useSelector((state) => state.movieDetails.loading);
-  const handleClose = () => setOpenModal(false);
+
+  const handleClose = () => setOpenModalMovie(false);
 
   const initialValuesAddMovie = {
     tenPhim: "",
@@ -90,6 +90,7 @@ function MovieModal(props) {
       validationSchema: movieSchema,
       onSubmit: (values) => {
         values.maNhom = GROUP_ID;
+
         let formData = new FormData();
         for (var key in values) {
           if (key !== "hinhAnh") {
@@ -157,7 +158,7 @@ function MovieModal(props) {
   return (
     <div>
       <Modal
-        open={openModal}
+        open={openModalMovie}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"

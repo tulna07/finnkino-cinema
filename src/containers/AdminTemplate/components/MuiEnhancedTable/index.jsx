@@ -39,6 +39,7 @@ import { actFetchMovieDelete } from "@/redux/actions/movieManagement";
 import { actGetUserDetele } from "@/redux/actions/userManagement";
 import actFetchMovieDetails from "@/redux/actions/movieDetails";
 import "./style.scss";
+import UserModal from "../../UserDashBoard/component/UserModal";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -172,16 +173,23 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [openModal, setOpenModal] = React.useState(false);
+  const [openModalMovie, setOpenModalMovie] = React.useState(false);
+  const [openModalUser, setOpenModalUser] = React.useState(false);
   const [movieEdit, setMovieEdit] = React.useState("");
+  const [userEdit, setUserEdit] = React.useState("");
 
   const dispatch = useDispatch();
   const movieEditData = useSelector((state) => state.movieDetails.data);
 
-  const handleEditMovie = (movieId) => {
-    setOpenModal(true);
-    setMovieEdit(movieId);
-    dispatch(actFetchMovieDetails(movieId));
+  const handleEditMovie = (id) => {
+    if (tableType === "user") {
+      setOpenModalUser(true);
+      setUserEdit(id);
+    } else {
+      setOpenModalMovie(true);
+      setMovieEdit(id);
+      dispatch(actFetchMovieDetails(id));
+    }
   };
 
   const handleDeleteItem = (id) => {
@@ -329,13 +337,22 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
             />
           </Box>
           <MovieModal
-            openModal={openModal}
-            setOpenModal={setOpenModal}
+            openModalMovie={openModalMovie}
+            setOpenModalMovie={setOpenModalMovie}
             title="Sửa thông tin phim"
             button="Cập nhập"
             data={movieEditData}
             modalType="editMovie"
             movieId={movieEdit}
+          />
+          <UserModal
+            openModalUser={openModalUser}
+            setOpenModalUser={setOpenModalUser}
+            title="Sửa thông tin người dùng"
+            button="Sửa thông tin"
+            openModal={openModalUser}
+            modalType="editUser"
+            userAccount={userEdit}
           />
         </Fragment>
       )}

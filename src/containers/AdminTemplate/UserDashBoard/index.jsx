@@ -3,22 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Material UI
 import { Container } from "@mui/system";
-import { Button } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 
 //Components
 import SearchBar from "../components/SearchBar";
-// import MovieManagementTable from "./MovieManagementTable";
-// import MovieModal from "./components/MovieModal";
 
 //Others
-import { actGetUserList } from "@/redux/actions/userManagement";
+import { actGetUserSearch, actGetUserList } from "@/redux/actions/userManagement";
 import MuiEnhancedTable from "../components/MuiEnhancedTable";
 import UserTableCells from "./component/TableCellList";
 import headCells from "./constants";
 import { AddItemBtn } from "../components/Buttons";
+import UserModal from "./component/UserModal";
 
 function UserDashBoard() {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModalUser, setOpenModalUser] = React.useState(false);
+
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList.data);
   const movieListLoading = useSelector((state) => state.movieList.loading);
@@ -28,7 +28,7 @@ function UserDashBoard() {
   }, []);
 
   const handleSearch = (value) => {
-    dispatch(actGetUserList(value));
+    dispatch(actGetUserSearch(value));
   };
   return (
     <>
@@ -38,7 +38,7 @@ function UserDashBoard() {
         }}
       >
         <SearchBar onSubmit={handleSearch} className="movie-dashboard__search" />
-        <AddItemBtn>Thêm người dùng</AddItemBtn>
+        <AddItemBtn onClick={() => setOpenModalUser(true)}>Thêm người dùng</AddItemBtn>
         <MuiEnhancedTable
           headCells={headCells}
           dataList={userList}
@@ -46,13 +46,12 @@ function UserDashBoard() {
           tableType="user"
         />
       </Container>
-      {/* <MovieModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        title="Thêm phim mới"
-        button="Thêm phim"
-        modalType="addMovie"
-      /> */}
+      <UserModal
+        openModalUser={openModalUser}
+        setOpenModalUser={setOpenModalUser}
+        title="Thêm người dùng"
+        button="Thêm người dùng"
+      />
     </>
   );
 }

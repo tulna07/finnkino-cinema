@@ -33,7 +33,6 @@ const actFetchMovieEdit = (movie) => {
       try {
         const movieEdit = await movieApi.editMovie(movie);
         dispatch(actMovieManagementSuccess(movieEdit));
-        alert("Edit movie successfully");
       } catch (error) {
         dispatch(actMovieManagementFail(error));
       }
