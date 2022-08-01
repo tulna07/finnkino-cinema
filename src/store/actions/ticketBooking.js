@@ -1,6 +1,7 @@
 import * as actType from "../constants/ticketBooking";
 import { ticketBookingApi } from "@/api";
 
+// Fetch ticket booking details
 const actGetTicketBookingDetails = (showtimeCode) => {
   return (dispatch) => {
     dispatch(actTicketBookingDetailsRequest());
@@ -31,4 +32,10 @@ const actTicketBookingDetailsFail = (error) => ({
   payload: error,
 });
 
-export default actGetTicketBookingDetails;
+// Choose seats
+const actChooseSeat = (seat) => ({
+  type: actType.CHOOSE_SEAT,
+  payload: seat,
+});
+
+export { actGetTicketBookingDetails, actChooseSeat };

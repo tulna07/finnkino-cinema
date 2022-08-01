@@ -24,7 +24,28 @@ const TicketBookingCard = () => {
   const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
 
   const movie = ticketBooking?.ticketBookingDetails?.thongTinPhim;
+  const selectedSeats = ticketBooking?.selectedSeats;
   const loading = ticketBooking?.loading;
+
+  const renderSelectedSeats = () =>
+    selectedSeats?.map((selectedSeat, idx) => {
+      const endLine = idx === selectedSeats.length - 1;
+      return (
+        <span>
+          {selectedSeat.code}
+          {endLine ? "" : ", "}
+        </span>
+      );
+    });
+
+  const renderPriceTotal = () => {
+    const priceTotal = selectedSeats?.reduce(
+      (priceTotal, selectedSeat) => priceTotal + selectedSeat.price,
+      0,
+    );
+
+    return priceTotal.toLocaleString();
+  };
 
   return (
     <Card className="ticket-booking-card" elevation={24} square>
@@ -68,14 +89,15 @@ const TicketBookingCard = () => {
             <List>
               <ListItem className="ticket-booking-card__booking-details">
                 <ListItemText disableTypography>
-                  <strong>Ghế:</strong> G1, A2, A3, H5
+                  <strong>Ghế:</strong> {renderSelectedSeats()}
                 </ListItemText>
               </ListItem>
             </List>
             <Divider className="ticket-booking-card__divider" />
             {/* Total payment */}
             <Typography className="ticket-booking-card__total" variant="h5" sx={{ mt: "13px" }}>
-              <strong>Tổng:</strong> <strong style={{ color: "var(--primary)" }}>0 VNĐ</strong>
+              <strong>Tổng:</strong>{" "}
+              <strong style={{ color: "var(--primary)" }}>{renderPriceTotal()} VNĐ</strong>
             </Typography>
           </CardContent>
           {/* Book ticket */}
