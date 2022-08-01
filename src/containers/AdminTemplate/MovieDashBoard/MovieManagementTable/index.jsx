@@ -34,8 +34,8 @@ import MovieModal from "../components/MovieModal";
 import { EditMovieBtn, DeleteMovieBtn } from "../../components/Buttons";
 
 //Others
-import { actFetchMovieDelete } from "@/redux/actions/movieManagement";
-import actFetchMovieDetails from "@/redux/actions/movieDetails";
+import { actFetchMovieDelete } from "@/store/actions/movieManagement";
+import actFetchMovieDetails from "@/store/actions/movieDetails";
 import "./style.scss";
 
 function descendingComparator(a, b, orderBy) {

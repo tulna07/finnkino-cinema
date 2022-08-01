@@ -1,6 +1,6 @@
 import * as actType from "../constants/userManagement";
 import { GROUP_ID } from "@/constants";
-import { userApi } from "@/services";
+import { userApi } from "@/api";
 
 const actUserListRequest = () => {
   return {

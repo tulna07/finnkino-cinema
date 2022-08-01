@@ -12,8 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Formik, useFormik } from "formik";
 
 import { editMovieSchema, addMovieSchema } from "@/validators";
-import { actFetchMovieEdit, actFetchMovieAdd } from "@/redux/actions/movieManagement";
-import actFetchMovieDetails from "@/redux/actions/movieDetails";
+import { actFetchMovieEdit, actFetchMovieAdd } from "@/store/actions/movieManagement";
+import actFetchMovieDetails from "@/store/actions/movieDetails";
 import { GROUP_ID } from "@/constants";
 
 // Material UI
