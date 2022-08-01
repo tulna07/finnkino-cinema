@@ -1,9 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-
 import { TableCell } from "@mui/material";
 
 // Components
-import Image from "@/components/Image";
 import { EditMovieBtn, DeleteMovieBtn } from "../../../components/Buttons";
 
 //Others

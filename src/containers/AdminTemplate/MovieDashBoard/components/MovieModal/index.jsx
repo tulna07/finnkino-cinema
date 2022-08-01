@@ -1,12 +1,8 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
 
 //moment
 import moment from "moment";
-
-// Yup resolver
-import { yupResolver } from "@hookform/resolvers/yup";
 
 //formik
 import { Formik, useFormik } from "formik";
@@ -43,7 +39,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50%",
+  width: "30%",
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,

@@ -51,7 +51,7 @@ const DeleteMovieBtn = (props) => (
 );
 
 const CreateScheduleBtn = (props) => (
-  <IconButton color="error" {...props}>
+  <IconButton color="success" {...props}>
     <CalendarTodayIcon />
   </IconButton>
 );
