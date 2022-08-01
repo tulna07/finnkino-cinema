@@ -13,8 +13,6 @@ import SeatNote from "./SeatNote";
 
 const SeatSelector = () => {
   const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
-
-  const seats = ticketBooking?.ticketBookingDetails?.danhSachGhe;
   const loading = ticketBooking?.loading;
 
   return (
@@ -41,7 +39,7 @@ const SeatSelector = () => {
                   Màn hình
                 </Typography>
                 <Grid className="seat-selector__map-grid" container columns={18} spacing={1}>
-                  <SeatGrid seats={seats} />
+                  <SeatGrid />
                 </Grid>
                 <Grid className="seat-selector__seat-notes-container" container columns={15}>
                   <SeatNote />

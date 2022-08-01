@@ -9,10 +9,12 @@
 
   // Seat colors
   .selected {
+    color: var(--white);
     background-color: #7dc71d;
   }
 
   .sold {
+    color: var(--white);
     background-color: #e11c01;
   }
 
@@ -21,7 +23,7 @@
   }
 
   .selectable {
-    background-color: var(--light-gray);
+    background-color: #dbdee1;
   }
 
   .unavailable {
@@ -61,17 +63,6 @@
       text-align: center;
       margin-bottom: 15px;
     }
-  }
-
-  &__seat,
-  &__indicator {
-    cursor: pointer;
-    width: 22px;
-    height: 22px;
-    color: var(--black);
-    font-size: 13px;
-    text-align: center;
-    line-height: 22px;
   }
 
   &__seat-notes-container {

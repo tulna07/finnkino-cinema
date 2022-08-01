@@ -25,7 +25,7 @@ import Loader from "@/components/Loader";
 import "./style.scss";
 import { userSchema } from "@/validators";
 import { GROUP_ID } from "@/constants";
-import { actGetUserAdd, actGetUserEdit } from "@/redux/actions/userManagement";
+import { actGetUserAdd, actGetUserEdit } from "@/store/actions/userManagement";
 
 const style = {
   position: "absolute",
@@ -100,7 +100,7 @@ function UserModal(props) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style} className="user-modal">
-        <Typography variant="h5" component="h2" id="modal-modal-title" variant="h5" component="h2">
+        <Typography variant="h5" component="h2" id="modal-modal-title">
           {title}
         </Typography>
         {loading ? (

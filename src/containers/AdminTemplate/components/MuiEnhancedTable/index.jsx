@@ -32,10 +32,10 @@ import Loader from "@/components/Loader";
 import MovieModal from "../../MovieDashBoard/components/MovieModal";
 
 //Others
-import { actFetchMovieDelete } from "@/redux/actions/movieManagement";
-import { actGetUserDetele } from "@/redux/actions/userManagement";
-import actGetUserDetails from "@/redux/actions/userDetails";
-import actFetchMovieDetails from "@/redux/actions/movieDetails";
+import { actFetchMovieDelete } from "@/store/actions/movieManagement";
+import { actGetUserDetele } from "@/store/actions/userManagement";
+import actGetUserDetails from "@/store/actions/userDetails";
+import actFetchMovieDetails from "@/store/actions/movieDetails";
 import "./style.scss";
 import UserModal from "../../UserDashBoard/component/UserModal";
 

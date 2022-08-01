@@ -29,6 +29,9 @@ import { loginSchema } from "@/validators";
 // Api
 import { userApi } from "@/api";
 
+// Scss
+import "./style.scss";
+
 const LoginPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -62,7 +65,13 @@ const LoginPage = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(handleLogin)} noValidate mt={1}>
+    <Box
+      className="auth-login-form"
+      component="form"
+      onSubmit={handleSubmit(handleLogin)}
+      noValidate
+      mt={1}
+    >
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -88,15 +97,21 @@ const LoginPage = () => {
       <FormControlLabel
         control={<Checkbox value="remember" color="primary" />}
         label="Ghi nhớ đăng nhập"
+        className="remember-login"
       />
       <Button onClick={() => setError(false)} loading={loading}>
         Đăng nhập
       </Button>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Link href="#" variant="body2">
+        <Link href="#" variant="body2" sx={{ fontSize: "13px" }}>
           Quên mật khẩu?
         </Link>
-        <Link href="" variant="body2" onClick={() => navigate("/auth/register")}>
+        <Link
+          href=""
+          variant="body2"
+          sx={{ fontSize: "13px" }}
+          onClick={() => navigate("/auth/register")}
+        >
           Không có tài khoản? Đăng ký
         </Link>
       </Stack>

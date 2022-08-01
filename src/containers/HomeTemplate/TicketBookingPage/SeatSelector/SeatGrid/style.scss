@@ -1,29 +1,7 @@
 .seat-selector {
-  &__seat {
-    background-color: #dbdee1;
-
-    &.selected {
-      background-color: #7dc71d;
-    }
-
-    &.sold {
-      cursor: no-drop;
-    }
-
-    &.vip {
-      background-color: var(--primary);
-    }
-
-    &.selectable {
-      background-color: var(--light-gray);
-    }
-
-    &.unavailable {
-      background-color: #0cbfca;
-    }
-  }
-
   &__indicator-wrapper {
+    cursor: pointer;
+
     &--left {
       margin-left: -15px;
     }
@@ -31,6 +9,28 @@
     &--right {
       margin-left: 15px;
     }
+  }
+
+  &__seat-wrapper {
+    width: 22px;
+    cursor: pointer;
+
+    &.sold {
+      cursor: no-drop;
+
+      > .seat-selector__seat {
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__seat,
+  &__indicator {
+    width: 22px;
+    height: 22px;
+    font-size: 13px;
+    text-align: center;
+    line-height: 22px;
   }
 
   &__indicator {

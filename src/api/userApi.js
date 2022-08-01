@@ -11,6 +11,10 @@ const userApi = {
     const url = resourceName + "DangKy";
     return axiosClient.post(url, user);
   },
+  getUser: () => {
+    const url = resourceName + "ThongTinTaiKhoan";
+    return axiosClient.post(url);
+  },
   getUserList: (params) => {
     const url = resourceName + "LayDanhSachNguoiDung";
     return axiosClient.get(url, { params });
