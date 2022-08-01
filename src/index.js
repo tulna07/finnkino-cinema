@@ -1,12 +1,11 @@
 import ReactDOM from "react-dom/client";
 
+// i18next translation
+import "./i18n";
+
 // Redux config
 import { Provider } from "react-redux";
-import configureStore from "@/redux";
-
-//React Slick config
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import configureStore from "@/store";
 
 // Components
 import App from "@/App";

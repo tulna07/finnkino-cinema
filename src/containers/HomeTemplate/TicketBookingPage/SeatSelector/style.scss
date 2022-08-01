@@ -1,70 +1,81 @@
 .seat-selector {
-  height: 700px;
-  padding: 17px 22px;
+  padding: 10px 14px;
   background-color: var(--white);
 
+  // Mobile and Tablet
+  @media (max-width: 1023px) {
+    padding: 8px 12px;
+  }
+
+  // Seat colors
+  .selected {
+    background-color: #7dc71d;
+  }
+
+  .sold {
+    background-color: #e11c01;
+  }
+
+  .vip {
+    background-color: var(--primary);
+  }
+
+  .selectable {
+    background-color: var(--light-gray);
+  }
+
+  .unavailable {
+    background-color: #0cbfca;
+  }
+
   &__title {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    font-size: 25px;
+
+    // Mobile and Tablet
+    @media (max-width: 1023px) {
+      font-size: 20px;
+    }
   }
 
   &__map {
-    padding: 24px;
-    background-color: var(--dark-gray);
+    &-wrapper {
+      padding: 24px;
+      background-color: var(--dark-gray);
+    }
 
     &-grid {
       margin: 0 auto;
-      width: 600px;
+      width: 460px;
     }
   }
 
   &__screen {
     height: 7px;
-    width: 80%;
+    width: 70%;
     margin-bottom: 20px;
     margin: 20px auto;
     background-color: var(--primary);
 
     &-title {
       text-align: center;
+      margin-bottom: 15px;
     }
   }
 
-  &__seat {
-    width: 34px;
-    height: 34px;
-    color: var(--white) !important;
-    font-size: 14px;
-    text-align: center;
-    line-height: 32px;
-    border-radius: 3px;
-    background-color: var(--light-gray);
+  &__seat,
+  &__indicator {
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
     color: var(--black);
+    font-size: 13px;
+    text-align: center;
+    line-height: 22px;
   }
 
   &__seat-notes-container {
-    padding: 0 40px;
-    margin-top: 16px;
-    color: var(--black);
-  }
-
-  &__seat-notes {
-    width: 17px;
-    height: 17px;
-
-    &--selected {
-      background-color: #7dc71d;
-    }
-
-    &--sold {
-      background-color: #e11c01;
-    }
-
-    &--selectable {
-      background-color: var(--light-gray);
-    }
-
-    &--unavailable {
-      background-color: #0cbfca;
-    }
+    margin-top: 23px;
+    color: var(--white);
   }
 }

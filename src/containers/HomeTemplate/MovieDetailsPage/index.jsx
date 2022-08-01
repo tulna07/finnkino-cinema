@@ -13,7 +13,7 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
 //Components
 import Image from "@/components/Image";
-import actFetchMovieDetails from "@/redux/actions/movieDetails";
+import actFetchMovieDetails from "@/store/actions/movieDetails";
 import Loader from "@/components/Loader";
 
 import "./style.scss";

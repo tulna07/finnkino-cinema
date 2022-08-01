@@ -3,7 +3,7 @@ import {
   GET_CINEMA_LIST_SUCCESS,
   GET_CINEMA_LIST_FAIL,
 } from "../constants/cinemaSystem";
-import { cinemaApi } from "@/services";
+import { cinemaApi } from "@/api";
 
 const actGetCinemaList = () => {
   return (dispatch) => {

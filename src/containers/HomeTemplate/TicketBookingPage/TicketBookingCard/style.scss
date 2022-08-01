@@ -3,35 +3,73 @@
   color: var(--white);
   background-color: var(--gray);
 
+  // Mobile
+  @media (max-width: 739px) {
+    padding: 12px;
+  }
+
   &__media {
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
     margin-bottom: 16px;
+
+    // Mobile
+    @media (max-width: 739px) {
+      width: 90%;
+    }
   }
 
   &__content {
-    font-size: 18px;
+    font-size: 13px;
     padding: 0;
   }
 
   &__movie-name {
-    font-weight: 700;
+    margin-bottom: -8px;
+    font: {
+      weight: 700;
+      size: 22px;
+    }
     text-align: center;
+
+    // Mobile
+    @media (max-width: 739px) {
+      font-size: 20px;
+    }
+  }
+
+  &__booking-details {
+    padding: 4px 0;
   }
 
   &__divider {
     background-color: var(--light-gray);
   }
 
+  &__total {
+    font-size: 17px;
+
+    // Mobile
+    @media (max-width: 739px) {
+      font-size: 15px;
+    }
+  }
+
   &__btn-booking {
-    padding: 15px 42px;
+    margin-top: 20px;
+    padding: 8px 32px;
     font: {
-      size: 16px;
+      size: 15px;
       weight: 700;
     }
     color: var(--black);
     background-color: var(--primary);
     border-radius: 0;
+
+    // Mobile
+    @media (max-width: 739px) {
+      font-size: 13px;
+    }
 
     &:hover {
       background-color: var(--hover-primary);

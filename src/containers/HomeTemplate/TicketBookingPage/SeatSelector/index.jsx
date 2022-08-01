@@ -1,63 +1,56 @@
+import { useSelector } from "react-redux";
+
 // Material UI
-import { Box, Typography, Grid, Stack } from "@mui/material";
+import { Box, Typography, Grid } from "@mui/material";
 
 // Scss
 import "./style.scss";
 
+// Components
+import Loader from "@/components/Loader";
+import SeatGrid from "./SeatGrid";
+import SeatNote from "./SeatNote";
+
 const SeatSelector = () => {
-  const arr = [];
-  for (let i = 0; i < 160; ++i) {
-    arr.push(
-      <Grid item xs={1} key={i}>
-        <Box className="seat-selector__seat">{i + 1}</Box>
-      </Grid>,
-    );
-  }
+  const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
+
+  const seats = ticketBooking?.ticketBookingDetails?.danhSachGhe;
+  const loading = ticketBooking?.loading;
 
   return (
     <Box className="seat-selector">
-      <Typography className="seat-selector__title" variant="h4">
-        CHỌN GHẾ:
-      </Typography>
-      <Box className="seat-selector__map">
-        <Box className="seat-selector__screen"></Box>
-        <Typography className="seat-selector__screen-title" variant="h5" color="white">
-          Màn hình
-        </Typography>
-        <Grid className="seat-selector__map-grid" container columns={16} spacing={1}>
-          {arr}
-        </Grid>
-      </Box>
-      <Grid
-        className="seat-selector__seat-notes-container"
-        container
-        sx={{ color: "black", px: 5, mt: 2 }}
-      >
-        <Grid item xs={3}>
-          <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
-            <Box className="seat-selector__seat-notes seat-selector__seat-notes--selected"></Box>
-            <Typography>Ghế đang chọn</Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={3}>
-          <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
-            <Box className="seat-selector__seat-notes seat-selector__seat-notes--sold"></Box>
-            <Typography>Ghế đã bán</Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={3}>
-          <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
-            <Box className="seat-selector__seat-notes seat-selector__seat-notes--selectable"></Box>
-            <Typography>Có thể chọn</Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={3}>
-          <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
-            <Box className="seat-selector__seat-notes seat-selector__seat-notes--unavailable"></Box>
-            <Typography>Không thể chọn</Typography>
-          </Stack>
-        </Grid>
-      </Grid>
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <Typography className="seat-selector__title" variant="h4">
+            Chọn Ghế:
+          </Typography>
+          <Box
+            className="seat-selector__map-wrapper"
+            sx={{ overflow: { lg: "visible", xs: "scroll" } }}
+          >
+            <Grid
+              container
+              className="seat-selector__map"
+              sx={{ width: { lg: "100%", xs: "750px" } }}
+            >
+              <Grid item xs={12}>
+                <Box className="seat-selector__screen"></Box>
+                <Typography className="seat-selector__screen-title" variant="h5" color="white">
+                  Màn hình
+                </Typography>
+                <Grid className="seat-selector__map-grid" container columns={18} spacing={1}>
+                  <SeatGrid seats={seats} />
+                </Grid>
+                <Grid className="seat-selector__seat-notes-container" container columns={15}>
+                  <SeatNote />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Box>
+        </>
+      )}
     </Box>
   );
 };
