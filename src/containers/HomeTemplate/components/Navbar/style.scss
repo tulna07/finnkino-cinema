@@ -6,8 +6,8 @@
     color: var(--white);
   }
 
-  .main-header__navbar-btn + .main-header__navbar-btn {
-    margin-left: 12px;
+  .main-header__navbar-btn-wrapper + .main-header__navbar-btn-wrapper {
+    margin-left: 6px;
   }
 }
 
@@ -20,7 +20,7 @@
   padding: 0;
 }
 
-.main-header__navbar-item {
+.main-header__navbar-item-name {
   font-family: "Open Sans", sans-serif;
 
   &:hover {
@@ -36,13 +36,19 @@
 }
 
 @media (max-width: 1023px) {
-  .main-header__navbar-item {
-    background-color: var(--white);
-    color: var(--gray);
+  #menu-appbar {
+    margin-top: 4px;
 
-    &:hover {
-      background-color: var(--white);
-      color: var(--gray);
+    ul {
+      width: 150px;
     }
+  }
+  .main-header__navbar-item {
+    padding: 16px 18px;
+  }
+
+  .main-header__navbar-item-name {
+    background-color: transparent;
+    color: var(--white);
   }
 }
