@@ -21,11 +21,12 @@ import Loader from "@/components/Loader";
 import "./style.scss";
 
 const TicketBookingCard = () => {
-  const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
+  const { ticketBookingDetails, selectedSeats } = useSelector(
+    (rootReducer) => rootReducer.ticketBooking,
+  );
 
-  const movie = ticketBooking?.ticketBookingDetails?.thongTinPhim;
-  const selectedSeats = ticketBooking?.selectedSeats;
-  const loading = ticketBooking?.loading;
+  const movie = ticketBookingDetails.data?.thongTinPhim;
+  const loading = ticketBookingDetails.loading;
 
   const renderSelectedSeats = () =>
     selectedSeats?.map((selectedSeat, idx) => {
