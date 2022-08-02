@@ -1,0 +1,20 @@
+.account-info__input {
+  .MuiFilledInput-root {
+    background-color: var(--white);
+    border-radius: 0;
+
+    &::after {
+      border-bottom: none;
+    }
+  }
+
+  input {
+    font-size: 14px;
+    color: var(--black);
+    padding: 10px;
+
+    &:read-only {
+      background-color: #cacaca;
+    }
+  }
+}

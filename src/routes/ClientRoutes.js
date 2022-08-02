@@ -11,6 +11,7 @@ const HomeTemp = lazy(() => import("@/containers/HomeTemplate"));
 const HomePage = lazy(() => import("@/containers/HomeTemplate/HomePage"));
 const MovieDetailPage = lazy(() => import("@/containers/HomeTemplate/MovieDetailsPage"));
 const TicketBookingPage = lazy(() => import("@/containers/HomeTemplate/TicketBookingPage"));
+const UserProfilePage = lazy(() => import("@/containers/HomeTemplate/UserProfilePage"));
 
 const ClientRoutes = {
   path: "/",
@@ -33,7 +34,7 @@ const ClientRoutes = {
       path: "profile",
       element: (
         <RequireAuth roles={[ROLE.ADMIN, ROLE.CLIENT]}>
-          <div>Profile</div>
+          <UserProfilePage />
         </RequireAuth>
       ),
     },

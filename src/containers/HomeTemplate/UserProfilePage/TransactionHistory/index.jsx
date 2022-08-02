@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 // Material UI
@@ -18,14 +19,11 @@ import {
 } from "@mui/material";
 import { FirstPage, KeyboardArrowLeft, KeyboardArrowRight, LastPage } from "@mui/icons-material";
 
-// Components
-import Loader from "@/components/Loader";
-
-// Api
-import { userApi } from "@/api";
-
 // Format date
 import moment from "moment";
+
+// Constants
+import { ALPHABET } from "@/constants";
 
 // Scss
 import "./style.scss";
@@ -88,9 +86,9 @@ TablePaginationActions.propTypes = {
 };
 
 const columns = [
-  { id: "ticket-id", label: "Mã vé", align: "center", minWidth: 100 },
+  { id: "ticket-id", label: "Mã vé", align: "center", minWidth: 80 },
   { id: "movie-name", label: "Tên phim", align: "center", minWidth: 100 },
-  { id: "showtime", label: "Ngày chiếu", align: "center", minWidth: 100 },
+  { id: "showtime", label: "Ngày chiếu", align: "center", minWidth: 170 },
   { id: "movie-duration", label: "Thời lượng", align: "center", minWidth: 120 },
   {
     id: "cinema",
@@ -107,32 +105,12 @@ const columns = [
   },
 ];
 
-const TicketBookingHistory = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [rows, setRows] = useState([]);
+const TransactionHistory = () => {
+  const { data } = useSelector((rootReducer) => rootReducer.userProfile);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        setLoading(true);
-
-        const user = await userApi.getUser();
-        const { thongTinDatVe: ticketBookingHistory } = user;
-        setRows(ticketBookingHistory);
-        console.log(ticketBookingHistory);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const rows = data?.thongTinDatVe;
 
   const handleChangePage = (event, newPage) => setPage(newPage);
 
@@ -141,49 +119,56 @@ const TicketBookingHistory = () => {
     setPage(0);
   };
 
-  const renderTableBody = () => {
-    const visibleRows = (
-      rowsPerPage > 0 ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows
+  const renderTableBody = () =>
+    (rowsPerPage > 0
+      ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      : rows
     )?.map((row) => {
-      const { tenCumRap, tenHeThongRap } = row?.danhSachGhe[0];
+      let seats = row?.danhSachGhe;
+      const { tenCumRap, tenHeThongRap } = seats[0];
+
+      seats = seats.map((seat, idx) => {
+        // Number of seat rows in ticket booking page
+        const nRow = 16;
+        const seatIndicator = ALPHABET[Math.floor(+seat.tenGhe / nRow)];
+        const seatIdx = +seat.tenGhe % nRow;
+        const seatCode = seatIndicator + seatIdx;
+
+        const isLastSeat = idx === seats.length - 1;
+
+        return (
+          <span key={idx}>
+            {seatCode}
+            {isLastSeat ? "" : ", "}
+          </span>
+        );
+      });
 
       return (
         <TableRow key={row.ngayDat}>
-          {/* {  movieName, showtime, duration, cinema, ticketCost, selectedSeats } */}
           <TableCell align="center">{row?.maVe}</TableCell>
           <TableCell align="center">{row?.tenPhim}</TableCell>
-          <TableCell align="center">{moment(row?.ngayDat).format("hh:mm DD/MM/YYY")}</TableCell>
+          <TableCell align="center">
+            {moment(row?.ngayDat).format("hh:mm")}, {moment(row?.ngayDat).format("DD/MM/YYY")}
+          </TableCell>
           <TableCell align="center">{row.thoiLuongPhim} phút</TableCell>
           <TableCell align="center">
-            {tenCumRap} {tenHeThongRap}
+            {tenHeThongRap}, {tenCumRap}
           </TableCell>
           <TableCell align="center">{row.giaVe.toLocaleString()} VNĐ</TableCell>
-          <TableCell align="center">{12313123}</TableCell>
+          <TableCell align="center">{seats}</TableCell>
         </TableRow>
       );
     });
 
-    const invisibleRows = emptyRows > 0 && (
-      <TableRow style={{ height: 53 * emptyRows }}>
-        <TableCell colSpan={6} />
-      </TableRow>
-    );
-
-    if (invisibleRows) {
-      return visibleRows.concat(invisibleRows);
-    }
-
-    return visibleRows;
-  };
-
   return (
-    <TableContainer component={Paper} className="ticket-booking-history">
+    <TableContainer component={Paper} className="transaction-history">
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
             {columns.map((column) => (
               <TableCell
-                className="ticket-booking-history__table-head-cell"
+                className="transaction-history__table-head-cell"
                 key={column.id}
                 align={column.align}
                 style={{ minWidth: column.minWidth }}
@@ -193,17 +178,7 @@ const TicketBookingHistory = () => {
             ))}
           </TableRow>
         </TableHead>
-        <TableBody>
-          {loading ? (
-            <TableRow>
-              <TableCell colSpan={7}>
-                <Loader />
-              </TableCell>
-            </TableRow>
-          ) : (
-            renderTableBody()
-          )}
-        </TableBody>
+        <TableBody>{renderTableBody()}</TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
@@ -229,4 +204,4 @@ const TicketBookingHistory = () => {
   );
 };
 
-export default TicketBookingHistory;
+export default TransactionHistory;
