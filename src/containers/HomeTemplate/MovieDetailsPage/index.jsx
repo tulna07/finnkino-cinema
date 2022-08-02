@@ -126,7 +126,7 @@ function MovieDetailsPage() {
                     className="btn-wrapper btn-filled top-info__btn"
                     endIcon={<FontAwesomeIcon icon={faAnglesRight} />}
                   >
-                    <Link to="/ticket-booking">Tickets</Link>
+                    <Link to={`/ticket-booking/${data.maPhim}`}>Tickets</Link>
                   </Button>
                 </Box>
 
