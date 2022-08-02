@@ -39,7 +39,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "30%",
+  width: "40%",
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
@@ -106,7 +106,7 @@ function MovieModal(props) {
           values.mapPhim = movieId;
           dispatch(actFetchMovieEdit(formData));
         }
-
+        setOpenModalMovie(false);
         window.location.reload();
       },
     });
@@ -223,7 +223,7 @@ function MovieModal(props) {
                 <FormHelperText error>{errors.moTa}</FormHelperText>
               </FormControl>
               <FormControl className="form__input-wrapper">
-                <Box fullWidth sx={{ flexDirection: "row", display: "flex", alignItems: "center" }}>
+                <Box sx={{ flexDirection: "row", display: "flex", alignItems: "center" }}>
                   <FormLabel
                     className="movie-form__input-label"
                     htmlFor="movie-release-date"
@@ -299,7 +299,7 @@ function MovieModal(props) {
                 className="form__input-wrapper"
                 sx={{ display: "flex", flexDirection: "row" }}
               >
-                <Box fullWidth sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                   <FormLabel
                     className="movie-form__input-label"
                     htmlFor="movie-hotness"
@@ -320,7 +320,7 @@ function MovieModal(props) {
                 <FormHelperText error>{errors.danhGia}</FormHelperText>
               </FormControl>
               <FormControl className="form__input-wrapper">
-                <Box fullWidth sx={{ flexDirection: "row" }}>
+                <Box sx={{ flexDirection: "row" }}>
                   <FormLabel className="movie-form__input-label" htmlFor="movie-img" sx={{ mr: 1 }}>
                     Hình ảnh
                   </FormLabel>

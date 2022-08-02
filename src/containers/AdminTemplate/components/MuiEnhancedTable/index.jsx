@@ -2,6 +2,7 @@ import * as React from "react";
 import { Fragment } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 // Material UI
 import {
@@ -30,6 +31,8 @@ import { visuallyHidden } from "@mui/utils";
 // Components
 import Loader from "@/components/Loader";
 import MovieModal from "../../MovieDashBoard/components/MovieModal";
+import ScheduleModal from "../../MovieDashBoard/ScheduleModal";
+import UserModal from "../../UserDashBoard/component/UserModal";
 
 //Others
 import { actFetchMovieDelete } from "@/store/actions/movieManagement";
@@ -37,8 +40,9 @@ import { actGetUserDetele } from "@/store/actions/userManagement";
 import actGetUserDetails from "@/store/actions/userDetails";
 import actFetchMovieDetails from "@/store/actions/movieDetails";
 import "./style.scss";
-import UserModal from "../../UserDashBoard/component/UserModal";
-import ScheduleModal from "../../MovieDashBoard/ScheduleModal";
+import { actGetUserSearch } from "@/store/actions/userManagement";
+import actGetUserList from "@/store/actions/userList";
+import { useNavigate } from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -165,7 +169,10 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellList, ...props }) {
+function MuiEnhancedTable(props) {
+  const { tableType, loading, headCells, TableCellList } = props;
+  let { dataList } = props;
+
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("maPhim");
   const [selected, setSelected] = React.useState([]);
@@ -177,6 +184,8 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
   const [openScheduleModal, setOpenScheduleModal] = React.useState(false);
   const [movieEdit, setMovieEdit] = React.useState("");
   const [userEdit, setUserEdit] = React.useState("");
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -207,9 +216,10 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
         dispatch(actGetUserDetele(id));
       } else {
         dispatch(actFetchMovieDelete(id));
-        window.location.reload();
       }
     }
+
+    window.location.href = "/admin/user-management";
   };
 
   const handleSchedule = (id) => {
@@ -287,7 +297,7 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
                     orderBy={orderBy}
                     onSelectAllClick={handleSelectAllClick}
                     onRequestSort={handleRequestSort}
-                    rowCount={rows.length}
+                    rowCount={rows.length || 0}
                     headCells={headCells}
                   />
                   <TableBody>
