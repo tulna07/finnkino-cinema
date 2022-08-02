@@ -15,7 +15,7 @@ import { actGetUserProfile } from "@/store/actions/userProfile";
 // Scss
 import "./style.scss";
 
-const UserProfilePage = () => {
+const ProfilePage = () => {
   const [value, setValue] = useState("1");
   const dispatch = useDispatch();
 
@@ -65,4 +65,4 @@ const UserProfilePage = () => {
   );
 };
 
-export default UserProfilePage;
+export default ProfilePage;
