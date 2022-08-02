@@ -17,8 +17,8 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: 260,
-    width: `calc(100% - ${260}px)`,
+    marginLeft: 220,
+    width: `calc(100% - ${220}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -27,7 +27,11 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const AdminAppBar = ({ toggleDrawer, open }) => (
-  <AppBar position="absolute" open={open} sx={{ backgroundColor: "#fdca00", overflow: "hidden" }}>
+  <AppBar
+    position="absolute"
+    open={open}
+    sx={{ backgroundColor: "#fdca00", overflow: "hidden", height: "64px" }}
+  >
     <Toolbar
       sx={{
         pr: "24px",

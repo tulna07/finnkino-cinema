@@ -49,7 +49,7 @@ const AccountAvatar = () => {
             <Avatar
               alt="admin avatar"
               src="https://i.pinimg.com/564x/e4/07/e7/e407e755e604c253887d8bf7ce1f9c3c.jpg"
-              sx={{ width: 60, height: 60 }}
+              sx={{ width: 50, height: 50 }}
             />
           </IconButton>
         </Tooltip>

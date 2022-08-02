@@ -1,14 +1,16 @@
-import { TableCell } from "@mui/material";
+//Material UI
+import { Button, TableCell } from "@mui/material";
 
 // Components
 import Image from "@/components/Image";
-import { EditMovieBtn, DeleteMovieBtn } from "../../../components/Buttons";
+import { EditMovieBtn, DeleteMovieBtn, CreateScheduleBtn } from "../../../components/Buttons";
 
 //Others
 import "./style.scss";
 
 const MovieTableCells = (props) => {
-  const { row, labelId, handleDeleteMovie, handleEditMovie } = props;
+  const { row, labelId, handleDeleteMovie, handleEditMovie, handleSchedule } = props;
+
   return (
     <>
       <TableCell
@@ -40,6 +42,7 @@ const MovieTableCells = (props) => {
       >
         <DeleteMovieBtn onClick={() => handleDeleteMovie(row.maPhim)} />
         <EditMovieBtn onClick={() => handleEditMovie(row.maPhim)} />
+        <CreateScheduleBtn onClick={() => handleSchedule(row.maPhim)} />
       </TableCell>
     </>
   );

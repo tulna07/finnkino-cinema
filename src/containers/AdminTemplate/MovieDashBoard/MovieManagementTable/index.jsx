@@ -36,6 +36,7 @@ import { EditMovieBtn, DeleteMovieBtn } from "../../components/Buttons";
 //Others
 import { actFetchMovieDelete } from "@/store/actions/movieManagement";
 import actFetchMovieDetails from "@/store/actions/movieDetails";
+import { headCells } from "../constants";
 import "./style.scss";
 
 function descendingComparator(a, b, orderBy) {
@@ -65,44 +66,6 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
-
-const headCells = [
-  {
-    id: "maPhim",
-    numeric: true,
-    disablePadding: true,
-    label: "Mã phim",
-    sortFunction: true,
-  },
-  {
-    id: "hinhAnh",
-    numeric: false,
-    disablePadding: false,
-    label: "Hình ảnh",
-    sortFunction: false,
-  },
-  {
-    id: "tenPhim",
-    numeric: false,
-    disablePadding: false,
-    label: "Tên phim",
-    sortFunction: true,
-  },
-  {
-    id: "moTa",
-    numeric: false,
-    disablePadding: false,
-    label: "Mô tả phim",
-    sortFunction: true,
-  },
-  {
-    id: "hanhDong",
-    numeric: false,
-    disablePadding: false,
-    label: "Hành động",
-    sortFunction: false,
-  },
-];
 
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
@@ -226,7 +189,7 @@ function MovieManagementTable({ movieList, loading }) {
       window.location.reload();
     }
   };
-  //Customize Data
+
   const rows = movieList ? movieList : [];
 
   const handleRequestSort = (event, property) => {

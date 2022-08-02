@@ -32,7 +32,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50%",
+  width: "30%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -77,6 +77,7 @@ function UserModal(props) {
       validationSchema: userSchema,
       onSubmit: (values) => {
         values.maNhom = GROUP_ID;
+
         if (modalType === "addUser") {
           dispatch(actGetUserAdd(values));
         } else {
@@ -108,7 +109,7 @@ function UserModal(props) {
         ) : (
           <Formik>
             <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit}>
-              <FormControl fullWidth className="movie-form__input-wrapper">
+              <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel htmlFor="user-name">Họ và tên</FormLabel>
                 <TextField
                   name="hoTen"
@@ -118,12 +119,13 @@ function UserModal(props) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.hoTen}
+                  error={errors.hoTen && touched.hoTen ? true : false}
                 />
                 {errors.hoTen && touched.hoTen && (
                   <FormHelperText error>{errors.hoTen}</FormHelperText>
                 )}
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
+              <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel htmlFor="user-acount">Tài khoản</FormLabel>
                 <TextField
                   name="taiKhoan"
@@ -133,12 +135,13 @@ function UserModal(props) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.taiKhoan}
+                  error={errors.taiKhoan && touched.taiKhoan ? true : false}
                 />
                 {errors.taiKhoan && touched.taiKhoan && (
                   <FormHelperText error>{errors.taiKhoan}</FormHelperText>
                 )}
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
+              <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel htmlFor="user-password">Mật khẩu</FormLabel>
                 <TextField
                   name="matKhau"
@@ -148,12 +151,13 @@ function UserModal(props) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.matKhau}
+                  error={errors.matKhau && touched.matKhau ? true : false}
                 />
                 {errors.matKhau && touched.matKhau && (
                   <FormHelperText error>{errors.matKhau}</FormHelperText>
                 )}
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
+              <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel htmlFor="user-email">Email</FormLabel>
                 <TextField
                   name="email"
@@ -163,12 +167,13 @@ function UserModal(props) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
+                  error={errors.email && touched.email ? true : false}
                 />
                 {errors.email && touched.email && (
                   <FormHelperText error>{errors.email}</FormHelperText>
                 )}
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
+              <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel htmlFor="user-phoneNo">Số điện thoại</FormLabel>
                 <TextField
                   name="soDT"
@@ -178,17 +183,19 @@ function UserModal(props) {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.soDT}
+                  error={errors.soDT && touched.soDT ? true : false}
                 />
                 {errors.soDT && touched.soDT && (
                   <FormHelperText error>{errors.soDT}</FormHelperText>
                 )}
               </FormControl>
-              <FormControl fullWidth className="movie-form__input-wrapper">
+              <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel id="user-type">Loại người dùng</FormLabel>
                 <Select
                   htmlFor="user-type"
                   onChange={handleChangeSelect}
                   value={values.maLoaiNguoiDung}
+                  error={errors.maLoaiNguoiDung && touched.maLoaiNguoiDung ? true : false}
                 >
                   <MenuItem value="KhachHang">Khách hàng</MenuItem>
                   <MenuItem value="QuanTri">Quản trị</MenuItem>
