@@ -3,6 +3,7 @@ import { LoadingButton } from "@mui/lab";
 import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { BorderColor } from "@mui/icons-material";
+import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 
 // Scss
 import "./style.scss";
@@ -49,4 +50,10 @@ const DeleteMovieBtn = (props) => (
   </IconButton>
 );
 
-export { SubmitButton, EditMovieBtn, DeleteMovieBtn, AddItemBtn };
+const CreateScheduleBtn = (props) => (
+  <IconButton color="success" {...props}>
+    <CalendarTodayIcon />
+  </IconButton>
+);
+
+export { SubmitButton, EditMovieBtn, DeleteMovieBtn, AddItemBtn, CreateScheduleBtn };

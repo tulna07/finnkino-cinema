@@ -139,23 +139,23 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem onClick={handleCloseNavMenu} className="main-header__navbar-item">
                 <Link to="/">
-                  <Typography className="main-header__navbar-item" textAlign="center">
+                  <Typography className="main-header__navbar-item-name" textAlign="center">
                     Trang chủ
                   </Typography>
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem onClick={handleCloseNavMenu} className="main-header__navbar-item">
                 <Link to="/tin-tuc">
-                  <Typography className="main-header__navbar-item" textAlign="center">
+                  <Typography className="main-header__navbar-item-name" textAlign="center">
                     Tin tức
                   </Typography>
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem onClick={handleCloseNavMenu} className="main-header__navbar-item">
                 <Link to="/lien-he">
-                  <Typography className="main-header__navbar-item" textAlign="center">
+                  <Typography className="main-header__navbar-item-name" textAlign="center">
                     Liên hệ
                   </Typography>
                 </Link>
@@ -193,7 +193,7 @@ const Navbar = () => {
                 Trang chủ
               </Button>
             </Link>
-            <Link to="/">
+            <Link to="/tin-tuc">
               <Button
                 className="main-header__navbar-item"
                 onClick={handleCloseNavMenu}
@@ -218,13 +218,13 @@ const Navbar = () => {
             renderProfile()
           ) : (
             <>
-              <Link to="/auth/login">
+              <Link to="/auth/login" className="main-header__navbar-btn-wrapper">
                 <Button className="main-header__navbar-btn">
                   <span className="hide-on-mobile">Đăng nhập</span>
                   <FontAwesomeIcon className="btn__right-icon" icon={faSignIn} />
                 </Button>
               </Link>
-              <Link to="/auth/register">
+              <Link to="/auth/register" className="main-header__navbar-btn-wrapper">
                 <Button className="main-header__navbar-btn">
                   <span className="hide-on-mobile">Đăng ký</span>
                   <FontAwesomeIcon className="btn__right-icon" icon={faUser} />

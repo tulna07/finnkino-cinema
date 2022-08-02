@@ -18,7 +18,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
     "& .MuiDrawer-paper": {
       position: "relative",
       whiteSpace: "nowrap",
-      width: 260,
+      width: 220,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -50,7 +50,7 @@ const AdminDrawer = ({ toggleDrawer, open }) => (
       direction="row"
       alignItems="center"
       justifyContent="flex-end"
-      sx={{ position: "relative", p: 2 }}
+      sx={{ position: "relative", p: "12px" }}
     >
       <Link to="/">
         <Avatar className="admin-drawer__avatar" alt="Finnkino logo" src={FinnkinoLogo} />

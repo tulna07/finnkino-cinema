@@ -82,6 +82,10 @@ a[href] {
   padding-left: 6px;
 }
 
+.form__input-wrapper {
+  margin: 10px 0 !important;
+}
+
 @media (min-width: 1024px) {
   .hide-on-pc {
     display: none !important;

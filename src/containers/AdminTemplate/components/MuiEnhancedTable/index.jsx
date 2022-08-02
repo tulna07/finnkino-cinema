@@ -38,6 +38,7 @@ import actGetUserDetails from "@/store/actions/userDetails";
 import actFetchMovieDetails from "@/store/actions/movieDetails";
 import "./style.scss";
 import UserModal from "../../UserDashBoard/component/UserModal";
+import ScheduleModal from "../../MovieDashBoard/ScheduleModal";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -173,6 +174,7 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [openModalMovie, setOpenModalMovie] = React.useState(false);
   const [openModalUser, setOpenModalUser] = React.useState(false);
+  const [openScheduleModal, setOpenScheduleModal] = React.useState(false);
   const [movieEdit, setMovieEdit] = React.useState("");
   const [userEdit, setUserEdit] = React.useState("");
 
@@ -208,6 +210,10 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
         window.location.reload();
       }
     }
+  };
+
+  const handleSchedule = (id) => {
+    setOpenScheduleModal(true);
   };
 
   const handleRequestSort = (event, property) => {
@@ -306,6 +312,7 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
                               labelId={labelId}
                               handleDeleteMovie={handleDeleteItem}
                               handleEditMovie={handleEditMovie}
+                              handleSchedule={handleSchedule}
                             />
                           </TableRow>
                         );
@@ -356,6 +363,10 @@ function MuiEnhancedTable({ tableType, dataList, loading, headCells, TableCellLi
             loading={userLoading}
             modalType="editUser"
             userAccount={userEdit}
+          />
+          <ScheduleModal
+            openScheduleModal={openScheduleModal}
+            setOpenScheduleModal={setOpenScheduleModal}
           />
         </Fragment>
       )}

@@ -39,10 +39,10 @@ const DrawerItems = () => {
       className={`admin-drawer-list__item ${idx === active ? "active" : ""}`}
       onClick={() => handleClick(Item.path)}
     >
-      <ListItemIcon>
+      <ListItemIcon sx={{ minWidth: "40px" }}>
         <Item.Icon sx={{ color: "#fff" }} />
       </ListItemIcon>
-      <ListItemText primary={Item.label} />
+      <ListItemText primary={Item.label} sx={{ "> span": { fontSize: "16px" } }} />
     </ListItemButton>
   ));
 };
