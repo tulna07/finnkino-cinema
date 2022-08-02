@@ -3,17 +3,16 @@ import { useSelector } from "react-redux";
 // Material UI
 import { Box, Typography, Grid } from "@mui/material";
 
-// Scss
-import "./style.scss";
-
 // Components
 import Loader from "@/components/Loader";
 import SeatGrid from "./SeatGrid";
 import SeatNote from "./SeatNote";
 
+// Scss
+import "./style.scss";
+
 const SeatSelector = () => {
-  const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
-  const loading = ticketBooking?.loading;
+  const { loading } = useSelector((rootReducer) => rootReducer.ticketBooking.ticketBookingDetails);
 
   return (
     <Box className="seat-selector">

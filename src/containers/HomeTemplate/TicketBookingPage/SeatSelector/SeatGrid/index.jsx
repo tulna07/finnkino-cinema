@@ -12,11 +12,13 @@ import { actChooseSeat } from "@/store/actions/ticketBooking";
 import "./style.scss";
 
 const SeatGrid = () => {
-  const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
+  const { ticketBookingDetails, selectedSeats } = useSelector(
+    (rootReducer) => rootReducer.ticketBooking,
+  );
+
   const dispatch = useDispatch();
 
-  const seats = ticketBooking?.ticketBookingDetails?.danhSachGhe;
-  const selectedSeats = ticketBooking?.selectedSeats;
+  const seats = ticketBookingDetails.data?.danhSachGhe;
 
   if (!seats || seats.length < 1) return;
 

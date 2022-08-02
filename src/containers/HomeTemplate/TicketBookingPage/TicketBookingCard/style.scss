@@ -25,7 +25,7 @@
   }
 
   &__movie-name {
-    margin-bottom: -8px;
+    margin-bottom: 10px;
     font: {
       weight: 700;
       size: 22px;
@@ -36,6 +36,21 @@
     @media (max-width: 739px) {
       font-size: 20px;
     }
+  }
+
+  &__movie-age-limit-label {
+    font: {
+      size: 11px;
+      weight: 700;
+    }
+    padding: 4px 6px;
+    background-color: var(--primary);
+    color: var(--black);
+  }
+
+  &__movie-age-limit-content {
+    font-size: 11px;
+    color: var(--primary);
   }
 
   &__booking-details {

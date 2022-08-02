@@ -12,6 +12,8 @@ import {
   ListItem,
   ListItemText,
   Button,
+  Box,
+  Stack,
 } from "@mui/material";
 
 // Components
@@ -21,17 +23,18 @@ import Loader from "@/components/Loader";
 import "./style.scss";
 
 const TicketBookingCard = () => {
-  const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
+  const { ticketBookingDetails, selectedSeats } = useSelector(
+    (rootReducer) => rootReducer.ticketBooking,
+  );
 
-  const movie = ticketBooking?.ticketBookingDetails?.thongTinPhim;
-  const selectedSeats = ticketBooking?.selectedSeats;
-  const loading = ticketBooking?.loading;
+  const movie = ticketBookingDetails.data?.thongTinPhim;
+  const loading = ticketBookingDetails.loading;
 
   const renderSelectedSeats = () =>
     selectedSeats?.map((selectedSeat, idx) => {
       const endLine = idx === selectedSeats.length - 1;
       return (
-        <span>
+        <span key={idx}>
           {selectedSeat.code}
           {endLine ? "" : ", "}
         </span>
@@ -66,6 +69,12 @@ const TicketBookingCard = () => {
             <Typography className="ticket-booking-card__movie-name" component="h2" variant="h5">
               {movie?.tenPhim}
             </Typography>
+            <Stack direction="row" justifyContent="between" alignItems="center" spacing={1}>
+              <Box className="ticket-booking-card__movie-age-limit-label">C13</Box>
+              <Typography className="ticket-booking-card__movie-age-limit-content" component="p">
+                (*) Phim chỉ dành cho khán giả từ 13 tuổi trở lên
+              </Typography>
+            </Stack>
             {/* Booking details */}
             <List>
               <ListItem className="ticket-booking-card__booking-details">
