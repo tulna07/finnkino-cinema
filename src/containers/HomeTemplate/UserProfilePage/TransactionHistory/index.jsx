@@ -22,6 +22,9 @@ import { FirstPage, KeyboardArrowLeft, KeyboardArrowRight, LastPage } from "@mui
 // Format date
 import moment from "moment";
 
+// Constants
+import { ALPHABET } from "@/constants";
+
 // Scss
 import "./style.scss";
 
@@ -121,7 +124,25 @@ const TransactionHistory = () => {
       ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
       : rows
     )?.map((row) => {
-      const { tenCumRap, tenHeThongRap } = row?.danhSachGhe[0];
+      let seats = row?.danhSachGhe;
+      const { tenCumRap, tenHeThongRap } = seats[0];
+
+      seats = seats.map((seat, idx) => {
+        // Number of seat rows in ticket booking page
+        const nRow = 16;
+        const seatIndicator = ALPHABET[Math.floor(+seat.tenGhe / nRow)];
+        const seatIdx = +seat.tenGhe % nRow;
+        const seatCode = seatIndicator + seatIdx;
+
+        const isLastSeat = idx === seats.length - 1;
+
+        return (
+          <span key={idx}>
+            {seatCode}
+            {isLastSeat ? "" : ", "}
+          </span>
+        );
+      });
 
       return (
         <TableRow key={row.ngayDat}>
@@ -135,7 +156,7 @@ const TransactionHistory = () => {
             {tenHeThongRap}, {tenCumRap}
           </TableCell>
           <TableCell align="center">{row.giaVe.toLocaleString()} VNĐ</TableCell>
-          <TableCell align="center">{12313123}</TableCell>
+          <TableCell align="center">{seats}</TableCell>
         </TableRow>
       );
     });
