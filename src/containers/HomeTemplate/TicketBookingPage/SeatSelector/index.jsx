@@ -3,19 +3,16 @@ import { useSelector } from "react-redux";
 // Material UI
 import { Box, Typography, Grid } from "@mui/material";
 
-// Scss
-import "./style.scss";
-
 // Components
 import Loader from "@/components/Loader";
 import SeatGrid from "./SeatGrid";
 import SeatNote from "./SeatNote";
 
-const SeatSelector = () => {
-  const ticketBooking = useSelector((rootReducer) => rootReducer.ticketBooking);
+// Scss
+import "./style.scss";
 
-  const seats = ticketBooking?.ticketBookingDetails?.danhSachGhe;
-  const loading = ticketBooking?.loading;
+const SeatSelector = () => {
+  const { loading } = useSelector((rootReducer) => rootReducer.ticketBooking.ticketBookingDetails);
 
   return (
     <Box className="seat-selector">
@@ -41,7 +38,7 @@ const SeatSelector = () => {
                   Màn hình
                 </Typography>
                 <Grid className="seat-selector__map-grid" container columns={18} spacing={1}>
-                  <SeatGrid seats={seats} />
+                  <SeatGrid />
                 </Grid>
                 <Grid className="seat-selector__seat-notes-container" container columns={15}>
                   <SeatNote />

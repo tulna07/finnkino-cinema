@@ -1,7 +1,7 @@
+import { useScrollToTop } from "@/hooks";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useScrollToTop } from "@/hooks";
 
 // Material UI
 import { Box, Container, Grid } from "@mui/material";
@@ -11,7 +11,7 @@ import TicketBookingCard from "./TicketBookingCard";
 import SeatSelector from "./SeatSelector";
 
 // Redux actions
-import actGetTicketBookingDetails from "@/store/actions/ticketBooking";
+import { actGetTicketBookingDetails } from "@/store/actions/ticketBooking";
 
 // Scss
 import "./style.scss";

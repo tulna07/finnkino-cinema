@@ -33,6 +33,9 @@ import { userApi } from "@/api";
 // Constants
 import { GROUP_ID } from "@/constants";
 
+// Scss
+import "./style.scss";
+
 const RegisterPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
@@ -91,7 +94,13 @@ const RegisterPage = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(handleRegister)} noValidate mt={1}>
+    <Box
+      className="auth-register-form"
+      component="form"
+      onSubmit={handleSubmit(handleRegister)}
+      noValidate
+      mt={1}
+    >
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -138,6 +147,7 @@ const RegisterPage = () => {
         control={
           <Checkbox value="remember" color="primary" onChange={() => setChecked(!checked)} />
         }
+        className="accept-policies"
         label={
           <Box component="p">
             Tôi chấp nhận <Link href="#">điều khoản và dịch vụ</Link> của Finnkino.
@@ -148,10 +158,15 @@ const RegisterPage = () => {
         Đăng ký
       </Button>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Link href="#" variant="body2">
+        <Link href="#" variant="body2" sx={{ fontSize: "13px" }}>
           Quên mật khẩu?
         </Link>
-        <Link href="" variant="body2" onClick={() => navigate("/auth/login")}>
+        <Link
+          href=""
+          variant="body2"
+          onClick={() => navigate("/auth/login")}
+          sx={{ fontSize: "13px" }}
+        >
           Đã có tài khoản? Đăng nhập
         </Link>
       </Stack>

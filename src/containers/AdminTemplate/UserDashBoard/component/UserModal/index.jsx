@@ -101,7 +101,7 @@ function UserModal(props) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style} className="user-modal">
-        <Typography variant="h5" component="h2" id="modal-modal-title" variant="h5" component="h2">
+        <Typography variant="h5" component="h2" id="modal-modal-title">
           {title}
         </Typography>
         {loading ? (
