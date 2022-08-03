@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,6 +31,7 @@ const settings = ["Hồ sơ cá nhân", "Thẻ thành viên", "Đăng xuất"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -47,6 +48,7 @@ const Navbar = () => {
   const handleCloseUserMenu = (e) => {
     if (e.target.innerHTML === "Đăng xuất") {
       localStorage.removeItem("user");
+      navigate("/");
     }
 
     setAnchorElUser(null);

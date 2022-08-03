@@ -9,7 +9,7 @@ import { Button, Modal } from "@mui/material";
 import SearchBar from "../components/SearchBar";
 
 //Others
-import { actGetUserSearch, actGetUserList } from "@/store/actions/userManagement";
+import actGetUserList from "@/store/actions/userList";
 import MuiEnhancedTable from "../components/MuiEnhancedTable";
 import UserTableCells from "./component/TableCellList";
 import headCells from "./constants";
@@ -20,7 +20,7 @@ function UserDashBoard() {
   const [openModalUser, setOpenModalUser] = React.useState(false);
 
   const dispatch = useDispatch();
-  const userList = useSelector((state) => state.userList.userList);
+  const userList = useSelector((state) => state.userList.data);
   const userListLoading = useSelector((state) => state.userList.loading);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function UserDashBoard() {
   }, []);
 
   const handleSearch = (value) => {
-    dispatch(actGetUserSearch(value));
+    dispatch(actGetUserList(value));
   };
 
   return (

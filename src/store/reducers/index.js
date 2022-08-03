@@ -6,8 +6,9 @@ import movieBannerReducer from "./movieBanner";
 import movieDetailsReducer from "./movieDetails";
 import cinemaSystemReducer from "./cinemaSystem";
 import movieManagementReducer from "./movieManagement";
-import userListReducer from "./userManagement";
 import userDetailsReducer from "./userDetails";
+import userManagementReducer from "./userManagement";
+import userListReducer from "./userList";
 import ticketBookingReducer from "./ticketBooking";
 import userProfileReducer from "./userProfile";
 
@@ -17,8 +18,9 @@ const rootReducer = combineReducers({
   movieDetails: movieDetailsReducer,
   cinemaSystem: cinemaSystemReducer,
   movieManagement: movieManagementReducer,
-  userList: userListReducer,
   userDetails: userDetailsReducer,
+  userManagement: userManagementReducer,
+  userList: userListReducer,
   ticketBooking: ticketBookingReducer,
   userProfile: userProfileReducer,
 });
