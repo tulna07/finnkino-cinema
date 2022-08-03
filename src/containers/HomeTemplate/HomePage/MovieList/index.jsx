@@ -1,13 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 //FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDoubleRight, faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-import "./style.scss";
-import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/store/constants/movieList";
-import actGetMovieList from "@/store/actions/movieList";
 //Material UI
 import { Box, Button, Container, Typography } from "@mui/material";
 
@@ -15,7 +13,10 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import MultipleItems from "@/components/ReactSlick/MultipleItems";
 import Loader from "@/components/Loader";
 
-import { Link } from "react-router-dom";
+//Others
+import "./style.scss";
+import { SET_MOVIE_TYPE_NOW, SET_MOVIE_TYPE_SOON } from "@/store/constants/movieList";
+import actGetMovieList from "@/store/actions/movieList";
 
 function MovieList() {
   useEffect(() => {

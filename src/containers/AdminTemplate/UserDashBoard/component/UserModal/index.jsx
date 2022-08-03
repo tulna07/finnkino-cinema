@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //Formik
 import { Formik, useFormik } from "formik";
@@ -15,6 +15,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Alert,
 } from "@mui/material";
 
 //Components
@@ -26,6 +27,8 @@ import "./style.scss";
 import { userSchema } from "@/validators";
 import { GROUP_ID } from "@/constants";
 import { actGetUserAdd, actGetUserEdit } from "@/store/actions/userManagement";
+import { set } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -42,8 +45,13 @@ const style = {
 function UserModal(props) {
   const { openModalUser, setOpenModalUser, title, button, data, loading, userAccount, modalType } =
     props;
+
+  const [submitError, setSubmitError] = React.useState("");
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClose = () => setOpenModalUser(false);
+  const serverError = useSelector((state) => state.userList.error);
 
   let userEdit;
   if (data) {
@@ -85,7 +93,12 @@ function UserModal(props) {
           dispatch(actGetUserEdit(values));
         }
 
-        window.location.reload();
+        if (serverError) {
+          return setSubmitError(serverError);
+        } else {
+          setOpenModalUser(false);
+          navigate("/admin/user-management");
+        }
       },
     });
 
@@ -104,6 +117,13 @@ function UserModal(props) {
         <Typography variant="h5" component="h2" id="modal-modal-title">
           {title}
         </Typography>
+        {serverError ? (
+          <Alert severity="error" sx={{ my: 3 }}>
+            {submitError}
+          </Alert>
+        ) : (
+          ""
+        )}
         {loading ? (
           <Loader />
         ) : (
@@ -194,7 +214,7 @@ function UserModal(props) {
                 <Select
                   htmlFor="user-type"
                   onChange={handleChangeSelect}
-                  value={values.maLoaiNguoiDung}
+                  value={values.maLoaiNguoiDung || ""}
                   error={errors.maLoaiNguoiDung && touched.maLoaiNguoiDung ? true : false}
                 >
                   <MenuItem value="KhachHang">Khách hàng</MenuItem>
