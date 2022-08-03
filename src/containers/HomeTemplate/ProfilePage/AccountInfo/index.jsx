@@ -114,8 +114,8 @@ const AccountInfo = () => {
       noValidate
       mt={1}
     >
-      <Grid container spacing={4}>
-        <Grid item xs={4}>
+      <Grid container spacing={{ xs: 0, sm: 4 }}>
+        <Grid item xs={12} sm={4}>
           <InputLabel className="account-info__input-label">Tài khoản</InputLabel>
           <Input
             name="username"
@@ -125,7 +125,7 @@ const AccountInfo = () => {
             }}
           />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <InputLabel className="account-info__input-label">Họ và tên</InputLabel>
           <Input
             name="fullName"
@@ -136,12 +136,12 @@ const AccountInfo = () => {
           />
         </Grid>
       </Grid>
-      <Grid container spacing={4}>
-        <Grid item xs={4}>
+      <Grid container spacing={{ xs: 0, sm: 4 }}>
+        <Grid item xs={12} sm={4}>
           <InputLabel className="account-info__input-label">Email</InputLabel>
           <Input name="email" control={control} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} sm={4}>
           <InputLabel className="account-info__input-label">Số điện thoại</InputLabel>
           <Input name="phoneNumber" control={control} />
         </Grid>
@@ -154,7 +154,7 @@ const AccountInfo = () => {
       {allowChangePassword && (
         <>
           <Grid container spacing={4}>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
               <Input
                 type={showPassword["currentPassword"] ? "text" : "password"}
                 name="currentPassword"
@@ -176,7 +176,7 @@ const AccountInfo = () => {
             </Grid>
           </Grid>
           <Grid container spacing={4}>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
               <Input
                 type={showPassword["newPassword"] ? "text" : "password"}
                 name="newPassword"
@@ -198,7 +198,7 @@ const AccountInfo = () => {
             </Grid>
           </Grid>
           <Grid container spacing={4}>
-            <Grid item xs={4}>
+            <Grid item xs={12} sm={4}>
               <Input
                 type={showPassword["confirmedNewPassword"] ? "text" : "password"}
                 name="confirmedNewPassword"
