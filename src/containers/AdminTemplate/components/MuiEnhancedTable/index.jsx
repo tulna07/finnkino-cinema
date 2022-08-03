@@ -184,6 +184,7 @@ function MuiEnhancedTable(props) {
   const [openScheduleModal, setOpenScheduleModal] = React.useState(false);
   const [movieEdit, setMovieEdit] = React.useState("");
   const [userEdit, setUserEdit] = React.useState("");
+  const [showTimeMovie, setShowTimeMovie] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -223,6 +224,7 @@ function MuiEnhancedTable(props) {
   };
 
   const handleSchedule = (id) => {
+    setShowTimeMovie(id);
     setOpenScheduleModal(true);
   };
 
@@ -375,6 +377,7 @@ function MuiEnhancedTable(props) {
             userAccount={userEdit}
           />
           <ScheduleModal
+            movieId={showTimeMovie}
             openScheduleModal={openScheduleModal}
             setOpenScheduleModal={setOpenScheduleModal}
           />
