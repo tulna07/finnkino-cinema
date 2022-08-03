@@ -1,0 +1,40 @@
+.account-info {
+  &__input-label {
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: var(--primary);
+  }
+
+  &__checkbox-change-password {
+    color: var(--primary);
+    margin-bottom: 15px;
+
+    .MuiCheckbox-root {
+      color: var(--white);
+
+      &.Mui-checked {
+        color: var(--primary);
+      }
+    }
+
+    .MuiTypography-root {
+      font-size: 14px;
+    }
+  }
+
+  &__btn-save {
+    padding: 8px 18px;
+    border-radius: 0;
+    margin-top: 15px;
+    background-color: var(--primary);
+    color: var(--black);
+    font: {
+      weight: 700;
+      size: 13px;
+    }
+
+    &:hover {
+      background-color: var(--hover-primary);
+    }
+  }
+}

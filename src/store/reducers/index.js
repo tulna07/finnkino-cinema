@@ -10,6 +10,7 @@ import userDetailsReducer from "./userDetails";
 import userManagementReducer from "./userManagement";
 import userListReducer from "./userList";
 import ticketBookingReducer from "./ticketBooking";
+import userProfileReducer from "./userProfile";
 
 const rootReducer = combineReducers({
   movieList: movieListReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   userManagement: userManagementReducer,
   userList: userListReducer,
   ticketBooking: ticketBookingReducer,
+  userProfile: userProfileReducer,
 });
 
 export default rootReducer;

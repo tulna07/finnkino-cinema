@@ -1,13 +1,9 @@
-.ticket-booking-history {
+.transaction-history {
   &__table-head-cell {
     padding: {
       top: 12px;
       bottom: 12px;
     }
     font-weight: 700;
-  }
-
-  .loader {
-    margin: -30px auto;
   }
 }

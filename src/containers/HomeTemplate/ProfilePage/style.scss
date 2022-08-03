@@ -1,0 +1,12 @@
+.user-profile-page {
+  background-color: var(--black);
+  padding: 20px 10px;
+
+  .tab-user-profile {
+    color: var(--white) !important;
+
+    &.Mui-selected {
+      color: var(--primary) !important;
+    }
+  }
+}
