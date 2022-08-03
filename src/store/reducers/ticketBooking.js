@@ -56,6 +56,11 @@ const ticketBookingReducer = (state = initialState, { type, payload }) => {
         return { ...state, selectedSeats };
       }
 
+      if (selectedSeats.length === 5) {
+        alert("Không được đặt quá 5 vé!");
+        return { ...state };
+      }
+
       selectedSeats.push(payload);
 
       return { ...state, selectedSeats };

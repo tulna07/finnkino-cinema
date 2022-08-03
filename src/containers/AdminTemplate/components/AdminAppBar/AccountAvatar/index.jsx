@@ -53,7 +53,7 @@ const AccountAvatar = () => {
             />
           </IconButton>
         </Tooltip>
-        <Typography color="#000" variant="h6">
+        <Typography color="#000" variant="h6" sx={{ fontSize: "15px" }}>
           {auth.user.taiKhoan}
         </Typography>
       </Stack>

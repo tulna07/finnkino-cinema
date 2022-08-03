@@ -17,8 +17,8 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: 220,
-    width: `calc(100% - ${220}px)`,
+    marginLeft: 240,
+    width: `calc(100% - ${240}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,

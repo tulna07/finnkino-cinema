@@ -18,7 +18,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
     "& .MuiDrawer-paper": {
       position: "relative",
       whiteSpace: "nowrap",
-      width: 220,
+      width: 240,
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
@@ -31,7 +31,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== "open" 
           duration: theme.transitions.duration.leavingScreen,
         }),
         width: theme.spacing(7),
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up("xl")]: {
           width: theme.spacing(9),
         },
       }),
