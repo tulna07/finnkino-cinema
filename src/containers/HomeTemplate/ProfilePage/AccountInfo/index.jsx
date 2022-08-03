@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 // Material UI
 import {
@@ -28,6 +29,7 @@ import { accountInfoSchema } from "@/validators";
 
 // Scss
 import "./style.scss";
+import rootReducer from "@/store/reducers";
 
 const AccountInfo = () => {
   const [showPassword, setShowPassword] = useState({
@@ -36,13 +38,21 @@ const AccountInfo = () => {
     confirmedNewPassword: false,
   });
   const [allowChangePassword, setAllowChangePassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const { control, handleSubmit } = useForm({
+  const { data: user, loading, error } = useSelector((rootReducer) => rootReducer.userProfile);
+  const { control, handleSubmit, setValue } = useForm({
     reValidateMode: "onSubmit",
-    defaultValues: { username: "Le Nguyen Anh Tu", fullName: "", email: "", phoneNumber: "" },
+    defaultValues: { username: "", fullName: "", email: "", phoneNumber: "" },
     resolver: yupResolver(accountInfoSchema),
   });
+
+  useEffect(() => {
+    if (!user) return;
+
+    setValue("username", user.taiKhoan);
+    setValue("fullName", user.hoTen);
+    setValue("email", user.email);
+    setValue("phoneNumber", user.soDT);
+  }, [user]);
 
   const handleShowPassword = (id) => {
     setShowPassword({ ...showPassword, [id]: !showPassword[id] });
@@ -126,11 +136,7 @@ const AccountInfo = () => {
       )}
       <Grid container>
         <Grid item>
-          <Button
-            className="account-info__btn-save"
-            onClick={() => setError(false)}
-            loading={loading}
-          >
+          <Button className="account-info__btn-save" onClick={() => {}} loading={loading}>
             Lưu lại
           </Button>
         </Grid>
