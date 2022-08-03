@@ -106,11 +106,11 @@ const columns = [
 ];
 
 const TransactionHistory = () => {
-  const { data } = useSelector((rootReducer) => rootReducer.userProfile);
+  const { content } = useSelector((rootReducer) => rootReducer.userProfile.data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const rows = data?.thongTinDatVe;
+  const rows = content?.thongTinDatVe;
 
   const handleChangePage = (event, newPage) => setPage(newPage);
 

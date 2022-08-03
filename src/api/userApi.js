@@ -15,6 +15,10 @@ const userApi = {
     const url = resourceName + "ThongTinTaiKhoan";
     return axiosClient.post(url);
   },
+  updateUserProfile: (user) => {
+    const url = resourceName + "CapNhatThongTinNguoiDung";
+    return axiosClient.put(url, user);
+  },
   getUserList: (params, keyword) => {
     if (keyword !== "") {
       const url = resourceName + `LayDanhSachNguoiDung?MaNhom=${params.maNhom}&tuKhoa=${keyword}`;

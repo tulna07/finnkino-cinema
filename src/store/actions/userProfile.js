@@ -33,4 +33,37 @@ const actUserProfileSuccess = (data) => ({
   payload: data,
 });
 
-export { actGetUserProfile };
+/*
+ * Update user profile
+ */
+const actUpdateUserProfile = (user) => {
+  return (dispatch) => {
+    dispatch(actUpdateUserProfileRequest());
+
+    (async () => {
+      try {
+        user = await userApi.updateUserProfile(user);
+        dispatch(actUpdateUserProfileSuccess(user));
+        alert("Cập nhật thông tin tài khoản thành công!");
+      } catch (error) {
+        dispatch(actUpdateUserProfileFail(error));
+      }
+    })();
+  };
+};
+
+const actUpdateUserProfileRequest = () => ({
+  type: actType.UPDATE_USER_PROFILE_REQUEST,
+});
+
+const actUpdateUserProfileFail = (error) => ({
+  type: actType.UPDATE_USER_PROFILE_FAIL,
+  payload: error,
+});
+
+const actUpdateUserProfileSuccess = (data) => ({
+  type: actType.UPDATE_USER_PROFILE_SUCCESS,
+  payload: data,
+});
+
+export { actGetUserProfile, actUpdateUserProfile };
