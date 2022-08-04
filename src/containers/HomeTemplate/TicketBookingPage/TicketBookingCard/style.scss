@@ -9,13 +9,20 @@
   }
 
   &__media {
-    width: 75%;
+    object-fit: contain;
+    height: 260px;
     margin: 0 auto;
     margin-bottom: 16px;
 
+    @media (max-width: 1023px) {
+      object-fit: cover;
+      height: auto;
+      width: 75%;
+    }
+
     // Mobile
     @media (max-width: 739px) {
-      width: 90%;
+      width: 80%;
     }
   }
 
