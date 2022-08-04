@@ -8,7 +8,7 @@ const actUserDetailsRequest = () => {
   };
 };
 
-const actUserDetailsSuccess = (data) => {
+export const actUserDetailsSuccess = (data) => {
   return {
     type: actType.GET_USER_DETAILS_SUCCESS,
     payload: data,

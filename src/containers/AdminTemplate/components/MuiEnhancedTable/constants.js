@@ -17,12 +17,17 @@ import {
   FormControlLabel,
   Switch,
 } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
 
 // Components
 import Image from "@/components/Image";
 import Loader from "@/components/Loader";
 import MovieModal from "../../MovieDashBoard/components/MovieModal";
 import { EditMovieBtn, DeleteMovieBtn } from "../Buttons";
+
+//Others
+import { movieApi, userApi } from "@/api";
+import actGetUserDetails from "@/store/actions/userDetails";
 
 const headCells = [
   {
@@ -62,4 +67,20 @@ const headCells = [
   },
 ];
 
-export { headCells };
+const fetchUserDelete = async (userAccount) => {
+  try {
+    await userApi.deleteUser(userAccount);
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const fetchMovieDelete = async (movieId) => {
+  try {
+    await movieApi.deleteMovie(movieId);
+  } catch (error) {
+    alert(error);
+  }
+};
+
+export { headCells, fetchUserDelete, fetchMovieDelete };

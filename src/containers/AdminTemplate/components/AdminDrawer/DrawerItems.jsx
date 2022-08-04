@@ -15,11 +15,6 @@ const items = [
     label: "Quản lý phim",
     path: "movie-management",
   },
-  {
-    Icon: CalendarMonth,
-    label: "Quản lý lịch chiếu",
-    path: "showtime-management",
-  },
 ];
 
 const DrawerItems = () => {

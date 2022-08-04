@@ -37,12 +37,14 @@ import UserModal from "../../UserDashBoard/component/UserModal";
 //Others
 import { actFetchMovieDelete } from "@/store/actions/movieManagement";
 import { actGetUserDetele } from "@/store/actions/userManagement";
-import actGetUserDetails from "@/store/actions/userDetails";
 import actFetchMovieDetails from "@/store/actions/movieDetails";
 import "./style.scss";
 import { actGetUserSearch } from "@/store/actions/userManagement";
 import actGetUserList from "@/store/actions/userList";
 import { useNavigate } from "react-router-dom";
+import { movieApi, userApi } from "@/api";
+import { fetchUserDelete, fetchMovieDelete } from "./constants";
+import actGetUserDetails from "@/store/actions/userDetails";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -186,8 +188,6 @@ function MuiEnhancedTable(props) {
   const [userEdit, setUserEdit] = React.useState("");
   const [showTimeMovie, setShowTimeMovie] = React.useState("");
 
-  const navigate = useNavigate();
-
   const dispatch = useDispatch();
 
   const rows = dataList ? dataList : [];
@@ -214,13 +214,12 @@ function MuiEnhancedTable(props) {
 
     if (window.confirm(msg + id)) {
       if (tableType === "user") {
-        dispatch(actGetUserDetele(id));
+        dispatch(actGetUserDetails(id));
+        fetchUserDelete(id);
       } else {
-        dispatch(actFetchMovieDelete(id));
+        fetchMovieDelete(id);
       }
     }
-
-    window.location.href = "/admin/user-management";
   };
 
   const handleSchedule = (id) => {

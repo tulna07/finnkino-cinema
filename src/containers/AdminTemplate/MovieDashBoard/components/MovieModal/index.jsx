@@ -50,8 +50,11 @@ function MovieModal(props) {
   const { openModalMovie, setOpenModalMovie, title, button, data, loading, movieId, modalType } =
     props;
   const [imgSrc, setImgSrc] = useState(null);
+  const [serverError, setServerError] = useState("");
+
   const dispatch = useDispatch();
   const loadingEditMovie = useSelector((state) => state.movieDetails.loading);
+  const movieError = useSelector((state) => state.movieManagement.error);
   const handleClose = () => setOpenModalMovie(false);
 
   const initialValuesAddMovie = {
@@ -106,8 +109,12 @@ function MovieModal(props) {
           values.mapPhim = movieId;
           dispatch(actFetchMovieEdit(formData));
         }
-        setOpenModalMovie(false);
-        window.location.reload();
+
+        if (movieError) {
+          setServerError(movieError);
+        } else {
+          setOpenModalMovie(false);
+        }
       },
     });
 
@@ -309,9 +316,8 @@ function MovieModal(props) {
                   </FormLabel>
                   <Rating
                     name="danhGia"
-                    defaultValue={modalType === "addMovie" ? 0 : null}
                     max={10}
-                    value={values.danhGia}
+                    value={values.danhGia || 0}
                     onChange={handleChangeNumberInput("danhGia")}
                     onBlur={handleBlur}
                     error={errors.danhGia && touched.danhGia ? "true" : undefined}
