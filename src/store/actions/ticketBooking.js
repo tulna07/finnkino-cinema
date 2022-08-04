@@ -35,8 +35,35 @@ const actTicketBookingDetailsSuccess = (data) => ({
 });
 
 /*
- * Book tickets
+ * Book ticket
  */
+const actBookTicket = (ticket) => {
+  return (dispatch) => {
+    dispatch(actBookTicketRequest());
+
+    (async () => {
+      try {
+        await ticketBookingApi.bookTicket(ticket);
+        dispatch(actBookTicketSuccess());
+      } catch (error) {
+        dispatch(actBookTicketFail(error));
+      }
+    })();
+  };
+};
+
+const actBookTicketRequest = () => ({
+  type: actType.BOOK_TICKET_REQUEST,
+});
+
+const actBookTicketFail = (error) => ({
+  type: actType.BOOK_TICKET_FAIL,
+  payload: error,
+});
+
+const actBookTicketSuccess = () => ({
+  type: actType.BOOK_TICKET_SUCCESS,
+});
 
 /*
  * Choose seats
@@ -46,4 +73,11 @@ const actChooseSeat = (seat) => ({
   payload: seat,
 });
 
-export { actGetTicketBookingDetails, actChooseSeat };
+/*
+ * Close modal
+ */
+const actCloseModal = () => ({
+  type: actType.CLOSE_MODAL,
+});
+
+export { actGetTicketBookingDetails, actBookTicket, actChooseSeat, actCloseModal };

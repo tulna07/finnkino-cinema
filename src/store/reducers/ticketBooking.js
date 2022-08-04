@@ -6,11 +6,12 @@ const initialState = {
     loading: false,
     error: "",
   },
-  ticketBooking: {
+  bookTicket: {
     loading: false,
     error: "",
   },
   selectedSeats: [],
+  modal: { open: false, title: "", children: [], buttonContent: "Chấp nhận", path: "" },
 };
 
 const ticketBookingReducer = (state = initialState, { type, payload }) => {
@@ -46,6 +47,61 @@ const ticketBookingReducer = (state = initialState, { type, payload }) => {
         },
       };
 
+    // Book ticket
+    case actType.BOOK_TICKET_REQUEST:
+      return {
+        ...state,
+        bookTicket: {
+          loading: true,
+          error: "",
+        },
+      };
+
+    case actType.BOOK_TICKET_FAIL:
+      return {
+        ...state,
+        bookTicket: {
+          loading: false,
+          error: payload,
+        },
+      };
+
+    case actType.BOOK_TICKET_SUCCESS:
+      if (!state.selectedSeats.length) {
+        return {
+          ...state,
+          bookTicket: {
+            loading: false,
+            error: "",
+          },
+          modal: {
+            ...state.modal,
+            open: true,
+            title: "Thông báo",
+            children: ["Vui lòng chọn ít nhất một chỗ ngồi! Bạn có thể mua được tối đa 5 ghế."],
+            path: "",
+          },
+        };
+      }
+
+      return {
+        ...state,
+        bookTicket: {
+          loading: false,
+          error: "",
+        },
+        modal: {
+          ...state.modal,
+          open: true,
+          title: "Thông báo",
+          children: [
+            "Đặt vé thành công!",
+            "Chúc bạn có trải nghiệm xem phim vui vẻ tại Finnkino Cinema",
+          ],
+          path: "/",
+        },
+      };
+
     // Choose seat
     case actType.CHOOSE_SEAT:
       const selectedSeats = [...state.selectedSeats];
@@ -57,13 +113,28 @@ const ticketBookingReducer = (state = initialState, { type, payload }) => {
       }
 
       if (selectedSeats.length === 5) {
-        alert("Không được đặt quá 5 vé!");
-        return { ...state };
+        return {
+          ...state,
+          modal: {
+            ...state.modal,
+            open: true,
+            title: "Thông báo",
+            children: [
+              "Bạn chỉ có thể mua được tối đa 5 ghế.",
+              "Vui lòng liên hệ supports@finnkino.com để được hỗ trợ tốt hơn.",
+            ],
+            path: "",
+          },
+        };
       }
 
       selectedSeats.push(payload);
 
       return { ...state, selectedSeats };
+
+    // Close modal
+    case actType.CLOSE_MODAL:
+      return { ...state, modal: { ...state.modal, open: false } };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Material UI
 import {
@@ -11,19 +11,23 @@ import {
   List,
   ListItem,
   ListItemText,
-  Button,
   Box,
   Stack,
 } from "@mui/material";
+import { LoadingButton } from "@mui/lab";
 
 // Components
 import Loader from "@/components/Loader";
+
+// Redux actions
+import { actBookTicket } from "@/store/actions/ticketBooking";
 
 // Scss
 import "./style.scss";
 
 const TicketBookingCard = () => {
-  const { ticketBookingDetails, selectedSeats } = useSelector(
+  const dispatch = useDispatch();
+  const { ticketBookingDetails, selectedSeats, bookTicket } = useSelector(
     (rootReducer) => rootReducer.ticketBooking,
   );
 
@@ -48,6 +52,15 @@ const TicketBookingCard = () => {
     );
 
     return priceTotal.toLocaleString();
+  };
+
+  const handleBookTicket = () => {
+    const ticket = {
+      maLichChieu: movie?.maLichChieu,
+      danhSachVe: selectedSeats?.map((seat) => ({ maGhe: seat.id, giaVe: seat.price })),
+    };
+
+    dispatch(actBookTicket(ticket));
   };
 
   return (
@@ -111,9 +124,14 @@ const TicketBookingCard = () => {
           </CardContent>
           {/* Book ticket */}
           <CardActions sx={{ justifyContent: "center" }}>
-            <Button className="ticket-booking-card__btn-booking" variant="contained">
+            <LoadingButton
+              className="ticket-booking-card__btn-booking"
+              variant="contained"
+              onClick={handleBookTicket}
+              loading={bookTicket.loading}
+            >
               Đặt Vé
-            </Button>
+            </LoadingButton>
           </CardActions>{" "}
         </>
       )}
