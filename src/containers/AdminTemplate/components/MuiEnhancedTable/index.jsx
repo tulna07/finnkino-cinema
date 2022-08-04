@@ -208,16 +208,17 @@ function MuiEnhancedTable(props) {
     }
   };
 
-  const handleDeleteItem = (id) => {
+  const handleDeleteItem = async (id) => {
     const msg =
       tableType === "user" ? "Bạn có chắc muốn xoá tài khoản " : "Bạn có chắc muốn xoá phim có mã ";
 
     if (window.confirm(msg + id)) {
       if (tableType === "user") {
-        dispatch(actGetUserDetails(id));
-        fetchUserDelete(id);
+        await fetchUserDelete(id);
+        window.location.reload();
       } else {
-        fetchMovieDelete(id);
+        await fetchMovieDelete(id);
+        window.location.reload();
       }
     }
   };
