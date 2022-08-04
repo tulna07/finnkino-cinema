@@ -149,7 +149,7 @@ const TransactionHistory = () => {
           <TableCell align="center">{row?.maVe}</TableCell>
           <TableCell align="center">{row?.tenPhim}</TableCell>
           <TableCell align="center">
-            {moment(row?.ngayDat).format("hh:mm")}, {moment(row?.ngayDat).format("DD/MM/YYY")}
+            {moment(row?.ngayDat).format("HH:mm")}, {moment(row?.ngayDat).format("DD/MM/YYY")}
           </TableCell>
           <TableCell align="center">{row.thoiLuongPhim} phút</TableCell>
           <TableCell align="center">
