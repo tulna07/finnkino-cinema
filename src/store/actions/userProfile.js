@@ -66,4 +66,11 @@ const actUpdateUserProfileSuccess = (data) => ({
   payload: data,
 });
 
-export { actGetUserProfile, actUpdateUserProfile };
+/*
+ * Close modal
+ */
+const actCloseModal = () => ({
+  type: actType.CLOSE_MODAL,
+});
+
+export { actGetUserProfile, actUpdateUserProfile, actCloseModal };
