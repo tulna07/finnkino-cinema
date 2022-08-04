@@ -36,7 +36,7 @@ const actUserProfileSuccess = (data) => ({
 /*
  * Update user profile
  */
-const actUpdateUserProfile = (user) => {
+const actUpdateUserProfile = (user, setShowModal) => {
   return (dispatch) => {
     dispatch(actUpdateUserProfileRequest());
 
@@ -44,7 +44,7 @@ const actUpdateUserProfile = (user) => {
       try {
         user = await userApi.updateUserProfile(user);
         dispatch(actUpdateUserProfileSuccess(user));
-        alert("Cập nhật thông tin tài khoản thành công!");
+        setShowModal(true);
       } catch (error) {
         dispatch(actUpdateUserProfileFail(error));
       }

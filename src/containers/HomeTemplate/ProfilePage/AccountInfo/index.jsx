@@ -18,6 +18,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 // Components
 import Input from "./Input";
 import Loader from "@/components/Loader";
+import Modal from "@/components/Modal";
 
 // Yup resolver
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -41,6 +42,7 @@ const AccountInfo = () => {
     newPassword: false,
     confirmedNewPassword: false,
   });
+  const [showModal, setShowModal] = useState(false);
   const [allowChangePassword, setAllowChangePassword] = useState(false);
   const { content: user, loading } = useSelector((rootReducer) => rootReducer.userProfile.data);
   const { loading: updateLoading } = useSelector((rootReducer) => rootReducer.userProfile.update);
@@ -101,7 +103,7 @@ const AccountInfo = () => {
       maLoaiNguoiDung: user.loaiNguoiDung.maLoaiNguoiDung,
     };
 
-    dispatch(actUpdateUserProfile(updatedUser));
+    dispatch(actUpdateUserProfile(updatedUser, setShowModal));
   };
 
   return loading ? (
@@ -228,6 +230,12 @@ const AccountInfo = () => {
           </LoadingButton>
         </Grid>
       </Grid>
+      <Modal title="Thông báo" buttonContent="Chấp nhận" open={showModal} setOpen={setShowModal}>
+        {[
+          "Cập nhật thông tin tài khoản thành công!",
+          "Vui lòng liên hệ supports@finnkino.com để được hỗ trợ tốt hơn.",
+        ]}
+      </Modal>
     </Box>
   );
 };
