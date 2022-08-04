@@ -130,8 +130,8 @@ const TransactionHistory = () => {
       seats = seats.map((seat, idx) => {
         // Number of seat rows in ticket booking page
         const nRow = 16;
-        const seatIndicator = ALPHABET[Math.floor(+seat.tenGhe / nRow)];
-        const seatIdx = +seat.tenGhe % nRow;
+        const seatIndicator = ALPHABET[Math.floor((+seat.tenGhe - 1) / nRow)];
+        const seatIdx = ((+seat.tenGhe - 1) % nRow) + 1;
         const seatCode = seatIndicator + seatIdx;
 
         const isLastSeat = idx === seats.length - 1;
