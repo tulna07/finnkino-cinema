@@ -1,0 +1,22 @@
+.ticket-booking-dialog {
+  .MuiDialog-paper {
+    background-color: var(--gray);
+  }
+
+  &__title {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  &__info {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__btn-accept {
+    color: var(--primary);
+
+    &:hover {
+      background-color: rgba(255, 193, 7, 0.05);
+    }
+  }
+}
