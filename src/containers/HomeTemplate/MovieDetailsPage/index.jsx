@@ -101,6 +101,11 @@ function MovieDetailsPage() {
               className="movie-detail__top-info"
               sx={{ height: { xs: "210px", sm: "420px", md: "630px" } }}
             >
+              {/* Background */}
+              <Box className="movie-detail__top-background">
+                <Image src={data.hinhAnh} />
+              </Box>
+
               <Container className="movie-detail__top-info-wrapper container">
                 <Box className="top-info__img">
                   <Image src={data.hinhAnh} alt={data.tenPhim} />
@@ -142,7 +147,7 @@ function MovieDetailsPage() {
               </Container>
             </Box>
 
-            {/* Top desc for pc */}
+            {/* Top info for pc */}
             <Box className="movie-detail__top-desc hide-on-mobile-tablet">
               <Box className="movie-detail__desc-left">
                 <p>
@@ -171,9 +176,7 @@ function MovieDetailsPage() {
               </Grid>
               <Grid item xs={12} md={5} className="movie-detail__details">
                 <h4 className="movie-detail__content-title">Chi tiết</h4>
-                <p>
-                  Ngày công chiếu: {moment(data.ngayKhoiChieu).format("MMMM Do YYYY, h:mm:ss A")}
-                </p>
+                <p>Ngày công chiếu: {moment(data.ngayKhoiChieu).format("D/M/YYYY hh:mm")}</p>
               </Grid>
             </Grid>
           </Container>

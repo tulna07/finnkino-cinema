@@ -23,7 +23,6 @@ const AdminRoutes = {
     { path: "", element: <Navigate to="user-management" /> },
     { path: "user-management", element: <UserDashboard /> },
     { path: "movie-management", element: <MovieDashboard /> },
-    { path: "showtime-management", element: <div>Showtime Management </div> },
   ],
 };
 

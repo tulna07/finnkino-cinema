@@ -1,34 +1,36 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 // Material UI
 import { Container } from "@mui/system";
-import { Button, Modal } from "@mui/material";
 
 //Components
 import SearchBar from "../components/SearchBar";
-
-//Others
-import actGetUserList from "@/store/actions/userList";
+import { AddItemBtn } from "../components/Buttons";
 import MuiEnhancedTable from "../components/MuiEnhancedTable";
 import UserTableCells from "./component/TableCellList";
 import headCells from "./constants";
-import { AddItemBtn } from "../components/Buttons";
 import UserModal from "./component/UserModal";
 
+//Others
+import actGetUserList from "@/store/actions/userList";
+import { actUserDetailsSuccess } from "@/store/actions/userDetails";
+
 function UserDashBoard() {
-  const [openModalUser, setOpenModalUser] = React.useState(false);
+  const [openModalUser, setOpenModalUser] = useState(false);
 
   const dispatch = useDispatch();
   const userList = useSelector((state) => state.userList.data);
+  const updateUser = useSelector((state) => state.userDetails.data);
   const userListLoading = useSelector((state) => state.userList.loading);
 
   useEffect(() => {
     dispatch(actGetUserList());
-  }, []);
+  }, [updateUser]);
 
   const handleSearch = (value) => {
     dispatch(actGetUserList(value));
+    dispatch(actUserDetailsSuccess(userList));
   };
 
   return (

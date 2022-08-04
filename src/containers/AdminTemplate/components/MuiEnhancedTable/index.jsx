@@ -37,12 +37,14 @@ import UserModal from "../../UserDashBoard/component/UserModal";
 //Others
 import { actFetchMovieDelete } from "@/store/actions/movieManagement";
 import { actGetUserDetele } from "@/store/actions/userManagement";
-import actGetUserDetails from "@/store/actions/userDetails";
 import actFetchMovieDetails from "@/store/actions/movieDetails";
 import "./style.scss";
 import { actGetUserSearch } from "@/store/actions/userManagement";
 import actGetUserList from "@/store/actions/userList";
 import { useNavigate } from "react-router-dom";
+import { movieApi, userApi } from "@/api";
+import { fetchUserDelete, fetchMovieDelete } from "./constants";
+import actGetUserDetails from "@/store/actions/userDetails";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -184,8 +186,7 @@ function MuiEnhancedTable(props) {
   const [openScheduleModal, setOpenScheduleModal] = React.useState(false);
   const [movieEdit, setMovieEdit] = React.useState("");
   const [userEdit, setUserEdit] = React.useState("");
-
-  const navigate = useNavigate();
+  const [showTimeMovie, setShowTimeMovie] = React.useState("");
 
   const dispatch = useDispatch();
 
@@ -207,22 +208,23 @@ function MuiEnhancedTable(props) {
     }
   };
 
-  const handleDeleteItem = (id) => {
+  const handleDeleteItem = async (id) => {
     const msg =
       tableType === "user" ? "Bạn có chắc muốn xoá tài khoản " : "Bạn có chắc muốn xoá phim có mã ";
 
     if (window.confirm(msg + id)) {
       if (tableType === "user") {
-        dispatch(actGetUserDetele(id));
+        await fetchUserDelete(id);
+        window.location.reload();
       } else {
-        dispatch(actFetchMovieDelete(id));
+        await fetchMovieDelete(id);
+        window.location.reload();
       }
     }
-
-    window.location.href = "/admin/user-management";
   };
 
   const handleSchedule = (id) => {
+    setShowTimeMovie(id);
     setOpenScheduleModal(true);
   };
 
@@ -375,6 +377,7 @@ function MuiEnhancedTable(props) {
             userAccount={userEdit}
           />
           <ScheduleModal
+            movieId={showTimeMovie}
             openScheduleModal={openScheduleModal}
             setOpenScheduleModal={setOpenScheduleModal}
           />

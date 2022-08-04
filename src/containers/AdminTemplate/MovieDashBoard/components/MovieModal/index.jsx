@@ -23,6 +23,7 @@ import {
   Switch,
   FormHelperText,
   Rating,
+  Alert,
 } from "@mui/material";
 import MuiDatePicker from "@/components/MuiPicker";
 
@@ -33,6 +34,7 @@ import Image from "@/components/Image";
 
 //Others
 import "./style.scss";
+import { movieApi } from "@/api";
 
 const style = {
   position: "absolute",
@@ -50,8 +52,9 @@ function MovieModal(props) {
   const { openModalMovie, setOpenModalMovie, title, button, data, loading, movieId, modalType } =
     props;
   const [imgSrc, setImgSrc] = useState(null);
+  const [serverError, setServerError] = useState("");
+
   const dispatch = useDispatch();
-  const loadingEditMovie = useSelector((state) => state.movieDetails.loading);
   const handleClose = () => setOpenModalMovie(false);
 
   const initialValuesAddMovie = {
@@ -81,6 +84,26 @@ function MovieModal(props) {
 
   let movieSchema = modalType === "addMovie" ? addMovieSchema : editMovieSchema;
 
+  const fetchMovieAdd = async (formData, movieId) => {
+    try {
+      await movieApi.addMovie(formData);
+      setOpenModalMovie(false);
+      window.location.reload();
+    } catch (error) {
+      setServerError(error);
+    }
+  };
+
+  const fetchMovieEdit = async (formData) => {
+    try {
+      await movieApi.editMovie(formData);
+      setOpenModalMovie(false);
+      document.location.reload();
+    } catch (error) {
+      setServerError(error);
+    }
+  };
+
   const { errors, values, touched, setFieldValue, handleSubmit, handleChange, handleBlur } =
     useFormik({
       enableReinitialize: true,
@@ -101,13 +124,11 @@ function MovieModal(props) {
         }
 
         if (modalType === "addMovie") {
-          dispatch(actFetchMovieAdd(formData));
+          fetchMovieAdd(formData);
         } else if (modalType === "editMovie") {
-          values.mapPhim = movieId;
-          dispatch(actFetchMovieEdit(formData));
+          values.maPhim = movieId;
+          fetchMovieEdit(formData);
         }
-        setOpenModalMovie(false);
-        window.location.reload();
       },
     });
 
@@ -164,6 +185,13 @@ function MovieModal(props) {
         <Typography id="modal-modal-title" variant="h5" component="h2">
           {title}
         </Typography>
+        {serverError ? (
+          <Alert severity="error" sx={{ my: 3 }}>
+            {serverError}
+          </Alert>
+        ) : (
+          ""
+        )}
         {loading ? (
           <Loader />
         ) : (
@@ -201,7 +229,9 @@ function MovieModal(props) {
                   onBlur={handleBlur}
                   error={errors.trailer && touched.trailer ? true : false}
                 />
-                <FormHelperText error>{errors.trailer}</FormHelperText>
+                {errors.trailer && touched.trailer && (
+                  <FormHelperText error>{errors.trailer}</FormHelperText>
+                )}
               </FormControl>
               <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel className="movie-form__input-label" htmlFor="movie-desc">
@@ -220,7 +250,9 @@ function MovieModal(props) {
                   helperText={errors.movieDesc?.message}
                   error={errors.moTa && touched.moTa ? true : false}
                 />
-                <FormHelperText error>{errors.moTa}</FormHelperText>
+                {errors.moTa && touched.moTa && (
+                  <FormHelperText error>{errors.moTa}</FormHelperText>
+                )}
               </FormControl>
               <FormControl className="form__input-wrapper">
                 <Box sx={{ flexDirection: "row", display: "flex", alignItems: "center" }}>
@@ -240,7 +272,9 @@ function MovieModal(props) {
                     inputFormat={"DD/MM/YYYY"}
                     value={values.ngayKhoiChieu || null}
                   />
-                  <FormHelperText error>{errors.ngayKhoiChieu}</FormHelperText>
+                  {errors.ngayKhoiChieu && touched.ngayKhoiChieu && (
+                    <FormHelperText error>{errors.ngayKhoiChieu}</FormHelperText>
+                  )}
                 </Box>
               </FormControl>
               <FormControl
@@ -260,7 +294,9 @@ function MovieModal(props) {
                   onClick={handleChangeSwitch("dangChieu")}
                   checked={values.dangChieu}
                 />
-                <FormHelperText>{errors.momovieOnAir?.message}</FormHelperText>
+                {errors.dangChieu && touched.dangChieu && (
+                  <FormHelperText>{errors.dangChieu}</FormHelperText>
+                )}
               </FormControl>
               <FormControl
                 fullWidth
@@ -278,7 +314,9 @@ function MovieModal(props) {
                   inputProps={{ "aria-label": "controlled" }}
                   checked={values.sapChieu}
                 />
-                <FormHelperText>{errors.movimovieAirSoon?.message}</FormHelperText>
+                {errors.sapChieu && touched.sapChieu && (
+                  <FormHelperText>{errors.sapChieu}</FormHelperText>
+                )}
               </FormControl>
               <FormControl
                 fullWidth
@@ -293,7 +331,7 @@ function MovieModal(props) {
                   Hot
                 </FormLabel>
                 <Switch name="hot" onClick={handleChangeSwitch("hot")} checked={values.hot} />
-                <FormHelperText>{errors.movimovieHotness?.message}</FormHelperText>
+                {errors.hot && touched.hot && <FormHelperText>{errors.hot}</FormHelperText>}
               </FormControl>
               <FormControl
                 className="form__input-wrapper"
@@ -309,15 +347,16 @@ function MovieModal(props) {
                   </FormLabel>
                   <Rating
                     name="danhGia"
-                    defaultValue={modalType === "addMovie" ? 0 : null}
                     max={10}
-                    value={values.danhGia}
+                    value={values.danhGia || 0}
                     onChange={handleChangeNumberInput("danhGia")}
                     onBlur={handleBlur}
                     error={errors.danhGia && touched.danhGia ? "true" : undefined}
                   />
                 </Box>
-                <FormHelperText error>{errors.danhGia}</FormHelperText>
+                {errors.danhGia && touched.danhGia && (
+                  <FormHelperText error>{errors.danhGia}</FormHelperText>
+                )}
               </FormControl>
               <FormControl className="form__input-wrapper">
                 <Box sx={{ flexDirection: "row" }}>
@@ -332,9 +371,11 @@ function MovieModal(props) {
                     onBlur={handleBlur}
                   />
                 </Box>
-                <FormHelperText error sx={{ my: 1 }}>
-                  {errors.hinhAnh}
-                </FormHelperText>
+                {errors.hinhAnh && touched.hinhAnh && (
+                  <FormHelperText error sx={{ my: 1 }}>
+                    {errors.hinhAnh}
+                  </FormHelperText>
+                )}
                 <Image
                   src={imgSrc === null && modalType === "editMovie" ? data?.hinhAnh : imgSrc}
                   alt="..."

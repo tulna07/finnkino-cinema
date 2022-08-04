@@ -18,7 +18,7 @@ function MovieSchedule({ movie, cinemaGroup }) {
           to={`/ticket-booking/${schedule.maLichChieu}`}
           className="movie-schedule__schedule-item"
         >
-          {moment(schedule.ngayChieuGioChieu).format("hh:mm A")}
+          {moment(schedule.ngayChieuGioChieu).format("D/M/YYYY hh:mm")}
         </NavLink>
       </Grid>
     ));

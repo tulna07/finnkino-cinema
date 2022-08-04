@@ -1,9 +1,5 @@
 .movie-detail__top-info {
   position: relative;
-  background-image: url("https://media.finnkino.fi/1012/Event_13314/landscape_hd/DrStrange_1920.jpg?width=1411");
-  background-position: center;
-  background-size: cover;
-  height: 100%;
   padding-bottom: 50px;
   padding-top: 40px;
 
@@ -22,11 +18,35 @@
   }
 }
 
+.movie-detail__top-background {
+  > img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  &:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+}
+
 .movie-detail__top-info-wrapper {
   position: relative;
   display: flex;
   align-items: flex-end;
   height: 100%;
+  z-index: 5;
 
   & > div {
     align-items: flex-end;

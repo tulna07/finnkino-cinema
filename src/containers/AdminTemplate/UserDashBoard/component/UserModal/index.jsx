@@ -26,9 +26,9 @@ import Loader from "@/components/Loader";
 import "./style.scss";
 import { userSchema } from "@/validators";
 import { GROUP_ID } from "@/constants";
-import { actGetUserAdd, actGetUserEdit } from "@/store/actions/userManagement";
-import { set } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { userApi } from "@/api";
+import actGetUserDetails from "@/store/actions/userDetails";
+import { useRef } from "react";
 
 const style = {
   position: "absolute",
@@ -47,11 +47,10 @@ function UserModal(props) {
     props;
 
   const [submitError, setSubmitError] = React.useState("");
+  const form = useRef();
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleClose = () => setOpenModalUser(false);
-  const serverError = useSelector((state) => state.userList.error);
 
   let userEdit;
   if (data) {
@@ -78,29 +77,50 @@ function UserModal(props) {
 
   const initialValues = modalType === "addUser" ? initialValuesAddUser : initialValuesEditUser;
 
-  const { errors, values, touched, setFieldValue, handleSubmit, handleChange, handleBlur } =
-    useFormik({
-      enableReinitialize: true,
-      initialValues: initialValues,
-      validationSchema: userSchema,
-      onSubmit: (values) => {
-        values.maNhom = GROUP_ID;
-
-        if (modalType === "addUser") {
-          dispatch(actGetUserAdd(values));
-        } else {
-          values.taiKhoan = userAccount;
-          dispatch(actGetUserEdit(values));
-        }
-
-        if (serverError) {
-          return setSubmitError(serverError);
-        } else {
-          setOpenModalUser(false);
-          navigate("/admin/user-management");
-        }
-      },
-    });
+  const {
+    errors,
+    values,
+    touched,
+    setFieldValue,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    resetForm,
+  } = useFormik({
+    enableReinitialize: true,
+    initialValues: initialValues,
+    validationSchema: userSchema,
+    onSubmit: (values) => {
+      values.maNhom = GROUP_ID;
+      if (modalType === "addUser") {
+        const fetchData = async () => {
+          try {
+            await userApi.addUser(values);
+            dispatch(actGetUserDetails(values.taiKhoan));
+            setOpenModalUser(false);
+            resetForm();
+            setSubmitError("");
+          } catch (error) {
+            setSubmitError(error);
+          }
+        };
+        fetchData();
+      } else {
+        const fetchData = async () => {
+          try {
+            await userApi.editUser(values);
+            dispatch(actGetUserDetails(values.taiKhoan));
+            setOpenModalUser(false);
+            resetForm();
+            setSubmitError("");
+          } catch (error) {
+            setSubmitError(error);
+          }
+        };
+        fetchData();
+      }
+    },
+  });
 
   const handleChangeSelect = (e) => {
     setFieldValue("maLoaiNguoiDung", e.target.value);
@@ -117,7 +137,7 @@ function UserModal(props) {
         <Typography variant="h5" component="h2" id="modal-modal-title">
           {title}
         </Typography>
-        {serverError ? (
+        {submitError ? (
           <Alert severity="error" sx={{ my: 3 }}>
             {submitError}
           </Alert>
@@ -128,7 +148,7 @@ function UserModal(props) {
           <Loader />
         ) : (
           <Formik>
-            <Box sx={{ mt: 2 }} component="form" onSubmit={handleSubmit}>
+            <Box ref={form} sx={{ mt: 2 }} component="form" onSubmit={handleSubmit}>
               <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel htmlFor="user-name">Họ và tên</FormLabel>
                 <TextField
@@ -152,14 +172,12 @@ function UserModal(props) {
                   id="user-acount"
                   variant="outlined"
                   fullWidth
+                  disabled={modalType === "addUser" ? false : true}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.taiKhoan}
                   error={errors.taiKhoan && touched.taiKhoan ? true : false}
                 />
-                {errors.taiKhoan && touched.taiKhoan && (
-                  <FormHelperText error>{errors.taiKhoan}</FormHelperText>
-                )}
               </FormControl>
               <FormControl fullWidth className="form__input-wrapper">
                 <FormLabel htmlFor="user-password">Mật khẩu</FormLabel>

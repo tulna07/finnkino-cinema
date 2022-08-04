@@ -7,7 +7,6 @@ import { Button } from "@mui/material";
 
 //Components
 import SearchBar from "../components/SearchBar";
-import MovieManagementTable from "./MovieManagementTable";
 import MovieModal from "./components/MovieModal";
 import MuiEnhancedTable from "../components/MuiEnhancedTable";
 import MovieTableCells from "./components/TableCellList";
