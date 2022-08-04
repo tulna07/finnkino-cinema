@@ -45,6 +45,7 @@ const ticketBookingReducer = (state = initialState, { type, payload }) => {
           loading: false,
           error: "",
         },
+        selectedSeats: [],
       };
 
     // Book ticket

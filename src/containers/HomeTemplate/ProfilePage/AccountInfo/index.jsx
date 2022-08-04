@@ -27,7 +27,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { accountInfoSchema } from "@/validators";
 
 // Redux actions
-import { actUpdateUserProfile } from "@/store/actions/userProfile";
+import { actUpdateUserProfile, actCloseModal } from "@/store/actions/userProfile";
 
 // Constant
 import { GROUP_ID } from "@/constants";
@@ -46,6 +46,8 @@ const AccountInfo = () => {
   const [allowChangePassword, setAllowChangePassword] = useState(false);
   const { content: user, loading } = useSelector((rootReducer) => rootReducer.userProfile.data);
   const { loading: updateLoading } = useSelector((rootReducer) => rootReducer.userProfile.update);
+  const modalProps = useSelector((rootReducer) => rootReducer.userProfile.modal);
+
   const { control, handleSubmit, setValue } = useForm({
     reValidateMode: "onSubmit",
     defaultValues: {
@@ -230,12 +232,7 @@ const AccountInfo = () => {
           </LoadingButton>
         </Grid>
       </Grid>
-      <Modal title="Thông báo" buttonContent="Chấp nhận" open={showModal} setOpen={setShowModal}>
-        {[
-          "Cập nhật thông tin tài khoản thành công!",
-          "Vui lòng liên hệ supports@finnkino.com để được hỗ trợ tốt hơn.",
-        ]}
-      </Modal>
+      <Modal actCloseModal={actCloseModal} modalProps={modalProps} />
     </Box>
   );
 };

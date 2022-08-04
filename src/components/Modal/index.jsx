@@ -15,12 +15,10 @@ import {
 // Scss
 import "./style.scss";
 
-const Modal = ({ actCloseModal }) => {
+const Modal = ({ actCloseModal, modalProps }) => {
+  const { title, children, buttonContent, open, path } = modalProps;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { title, children, buttonContent, open, path } = useSelector(
-    (rootReducer) => rootReducer.ticketBooking.modal,
-  );
 
   const handleClose = (event, reason) => {
     if (reason === "backdropClick") {

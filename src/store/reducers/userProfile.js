@@ -3,6 +3,16 @@ import * as actType from "../constants/userProfile";
 const initialState = {
   data: { content: null, loading: false, error: "" },
   update: { loading: false, error: "" },
+  modal: {
+    open: false,
+    title: "Thông báo",
+    children: [
+      "Cập nhật thông tin tài khoản thành công!",
+      "Vui lòng liên hệ supports@finnkino.com để được hỗ trợ tốt hơn.",
+    ],
+    buttonContent: "Chấp nhận",
+    path: "",
+  },
 };
 
 const userProfileReducer = (state = initialState, { type, payload }) => {
@@ -53,7 +63,12 @@ const userProfileReducer = (state = initialState, { type, payload }) => {
           error: "",
         },
         update: { loading: false, error: "" },
+        modal: { ...state.modal, open: true },
       };
+
+    // Close modal
+    case actType.CLOSE_MODAL:
+      return { ...state, modal: { ...state.modal, open: false } };
 
     default:
       return state;

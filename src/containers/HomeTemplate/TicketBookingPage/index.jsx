@@ -1,6 +1,6 @@
 import { useScrollToTop } from "@/hooks";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 // Material UI
@@ -21,6 +21,7 @@ const TicketBookingPage = () => {
   useScrollToTop();
   const { scheduleId } = useParams();
   const dispatch = useDispatch();
+  const modalProps = useSelector((rootReducer) => rootReducer.ticketBooking.modal);
 
   useEffect(() => {
     dispatch(actGetTicketBookingDetails(scheduleId));
@@ -37,7 +38,7 @@ const TicketBookingPage = () => {
             <TicketBookingCard />
           </Grid>
         </Grid>
-        <Modal actCloseModal={actCloseModal} />
+        <Modal actCloseModal={actCloseModal} modalProps={modalProps} />
       </Container>
     </Box>
   );
