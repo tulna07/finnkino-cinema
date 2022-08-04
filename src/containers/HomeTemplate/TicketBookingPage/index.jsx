@@ -9,9 +9,10 @@ import { Box, Container, Grid } from "@mui/material";
 // Components
 import TicketBookingCard from "./TicketBookingCard";
 import SeatSelector from "./SeatSelector";
+import Modal from "@/components/Modal";
 
 // Redux actions
-import { actGetTicketBookingDetails } from "@/store/actions/ticketBooking";
+import { actGetTicketBookingDetails, actCloseModal } from "@/store/actions/ticketBooking";
 
 // Scss
 import "./style.scss";
@@ -36,6 +37,7 @@ const TicketBookingPage = () => {
             <TicketBookingCard />
           </Grid>
         </Grid>
+        <Modal actCloseModal={actCloseModal} />
       </Container>
     </Box>
   );

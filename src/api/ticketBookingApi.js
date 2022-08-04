@@ -3,9 +3,9 @@ import axiosClient from "./config/axiosClient";
 const resourceName = "QuanLyDatVe/";
 
 const ticketBookingApi = {
-  bookTickets: (ticketList) => {
+  bookTicket: (ticket) => {
     const url = resourceName + "DatVe";
-    return axiosClient.post(url, ticketList);
+    return axiosClient.post(url, ticket);
   },
   getTicketOfficeList: (params) => {
     const url = resourceName + "LayDanhSachPhongVe";

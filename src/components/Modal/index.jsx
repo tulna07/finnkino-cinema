@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // Material UI
 import { Stack } from "@mui/material";
@@ -15,8 +15,12 @@ import {
 // Scss
 import "./style.scss";
 
-const Modal = ({ title, children = [], buttonContent, open = false, setOpen, path = "" }) => {
+const Modal = ({ actCloseModal }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { title, children, buttonContent, open, path } = useSelector(
+    (rootReducer) => rootReducer.ticketBooking.modal,
+  );
 
   const handleClose = (event, reason) => {
     if (reason === "backdropClick") {
@@ -27,7 +31,7 @@ const Modal = ({ title, children = [], buttonContent, open = false, setOpen, pat
       navigate(path);
     }
 
-    setOpen(false);
+    dispatch(actCloseModal());
   };
 
   const renderContent = () =>
@@ -50,7 +54,7 @@ const Modal = ({ title, children = [], buttonContent, open = false, setOpen, pat
         <Stack spacing={1}>{renderContent()}</Stack>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose} autoFocus className="ticket-booking-dialog__btn-accept">
+        <Button onClick={handleClose} className="ticket-booking-dialog__btn-accept">
           {buttonContent}
         </Button>
       </DialogActions>
