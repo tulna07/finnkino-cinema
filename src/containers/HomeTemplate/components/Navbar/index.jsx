@@ -26,7 +26,20 @@ import Image from "@/components/Image";
 import images from "@/assets/images";
 
 import "./style.scss";
-const settings = ["Hồ sơ cá nhân", "Thẻ thành viên", "Đăng xuất"];
+const settings = [
+  {
+    label: "Hồ sơ cá nhân",
+    to: "/profile",
+  },
+  {
+    label: "Thẻ thành viên",
+    to: "/",
+  },
+  {
+    label: "Đăng xuất",
+    to: "/",
+  },
+];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -80,9 +93,9 @@ const Navbar = () => {
           open={Boolean(anchorElUser)}
           onClose={handleCloseUserMenu}
         >
-          {settings.map((setting) => (
-            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">{setting}</Typography>
+          {settings.map((setting, index) => (
+            <MenuItem key={index} component={Link} to={setting.to} onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">{setting.label}</Typography>
             </MenuItem>
           ))}
         </Menu>
