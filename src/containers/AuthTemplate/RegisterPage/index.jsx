@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link as RouterLink } from "react-router-dom";
 import { useAuth } from "@/hooks";
 import { useForm } from "react-hook-form";
 
@@ -13,6 +13,7 @@ import {
   Stack,
   Alert,
   IconButton,
+  Typography,
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -157,18 +158,10 @@ const RegisterPage = () => {
       <Button onClick={() => setError("")} disabled={!checked} loading={loading}>
         Đăng ký
       </Button>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Link href="#" variant="body2" sx={{ fontSize: "13px" }}>
-          Quên mật khẩu?
-        </Link>
-        <Link
-          href=""
-          variant="body2"
-          onClick={() => navigate("/auth/login")}
-          sx={{ fontSize: "13px" }}
-        >
-          Đã có tài khoản? Đăng nhập
-        </Link>
+      <Stack direction="row" justifyContent="flex-end " alignItems="center">
+        <Typography className="auth-link-to-login">
+          Đã có tài khoản? <RouterLink to="/auth/login">Đăng nhập</RouterLink>
+        </Typography>
       </Stack>
     </Box>
   );

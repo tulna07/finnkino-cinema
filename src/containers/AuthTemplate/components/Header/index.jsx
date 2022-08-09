@@ -11,7 +11,6 @@ const Header = () => (
       alt="Finnkino logo"
       src={FinnkinoLogo}
       sx={{
-        display: { sm: "inline-block", xs: "none" },
         width: 75,
         height: 75,
       }}
