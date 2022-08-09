@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useAuth } from "@/hooks";
 import { useForm } from "react-hook-form";
 
@@ -13,6 +13,7 @@ import {
   Stack,
   Alert,
   IconButton,
+  Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -106,14 +107,9 @@ const LoginPage = () => {
         <Link href="#" variant="body2" sx={{ fontSize: "13px" }}>
           Quên mật khẩu?
         </Link>
-        <Link
-          href=""
-          variant="body2"
-          sx={{ fontSize: "13px" }}
-          onClick={() => navigate("/auth/register")}
-        >
-          Không có tài khoản? Đăng ký
-        </Link>
+        <Typography className="auth-link-to-register">
+          Không có tài khoản? <RouterLink to="/auth/register">Đăng ký</RouterLink>
+        </Typography>
       </Stack>
     </Box>
   );
