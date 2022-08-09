@@ -26,7 +26,7 @@ const AuthTemplate = () => {
       }}
     >
       <AuthBackground />
-      <Stack direction="row" pl={7} pt={2}>
+      <Stack direction="row" pl={2} pt={2}>
         <AuthHeader />
       </Stack>
       <Grid container justifyContent="center" alignItems="center">
