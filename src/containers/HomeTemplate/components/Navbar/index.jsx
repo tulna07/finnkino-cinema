@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 //FontAwesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +19,7 @@ import {
   Button,
   Tooltip,
   MenuItem,
+  Select,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -26,6 +28,7 @@ import Image from "@/components/Image";
 import images from "@/assets/images";
 
 import "./style.scss";
+
 const settings = [
   {
     label: "Hồ sơ cá nhân",
@@ -41,10 +44,22 @@ const settings = [
   },
 ];
 
+const languages = {
+  vi: { nativeName: "VN" },
+  en: { nativeName: "EN" },
+};
+
 const Navbar = () => {
+  const { i18n, t } = useTranslation();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [language, setLanguage] = React.useState(i18n.resolvedLanguage);
   const navigate = useNavigate();
+
+  const handleChangeLanguage = (event) => {
+    i18n.changeLanguage(event.target.value);
+    setLanguage(event.target.value);
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -235,7 +250,7 @@ const Navbar = () => {
             <>
               <Link to="/auth/login" className="main-header__navbar-btn-wrapper">
                 <Button className="main-header__navbar-btn">
-                  <span className="hide-on-mobile">Đăng nhập</span>
+                  <span className="hide-on-mobile">{t("login")}</span>
                   <FontAwesomeIcon className="btn__right-icon" icon={faSignIn} />
                 </Button>
               </Link>
@@ -247,6 +262,14 @@ const Navbar = () => {
               </Link>
             </>
           )}
+
+          <Select className="language-switcher" value={language} onChange={handleChangeLanguage}>
+            {Object.keys(languages).map((language) => (
+              <MenuItem className="language-item" key={language} value={language}>
+                {languages[language].nativeName}
+              </MenuItem>
+            ))}
+          </Select>
         </Toolbar>
       </Container>
     </AppBar>
