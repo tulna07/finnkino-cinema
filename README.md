@@ -2,7 +2,7 @@
 
 A movie ticket booking website built with ReacJS, Redux and Material UI.
 
-See the live application -> [Finnkino Cinema](finnkinocinema.vercel.app "Finnkino Cinema") 🎫
+See the live application -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") 🎫
 
 ## Tech Stack
 
@@ -45,7 +45,7 @@ $PROJECT_ROOT
 
 ## Installation and Run
 
-Check out the website -> [Finnkino Cinema](finnkinocinema.vercel.app "Finnkino Cinema") or run locally:
+Check out the website -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") or run locally:
 
 #### Clone the project
 
