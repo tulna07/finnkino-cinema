@@ -2,11 +2,25 @@
 
 A movie ticket booking website built with ReacJS, Redux and Material UI.
 
-See the live application -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") 🎫
+See the **live demo** -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") 🎫
 
 ## Tech Stack
 
 ![Tech logos][stack]
+
+- [ReactJS][reactjs]: JavaScript library for building user interfaces.
+- [Redux][redux]: state management with **Thunk middleware**.
+- [Material UI][mui]: React-based UI component library.
+- [SCSS/Sass][sass]: CSS pre-processor for styling the website.
+- [React Hook Form][react-hook-form] | [Formik][formik]: form state management and validation.
+
+[stack]: src/assets/images/finnkino-tech-stack.png
+[reactjs]: https://reactjs.org/
+[redux]: https://redux.js.org/
+[mui]: https://mui.com/
+[sass]: https://sass-lang.com/
+[react-hook-form]: https://react-hook-form.com/
+[formik]: https://formik.org/docs/overview
 
 <!-- ## Tasks
 
@@ -101,11 +115,10 @@ Thanks goes to these wonderful people ✨
 
 ## Credits and Reference
 
-| Resource                       | Description                                                                 |
-| ------------------------------ | --------------------------------------------------------------------------- |
-| [CyberSoft Academy][cybersoft] | API provider                                                                |
-| [Finnkino][finnkino]           | A cool Finnish website for booking online movie tickets we were inspired by |
+| Resource                       | Description                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------- |
+| [CyberSoft Academy][cybersoft] | API provider                                                                    |
+| [Finnkino][finnkino]           | A cool Finnish website for booking online movie tickets we got inspiration from |
 
 [cybersoft]: https://cybersoft.edu.vn/
 [finnkino]: https://www.finnkino.fi/en/
-[stack]: finnkino-tech-stack.png
