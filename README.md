@@ -14,7 +14,7 @@ See the **live demo** -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Fi
 - [SCSS/Sass][sass]: CSS pre-processor for styling the website.
 - [React Hook Form][react-hook-form] | [Formik][formik]: form state management and validation.
 
-[stack]: src/assets/images/finnkino-tech-stack.png
+[stack]: src/assets/docs-images/finnkino-tech-stack.png
 [reactjs]: https://reactjs.org/
 [redux]: https://redux.js.org/
 [mui]: https://mui.com/
@@ -77,21 +77,24 @@ Check out the website -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Fi
 
 Open http://localhost:3000 with your browser to see the result.
 
-<!-- ## Some Project's Views on Devices
+## Some Project's Views on Devices
 
-- On MacBook/ Laptop (in Light Theme)
+- On MacBook/Laptop
 
-  ![MacBook/ Laptop view 1](screenshots/laptop-views-1.png)
+![finnkino login laptop](src/assets/docs-images/finnkino-login-laptop.png)
 
-  ![MacBook/ Laptop view 2](screenshots/laptop-views-2.png)
+![finnkino booking laptop](src/assets/docs-images/finnkino-booking-laptop.png)
 
-  ![MacBook/ Laptop view 3](screenshots/laptop-views-3.png)
+![finnkino user management laptop](src/assets/docs-images/finnkino-user-management-laptop.png)
 
-  ![MacBook/ Laptop view 4](screenshots/laptop-views-4.png)
+![finnkino user management laptop](src/assets/docs-images/finnkino-movie-management-laptop.png)
 
-- On Mobile (in Dark Theme)
+- On Mobile
 
-![Mobile view](screenshots/mobile-views.png) -->
+<div style="display: flex; flex-wrap: wrap; gap: 15px;">
+  <img src="src/assets/docs-images/finnkino-detail-mobile.png" alt="finnkino detail mobile" width="30%"/>
+  <img src="src/assets/docs-images/finnkino-profile-mobile.png" alt="finnkino profile mobile" width="30%"/>
+</div>
 
 ## Contributors
 
