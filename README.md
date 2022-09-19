@@ -11,7 +11,7 @@ See the **live demo** -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Fi
 #### Core
 
 - [ReactJS][reactjs]: JavaScript library for building user interfaces.
-- [Redux][redux]: state management with [Thunk middleware][redux-thunk].
+- [Redux][redux]: client state management with [Thunk middleware][redux-thunk].
 - [React Hook Form][react-hook-form] | [Formik][formik]: form state management and validation with [Yup][yup].
 
 #### UI & Styling
@@ -144,7 +144,7 @@ Thanks goes to these wonderful people ✨
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-## Credits and reference
+## Credits and references
 
 | Resource                       | Description                                                                     |
 | ------------------------------ | ------------------------------------------------------------------------------- |
