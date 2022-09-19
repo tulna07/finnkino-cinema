@@ -1,26 +1,33 @@
 # Finnkino Cinema
 
-A movie ticket booking website built with ReacJS, Redux and Material UI.
+A movie ticket booking website built with **ReactJS**, **Redux** and **Material UI**.
 
 See the **live demo** -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") 🎫
 
-## Tech Stack
+## Tech stack
 
 ![Tech logos][stack]
 
+#### Core
+
 - [ReactJS][reactjs]: JavaScript library for building user interfaces.
-- [Redux][redux]: state management with **Thunk middleware**.
+- [Redux][redux]: state management with [Thunk middleware][redux-thunk].
+- [React Hook Form][react-hook-form] | [Formik][formik]: form state management and validation with [Yup][yup].
+
+#### UI & Styling
+
 - [Material UI][mui]: React-based UI component library.
 - [SCSS/Sass][sass]: CSS pre-processor for styling the website.
-- [React Hook Form][react-hook-form] | [Formik][formik]: form state management and validation.
 
 [stack]: src/assets/docs-images/finnkino-tech-stack.png
 [reactjs]: https://reactjs.org/
 [redux]: https://redux.js.org/
+[redux-thunk]: https://github.com/reduxjs/redux-thunk
 [mui]: https://mui.com/
 [sass]: https://sass-lang.com/
 [react-hook-form]: https://react-hook-form.com/
 [formik]: https://formik.org/docs/overview
+[yup]: https://github.com/jquense/yup
 
 <!-- ## Tasks
 
@@ -35,49 +42,70 @@ Our main tasks in the project are to implement:
 
 Task assignments: check out checklist.xlsx for more details. -->
 
-<!-- ## Project Structure
+## Main project structure
 
 ```
-$PROJECT_ROOT
-│   # Resource files
-├── assets
-│   │   # Image file
-│   ├── images
-│   │   # Javascript file
-│   ├── scripts
-│   │   # CSS file
-│   ├── styles
-│   │   # Third party plugins
-│   └── vendors
-│   # Screenshots of the project
-├── screenshots
-│   # Roadmap of the project
-├── checklist.xlsx
-│   # Page content
-└── index.html
-``` -->
+root
+└── src
+    ├── api                         # Axios client configuration and request setup
+    ├── assets                      # Shared multimedia files
+    ├── components                  # Shared components
+    ├── constants                   # Shared constants
+    ├── containers                  # Pages
+    │   ├── AdminTemplate           # Admin pages
+    │   │   ├── index.js            # Admin template
+    │   │   ├── components          # Shared components for admin template
+    │   │   ├── UserDashBoard
+    │   │   └── MovieDashBoard
+    │   ├── AuthTemplate            # Authentication pages
+    │   │   ├── index.js            # Authentication template
+    │   │   ├── components          # Shared components for authentication template
+    │   │   ├── LoginPage
+    │   │   └── RegisterPage
+    │   ├── HomeTemplate            # Home pages
+    │   │   ├── index.js            # Home template
+    │   │   ├── components          # Shared components for home template
+    │   │   ├── HomePage
+    │   │   ├── MovieDetailsPage
+    │   │   ├── ProfilePage
+    │   │   └── TicketBookingPage
+    │   └── NotFoundPage            # 404 not found page
+    ├── guard                       # Protect private routes
+    ├── hooks                       # Shared hooks
+    ├── i18n                        # Translation feature configuration
+    ├── routes                      # Routing setup
+    ├── store                       # Redux configuration and reducer setup
+    ├── validators                  # Schema validators for user inputs
+    ├── App.js
+    └── index.js
+```
 
-## Installation and Run
+## Installation and run
 
-Check out the website -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") or run locally:
+Check out the website -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") or run locally by running the following commands:
 
-#### Clone the project
+Clone the project
 
-`git clone https://github.com/scoobytux/movielab.git`
+```bash
+git clone https://github.com/scoobytux/movielab.git
+cd movielab
+```
 
-`cd movielab`
+Install dependencies
 
-#### Install dependencies
+```bash
+npm install
+```
 
-`npm install`
+Run the development server
 
-#### Run the development server
+```bash
+npm start
+```
 
-`npm start`
+Open http://localhost:3000 with your favorite browser to see the project 😎.
 
-Open http://localhost:3000 with your browser to see the result.
-
-## Some Project's Views on Devices
+## Some project's views on devices
 
 - On MacBook/Laptop
 
@@ -116,7 +144,7 @@ Thanks goes to these wonderful people ✨
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-## Credits and Reference
+## Credits and reference
 
 | Resource                       | Description                                                                     |
 | ------------------------------ | ------------------------------------------------------------------------------- |
