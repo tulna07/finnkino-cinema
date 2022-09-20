@@ -2,7 +2,12 @@
 
 A movie ticket booking website built with **ReactJS**, **Redux** and **Material UI**.
 
-See the **live demo** -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") 🎫
+See the live demo -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema").
+
+Use this account for testing:
+
+- 👨🏻‍💻Username: tule07
+- 🔐Password: 123456Tu
 
 ## Tech stack
 
@@ -42,7 +47,9 @@ Our main tasks in the project are to implement:
 
 Task assignments: check out checklist.xlsx for more details. -->
 
-## Main project structure
+## Project structure
+
+#### Main source structure
 
 ```
 root
@@ -79,6 +86,8 @@ root
     ├── App.js
     └── index.js
 ```
+
+#### Routing setup
 
 ## Installation and run
 
