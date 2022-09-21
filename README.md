@@ -57,16 +57,16 @@ Fully responsive design on devices (laptop, tablet and mobile).
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Home                            | - show theaters, movies and showtime schedules                                                                                                                                        |
 | Movie details                   | - show movie details                                                                                                                                                                  |
-| Authentication (login + signup) | - validate login and signup forms before submitting to server side                                                                                                                    |
+| Authentication (login + signup) | - validate login and signup forms                                                                                                                                                     |
 | Ticket booking                  | - build grid-shaped seat layout with different types of seat<br> - map each seat row in alphabetical order <br> - allow to select a maximum of 5 seats<br> - cannot select sold seats |
 | Profile                         | - allow to change user information<br> - show transaction history                                                                                                                     |
 
 ### 👩🏻‍💼For administrators:
 
-| Page             | Features                                                                                                                             |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| User management  | - display the table of users (both clients and administrators)<br> - search user by name<br> - create, update and delete user        |
-| Movie management | - display the table of movies<br> - search movie by name<br> - create, update and delete movie<br> - create movie showtime schedules |
+| Page             | Features                                                                                                                                                                                                             |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| User management  | - display the table of users (both clients and administrators)<br> - search user by name<br> - create, update and delete user. Validate user information forms.                                                      |
+| Movie management | - display the table of movies<br> - search movie by name<br> - create, update and delete movie. Validate movie information forms<br> - create movie showtime schedules. Validate showtime schedule information forms |
 
 ## Project structure
 
