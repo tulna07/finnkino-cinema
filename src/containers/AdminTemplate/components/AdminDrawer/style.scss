@@ -8,6 +8,10 @@
     height: var(--logo-size) !important;
   }
 
+  nav > div:first-child {
+    margin-bottom: 7px;
+  }
+
   &__divider {
     background-color: var(--light-gray);
   }
@@ -41,11 +45,7 @@
     }
 
     &:not(.active):hover {
-      padding-left: 38px;
-
-      &::after {
-        width: 17px;
-      }
+      background-color: var(--light-gray) !important;
     }
   }
 }
