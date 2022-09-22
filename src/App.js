@@ -9,11 +9,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 // Components
-import Loader from "@/components/Loader";
+import PageLoader from "./components/PageLoader";
 
 const App = () => (
   <LocalizationProvider dateAdapter={AdapterMoment}>
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<PageLoader />}>
       <Router>
         <Routes />
       </Router>
