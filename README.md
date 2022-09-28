@@ -120,8 +120,8 @@ Check out the website -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Fi
 Clone the project
 
 ```bash
-git clone https://github.com/scoobytux/movielab.git
-cd movielab
+git clone https://github.com/scoobytux/finnkino-cinema.git
+cd finnkino-cinema
 ```
 
 Install dependencies
