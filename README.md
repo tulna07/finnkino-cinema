@@ -2,7 +2,7 @@
 
 A movie ticket booking website built with **ReactJS**, **Redux** and **Material UI**.
 
-See the live demo -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema").
+See the live demo -> [Finnkino Cinema](https://finnkinocinema.vercel.app "Finnkino Cinema") (the API might be expired when you visit the website).
 
 Use this account for testing:
 
